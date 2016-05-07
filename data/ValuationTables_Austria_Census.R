@@ -5,6 +5,8 @@
 # setwd(dirname(PATH))
 
 library("openxlsx")
+# library("ggplot2")
+library("ValuationTables")
 
 
 
@@ -20,7 +22,7 @@ a.vz.dataF = openxlsx::read.xlsx("Tables/A_Volkszaehlungen.xlsx", sheet="Austria
 censtable = function(data, name, qslot, baseYear=1900) {
   qx=data[names(data)==qslot];
   ix=complete.cases(qx);
-  valuationTable.period(name=name, ages=data$x[ix], deathProbs=qx[ix,], baseYear=baseYear)
+  valuationTable_period(name=name, ages=data$x[ix], deathProbs=qx[ix,], baseYear=baseYear)
 }
 
 mort.AT.census.1869.male = censtable(a.vz.dataM, name="ÖVSt 1868/71 M",   baseYear=1869, qslot="1868/71");
@@ -51,7 +53,7 @@ mort.AT.census.1991.female = censtable(a.vz.dataF, name="ÖVSt 1990/92 F",   bas
 mort.AT.census.2001.female = censtable(a.vz.dataF, name="ÖVSt 2000/02 F",   baseYear=2001, qslot="2000/02");
 mort.AT.census.2011.female = censtable(a.vz.dataF, name="ÖVSt 2010/2012 F", baseYear=2011, qslot="2010/12");
 
-mort.AT.census.2001.unisex = valuationTable.mixed(table1=mort.AT.census.2001.male, table2=mort.AT.census.2001.female)
+mort.AT.census.2001.unisex = valuationTable_mixed(table1=mort.AT.census.2001.male, table2=mort.AT.census.2001.female)
 
 mort.AT.census.ALL.male = makeQxDataFrame(
               mort.AT.census.1869.male,
@@ -87,5 +89,5 @@ rm(a.vz.dataM, a.vz.dataF, censtable)
 
 ###############################################################################
 
-plotValuationTables(mort.AT.census.ALL.male, title="Vergleich österreichische Sterbetafeln, Männer", legend.position=c(1,0))
-plotValuationTables(mort.AT.census.ALL.female, title="Vergleich österreichische Sterbetafeln, Frauen", legend.position=c(1,0))
+# plotValuationTables(mort.AT.census.ALL.male, title="Vergleich österreichische Sterbetafeln, Männer", legend.position=c(1,0))
+# plotValuationTables(mort.AT.census.ALL.female, title="Vergleich österreichische Sterbetafeln, Frauen", legend.position=c(1,0))
