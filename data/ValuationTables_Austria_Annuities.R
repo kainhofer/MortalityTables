@@ -5,7 +5,7 @@ stopifnot(require(methods), require(utils), require(ValuationTables)) # Valuatio
 ### RR67 Rententafel für Männer, 3%
 ###############################################################################
 
-rr67.data = utils::read.csv("Tables/Austria_Annuities_RR67.csv", skip=2)
+rr67.data = utils::read.csv("Austria_Annuities_RR67.csv", skip=2)
 
 rr67 = ValuationTables::valuationTable_period(
   name = "ÖVM 59/61 RR67", ages = rr67.data$Alter, deathProbs = rr67.data$qx
@@ -17,8 +17,7 @@ rm(rr67.data);
 ### EROM/EROF 85 and G 1985 (period and age-shifted generation)
 ###############################################################################
 
-# eromf.data = openxlsx::read.xlsx("Tables/AVOe_R.xlsx", sheet = "EROM-F Basistafeln", startRow = 3)
-eromf.data = utils::read.csv("Tables/Austria_Annuities_EROMF.csv", skip=2)
+eromf.data = utils::read.csv("Austria_Annuities_EROMF.csv", skip=2)
 
 erom85.male = new("valuationTable_period",
   name = "EROM 85, male", ages = eromf.data$Alter, deathProbs = eromf.data$EROM.85
@@ -40,8 +39,7 @@ EROF.G1950.female = new("valuationTable_period",
   baseYear = 1950
 );
 
-# eromf.data.av = openxlsx::read.xlsx("Tables/AVOe_R.xlsx", sheet = "EROM-F G AV", startRow = 3, rowNames = TRUE, colNames = TRUE)
-eromf.data.av = utils::read.csv("Tables/Austria_Annuities_EROMF_AV.csv", skip=2)
+eromf.data.av = utils::read.csv("Austria_Annuities_EROMF_AV.csv", skip=2)
 
 EROM.G1950.male.av = valuationTable_ageShift(
   name = "EROM G 1950 mit Altersverschiebung, male",
@@ -65,9 +63,7 @@ rm(eromf.data, eromf.data.av)
 # AVÖ 1996R exact (Male, Female), 1st-order only
 ###############################################################################
 
-# AVOe1996R.exakt.data = openxlsx::read.xlsx("Tables/AVOe_R.xlsx",
-  # sheet = "AVOe 1996R exakt", startRow = 3, cols = c(1:6, 8:12));
-AVOe1996R.exakt.data = utils::read.csv("Tables/Austria_Annuities_AVOe1996R.csv", skip=2)
+AVOe1996R.exakt.data = utils::read.csv("Austria_Annuities_AVOe1996R.csv", skip=2)
 
 AVOe1996R.trend.switching = function(year) {
   if (year <= 1971) {
@@ -125,8 +121,7 @@ rm(AVOe1996R.exakt.data)
 # gender-specific tables also have 2nd-order tables, unisex only 1st-order table
 ###############################################################################
 
-# AVOe2005R.exakt.data = openxlsx::read.xlsx("Tables/AVOe_R.xlsx", sheet = "AVOe 2005R", startRow = 3, cols = c(1:7, 9:14, 16:18));
-AVOe2005R.exakt.data = utils::read.csv("Tables/Austria_Annuities_AVOe2005R.csv", skip = 2);
+AVOe2005R.exakt.data = utils::read.csv("Austria_Annuities_AVOe2005R.csv", skip = 2);
 
 AVOe2005R.trend.damping = function(t) {
   100*atan(t/100)
@@ -166,8 +161,8 @@ AVOe2005R.unisex.nodamping.group    = undampenTrend(AVOe2005R.unisex.group);
 #AVÖ 2005R with age-shifting (Male, Female, unisex), 1st-order only
 ###############################################################################
 
-AVOe2005R.av.base = openxlsx::read.xlsx("Tables/AVOe_R.xlsx", sheet = "AVOe 2005R AV Basistafel", startRow = 3, rowNames = FALSE);
-AVOe2005R.av.verschiebung = openxlsx::read.xlsx("Tables/AVOe_R.xlsx", sheet = "AVOe 2005R AV Verschiebung", startRow = 3, rowNames = TRUE);
+AVOe2005R.av.base = utils::read.csv("Austria_Annuities_AVOe2005R_AVBasis.csv", skip=2);
+AVOe2005R.av.verschiebung = utils::read.csv("Austria_Annuities_AVOe2005R_AVShifts.csv", skip=2);
 
 AVOe2005R_gen.av = function(nm, probs, shft) {
   new("valuationTable_ageShift",
