@@ -7,7 +7,7 @@ stopifnot(require(methods), require(utils), require(ValuationTables)) # Valuatio
 
 rr67.data = utils::read.csv("Austria_Annuities_RR67.csv", skip=2)
 
-rr67 = ValuationTables::valuationTable_period(
+rr67 = valuationTable_period(
   name = "ÖVM 59/61 RR67", ages = rr67.data$Alter, deathProbs = rr67.data$qx
 );
 rm(rr67.data);
@@ -192,3 +192,4 @@ AVOe2005R.unisex.group.av = AVOe2005R_gen.av("AVÖ 2005R unisex group (age-shift
 #
 # plotValuationTables(mort.AT.census.2001.male, AVOe2005R.male, YOB = 1972, title = "Vergleich österreichische Sterbetafeln")
 # plotValuationTables(getCohortTable(AVOe2005R.male, YOB = 1972), getCohortTable(AVOe2005R.male, YOB = 2016), title = "Vergleich österreichische Sterbetafeln")
+

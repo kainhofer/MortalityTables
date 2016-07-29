@@ -1,3 +1,4 @@
+#' @export
 makeQxDataFrame = function(..., YOB=1972, Period=NA) {
   data=list(...);
   names(data) = lapply(data, function(t) t@name);
