@@ -9,7 +9,6 @@ Maintainer: Reinhold Kainhofer <reinhold@kainhofer.com>
 Depends:
     ggplot2,
     methods,
-    openxlsx,
     scales,
     utils
 Suggests:
@@ -21,3 +20,28 @@ Description: This package provides classes to implement cohort life tables
     merged life tables.
 License: GPL (>= 2)
 RoxygenNote: 5.0.1
+Collate:
+    'ValuationTables.R'
+    'valuationTable.R'
+    'valuationTable.period.R'
+    'valuationTable.ageShift.R'
+    'ageShift.R'
+    'valuationTable.observed.R'
+    'valuationTable.joined.R'
+    'valuationTable.mixed.R'
+    'ages.R'
+    'baseTable.R'
+    'baseYear.R'
+    'valuationTable.improvementFactors.R'
+    'valuationTable.trendProjection.R'
+    'deathProbabilities.R'
+    'getCohortTable.R'
+    'getOmega.R'
+    'getPeriodTable.R'
+    'lifeTable.R'
+    'makeQxDataFrame.R'
+    'periodDeathProbabilities.R'
+    'plotValuationTableComparisons.R'
+    'plotValuationTables.R'
+    'setLoading.R'
+    'undampenTrend.R'
