@@ -1,18 +1,18 @@
 stopifnot(require(methods), require(utils), require(ValuationTables)) # ValuationTable classes; new; Excel reader
 
 
-require(ValuationTables)
 ###############################################################################
 ### Volkszählungen Österreich
 ###############################################################################
 
-a.vz.dataM = utils::read.csv("Austria_Census_Male.csv", skip=3);
-a.vz.dataF = utils::read.csv("Austria_Census_Female.csv", skip=3);
+
+a.vz.dataM = utils::read.csv(system.file("extdata", "Austria_Census_Male.csv", package="ValuationTables"), skip=3);
+a.vz.dataF = utils::read.csv(system.file("extdata", "Austria_Census_Female.csv", package="ValuationTables"), skip=3);
 
 censtable = function(data, name, qslot, baseYear=1900) {
   qx=data[names(data)==qslot];
   ix=complete.cases(qx);
-  ValuationTables::valuationTable_period(name=name, ages=data$x[ix], deathProbs=qx[ix,], baseYear=baseYear)
+  ValuationTables::valuationTable.period(name=name, ages=data$x[ix], deathProbs=qx[ix,], baseYear=baseYear)
 }
 
 mort.AT.census.1869.male = censtable(a.vz.dataM, name="ÖVSt 1868/71 M",   baseYear=1869, qslot="X1868.71");
@@ -43,7 +43,7 @@ mort.AT.census.1991.female = censtable(a.vz.dataF, name="ÖVSt 1990/92 F",   bas
 mort.AT.census.2001.female = censtable(a.vz.dataF, name="ÖVSt 2000/02 F",   baseYear=2001, qslot="X2000.02");
 mort.AT.census.2011.female = censtable(a.vz.dataF, name="ÖVSt 2010/2012 F", baseYear=2011, qslot="X2010.12");
 
-mort.AT.census.2001.unisex = valuationTable_mixed(table1=mort.AT.census.2001.male, table2=mort.AT.census.2001.female)
+mort.AT.census.2001.unisex = valuationTable.mixed(table1=mort.AT.census.2001.male, table2=mort.AT.census.2001.female)
 
 mort.AT.census.ALL.male = ValuationTables::makeQxDataFrame(
               mort.AT.census.1869.male,

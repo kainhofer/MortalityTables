@@ -21,7 +21,6 @@ Description: This package provides classes to implement cohort life tables
 License: GPL (>= 2)
 RoxygenNote: 5.0.1
 Collate:
-    'ValuationTables.R'
     'valuationTable.R'
     'valuationTable.period.R'
     'valuationTable.ageShift.R'
@@ -45,3 +44,4 @@ Collate:
     'plotValuationTables.R'
     'setLoading.R'
     'undampenTrend.R'
+    'valuationTables.load.R'

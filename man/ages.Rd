@@ -3,8 +3,6 @@
 \docType{methods}
 \name{ages}
 \alias{ages}
-\alias{ages,valuationTable.joined-method}
-\alias{ages,valuationTable.mixed-method}
 \alias{ages,valuationTable.observed-method}
 \alias{ages,valuationTable.period-method}
 \title{Return the defined ages of the life table}
@@ -13,14 +11,10 @@ ages(object, ...)
 
 \S4method{ages}{valuationTable.period}(object, ...)
 
-\S4method{ages}{valuationTable.mixed}(object, ...)
-
-\S4method{ages}{valuationTable.joined}(object, ...)
-
 \S4method{ages}{valuationTable.observed}(object, ...)
 }
 \arguments{
-\item{object}{A life table object (instance of a \code{valuationTable} class)}
+\item{object}{A life table object (instance of a \code{\linkS4class{valuationTable}} class)}
 
 \item{...}{Currently unused}
 }
@@ -30,10 +24,6 @@ Return the defined ages of the life table
 \section{Methods (by class)}{
 \itemize{
 \item \code{valuationTable.period}: Return the defined ages of the life table
-
-\item \code{valuationTable.mixed}: Return the defined ages of the life table
-
-\item \code{valuationTable.joined}: Return the defined ages of the life table
 
 \item \code{valuationTable.observed}: Return the defined ages of the life table
 }}

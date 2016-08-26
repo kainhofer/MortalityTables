@@ -3,7 +3,7 @@ NULL
 
 #' Return the defined ages of the life table
 #'
-#' @param object A life table object (instance of a \code{valuationTable} class)
+#' @param object A life table object (instance of a \code{\linkS4class{valuationTable}} class)
 #' @param ... Currently unused
 #'
 #' @exportMethod ages
@@ -15,13 +15,13 @@ setMethod("ages", "valuationTable.period",
               object@ages;
           })
 
-#' @describeIn ages Return the defined ages of the life table
+# @describeIn ages Return the defined ages of the life table
 setMethod("ages", "valuationTable.mixed",
           function (object, ...) {
               ages(object@table1);
           })
 
-#' @describeIn ages Return the defined ages of the life table
+# @describeIn ages Return the defined ages of the life table
 setMethod("ages", "valuationTable.joined",
           function (object, ...) {
               ages(object@table1);

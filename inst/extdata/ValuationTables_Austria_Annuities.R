@@ -5,9 +5,9 @@ stopifnot(require(methods), require(utils), require(ValuationTables)) # Valuatio
 ### RR67 Rententafel für Männer, 3%
 ###############################################################################
 
-rr67.data = utils::read.csv("Austria_Annuities_RR67.csv", skip=2)
+rr67.data = utils::read.csv(system.file("extdata", "Austria_Annuities_RR67.csv", package="ValuationTables"), skip=2)
 
-rr67 = valuationTable_period(
+rr67 = valuationTable.period(
   name = "ÖVM 59/61 RR67", ages = rr67.data$Alter, deathProbs = rr67.data$qx
 );
 rm(rr67.data);
@@ -17,38 +17,40 @@ rm(rr67.data);
 ### EROM/EROF 85 and G 1985 (period and age-shifted generation)
 ###############################################################################
 
-eromf.data = utils::read.csv("Austria_Annuities_EROMF.csv", skip=2)
 
-erom85.male = new("valuationTable_period",
+eromf.data = utils::read.csv(system.file("extdata", "Austria_Annuities_EROMF.csv", package="ValuationTables"), skip=2)
+
+erom85.male = new("valuationTable.period",
   name = "EROM 85, male", ages = eromf.data$Alter, deathProbs = eromf.data$EROM.85
 );
-erom85.female = new("valuationTable_period",
+erom85.female = new("valuationTable.period",
   name = "EROF 85, female", ages = eromf.data$Alter, deathProbs = eromf.data$EROF.85
 );
 
-EROM.G1950.male = new("valuationTable_period",
+EROM.G1950.male = new("valuationTable.period",
   name = "EROM G 1950 Basistafel, male",
   ages = eromf.data$Alter,
   deathProbs = eromf.data$EROM.G1950,
   baseYear = 1950
 );
-EROF.G1950.female = new("valuationTable_period",
+EROF.G1950.female = new("valuationTable.period",
   name = "EROF G 1950 Basistafel, female",
   ages = eromf.data$Alter,
   deathProbs = eromf.data$EROF.G1950,
   baseYear = 1950
 );
 
-eromf.data.av = utils::read.csv("Austria_Annuities_EROMF_AV.csv", skip=2)
 
-EROM.G1950.male.av = valuationTable_ageShift(
+eromf.data.av = utils::read.csv(system.file("extdata", "Austria_Annuities_EROMF_AV.csv", package="ValuationTables"), skip=2)
+
+EROM.G1950.male.av = valuationTable.ageShift(
   name = "EROM G 1950 mit Altersverschiebung, male",
   ages = eromf.data$Alter,
   deathProbs = eromf.data$EROM.G1950,
   ageShifts = eromf.data.av["Shift.M"],
   baseYear = 1950
 );
-EROF.G1950.female.av = valuationTable_ageShift(
+EROF.G1950.female.av = valuationTable.ageShift(
   name = "EROF G 1950 mit Altersverschiebung, female",
   ages = eromf.data$Alter,
   deathProbs = eromf.data$EROF.G1950,
@@ -63,7 +65,7 @@ rm(eromf.data, eromf.data.av)
 # AVÖ 1996R exact (Male, Female), 1st-order only
 ###############################################################################
 
-AVOe1996R.exakt.data = utils::read.csv("Austria_Annuities_AVOe1996R.csv", skip=2)
+AVOe1996R.exakt.data = utils::read.csv(system.file("extdata", "Austria_Annuities_AVOe1996R.csv", package="ValuationTables"), skip=2)
 
 AVOe1996R.trend.switching = function(year) {
   if (year <= 1971) {
@@ -79,7 +81,7 @@ AVOe1996R.trend.switching = function(year) {
   }
 }
 
-AVÖ1996R.male = new("valuationTable_trendProjection",
+AVÖ1996R.male = new("valuationTable.trendProjection",
   name = "AVÖ 1996R male",
   ages = AVOe1996R.exakt.data$age, baseYear = 1991,
   deathProbs = AVOe1996R.exakt.data$qx1991 * AVOe1996R.exakt.data$factorM,
@@ -87,7 +89,7 @@ AVÖ1996R.male = new("valuationTable_trendProjection",
   trend2 = AVOe1996R.exakt.data$trendM.short,
   dampingFunction = AVOe1996R.trend.switching
 );
-AVÖ1996R.female = new("valuationTable_trendProjection",
+AVÖ1996R.female = new("valuationTable.trendProjection",
   name = "AVÖ 1996R female",
   ages = AVOe1996R.exakt.data$age, baseYear = 1991,
   deathProbs = AVOe1996R.exakt.data$qy1991 * AVOe1996R.exakt.data$factorF,
@@ -95,7 +97,7 @@ AVÖ1996R.female = new("valuationTable_trendProjection",
   trend2 = AVOe1996R.exakt.data$trendF.short,
   dampingFunction = AVOe1996R.trend.switching
 );
-AVÖ1996R.male.group = new("valuationTable_trendProjection",
+AVÖ1996R.male.group = new("valuationTable.trendProjection",
   name = "AVÖ 1996R male, group",
   ages = AVOe1996R.exakt.data$age, baseYear = 1991,
   deathProbs = AVOe1996R.exakt.data$qx1991 * AVOe1996R.exakt.data$factorMG,
@@ -103,7 +105,7 @@ AVÖ1996R.male.group = new("valuationTable_trendProjection",
   trend2 = AVOe1996R.exakt.data$trendM.short,
   dampingFunction = AVOe1996R.trend.switching
 );
-AVÖ1996R.female.group = new("valuationTable_trendProjection",
+AVÖ1996R.female.group = new("valuationTable.trendProjection",
   name = "AVÖ 1996R female, group",
   ages = AVOe1996R.exakt.data$age, baseYear = 1991,
   deathProbs = AVOe1996R.exakt.data$qy1991 * AVOe1996R.exakt.data$factorFG,
@@ -121,7 +123,7 @@ rm(AVOe1996R.exakt.data)
 # gender-specific tables also have 2nd-order tables, unisex only 1st-order table
 ###############################################################################
 
-AVOe2005R.exakt.data = utils::read.csv("Austria_Annuities_AVOe2005R.csv", skip = 2);
+AVOe2005R.exakt.data = utils::read.csv(system.file("extdata", "Austria_Annuities_AVOe2005R.csv", package="ValuationTables"), skip = 2);
 
 AVOe2005R.trend.damping = function(t) {
   100*atan(t/100)
@@ -129,7 +131,7 @@ AVOe2005R.trend.damping = function(t) {
 AVOe2005R_gen = function(nm, probs, trend) {
   with(
     AVOe2005R.exakt.data,
-    new("valuationTable_trendProjection",
+    new("valuationTable.trendProjection",
       name = nm,
       ages = age, baseYear = 2001,
       deathProbs = AVOe2005R.exakt.data[[probs]], trend = AVOe2005R.exakt.data[[trend]],
@@ -161,11 +163,12 @@ AVOe2005R.unisex.nodamping.group    = undampenTrend(AVOe2005R.unisex.group);
 #AVÖ 2005R with age-shifting (Male, Female, unisex), 1st-order only
 ###############################################################################
 
-AVOe2005R.av.base = utils::read.csv("Austria_Annuities_AVOe2005R_AVBasis.csv", skip=2);
-AVOe2005R.av.verschiebung = utils::read.csv("Austria_Annuities_AVOe2005R_AVShifts.csv", skip=2);
+
+AVOe2005R.av.base = utils::read.csv(system.file("extdata", "Austria_Annuities_AVOe2005R_AVBasis.csv", package="ValuationTables"), skip=2);
+AVOe2005R.av.verschiebung = utils::read.csv(system.file("extdata", "Austria_Annuities_AVOe2005R_AVShifts.csv", package="ValuationTables"), skip=2);
 
 AVOe2005R_gen.av = function(nm, probs, shft) {
-  new("valuationTable_ageShift",
+  new("valuationTable.ageShift",
     name = nm,
     ages = AVOe2005R.av.base$age,
     deathProbs = AVOe2005R.av.base[[probs]],
@@ -193,3 +196,5 @@ AVOe2005R.unisex.group.av = AVOe2005R_gen.av("AVÖ 2005R unisex group (age-shift
 # plotValuationTables(mort.AT.census.2001.male, AVOe2005R.male, YOB = 1972, title = "Vergleich österreichische Sterbetafeln")
 # plotValuationTables(getCohortTable(AVOe2005R.male, YOB = 1972), getCohortTable(AVOe2005R.male, YOB = 2016), title = "Vergleich österreichische Sterbetafeln")
 
+# makeQxDataFrame(mort.AT.census.1869.male, mort.AT.census.1869.female, mort.AT.census.2011.male, mort.AT.census.2011.female, AVOe2005R.male, AVOe2005R.female, YOB = 1972)
+# makeQxDataFrame()
