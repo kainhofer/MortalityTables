@@ -3,3 +3,6 @@
 ValuationTables.RData
 data.saved
 data-raw
+^\.~.*#$
+PossibleTables.txt
+

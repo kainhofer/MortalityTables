@@ -7,7 +7,8 @@
 \title{Class valuationTable.period - Period life tables}
 \description{
 A period life table, giving death probabilities for each age, up to
-maximum age omega. Optionally apply selection factors to the probabilities
+maximum age \code{omega}. The \code{baseYear} slot can be used to hold
+information about the period.
 }
 \section{Slots}{
 
