@@ -44,4 +44,5 @@ Collate:
     'plotValuationTables.R'
     'setLoading.R'
     'undampenTrend.R'
+    'valuationTables.list.R'
     'valuationTables.load.R'
