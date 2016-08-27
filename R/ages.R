@@ -9,25 +9,25 @@ NULL
 #' @exportMethod ages
 setGeneric("ages", function(object, ...) standardGeneric("ages"));
 
-#' @describeIn ages Return the defined ages of the life table
+#' @describeIn ages Return the defined ages of the period life table
 setMethod("ages", "valuationTable.period",
           function (object, ...) {
               object@ages;
           })
 
-# @describeIn ages Return the defined ages of the life table
+#' @describeIn ages Return the defined ages of the mixed life table
 setMethod("ages", "valuationTable.mixed",
           function (object, ...) {
               ages(object@table1);
           })
 
-# @describeIn ages Return the defined ages of the life table
+#' @describeIn ages Return the defined ages of the joined life table
 setMethod("ages", "valuationTable.joined",
           function (object, ...) {
               ages(object@table1);
           })
 
-#' @describeIn ages Return the defined ages of the life table
+#' @describeIn ages Return the defined ages of the observed life table
 setMethod("ages", "valuationTable.observed",
           function (object, ...) {
               object@ages;

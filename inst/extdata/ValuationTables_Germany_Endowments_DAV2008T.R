@@ -31,8 +31,7 @@ DAV2008T.data = utils::read.csv(
                   "", "", "", "",
                   "qy2", "qy2NR", "qy2R",  # female 2nd order
                   "qy1", "qy1NR", "qy1R"), # female 1st order
-    skip = 1);
-
+    skip = 4);
 
 ### DAV 2008T Aggregat (smoker+non-smoker combined)
 DAV2008T.male = valuationTable.period(
@@ -100,3 +99,11 @@ DAV2008T.female.nonsmoker.2Ord = valuationTable.period(
   deathProbs = DAV2008T.data$qy2NR)
 
 rm(DAV2008T.data)
+
+
+# plotValuationTables(DAV1994T.male, DAV2008T.male, DAV2008T.male.smoker, DAV2008T.male.nonsmoker, DAV2008T.male.2Ord, DAV2008T.male.smoker.2Ord, DAV2008T.male.nonsmoker.2Ord, legend.position = c(1, 0), title = "DAV 2008T Vergleich Raucher-Nichtraucher")
+#
+# plotValuationTables(DAV1994T.male, DAV2008T.male.2Ord, DAV2008T.male.smoker.2Ord, DAV2008T.male.nonsmoker.2Ord, legend.position = c(1, 0), title = "DAV 2008T Vergleich Raucher-Nichtraucher")
+#
+# plotValuationTableComparisons(DAV1994T.male, DAV2008T.male.2Ord, DAV2008T.male.smoker.2Ord, DAV2008T.male.nonsmoker.2Ord, legend.position = c(1, 0), title = "DAV 2008T Vergleich Raucher-Nichtraucher", reference = DAV2008T.male.2Ord, ylim=c(.5,2))
+

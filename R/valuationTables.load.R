@@ -1,6 +1,9 @@
 #' Load a named set of life tables provided by the \link{ValuationTables} package
 #'
-#' @param dataset The set of life tables to be loaded. A list of all available data sets is provided by the
+#' @param dataset The set of life tables to be loaded. A list of all available
+#'                data sets is provided by the
+#' @param wildcard Whether the dataset name contains wildcard. If TRUE, all
+#'                 datasets matching the pattern will be loaded
 #'
 #' @export
 valuationTables.load = function(dataset, wildcard=FALSE) {

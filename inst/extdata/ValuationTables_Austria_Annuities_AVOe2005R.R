@@ -65,6 +65,7 @@ AVOe2005R.av.verschiebung = utils::read.csv(
         "extdata",
         "Austria_Annuities_AVOe2005R_AVShifts.csv",
         package="ValuationTables"),
+    row.names=1,
     skip=2);
 
 AVOe2005R_gen.av = function(nm, probs, shft) {
@@ -76,6 +77,7 @@ AVOe2005R_gen.av = function(nm, probs, shft) {
     )
 }
 
+str(AVOe2005R.av.verschiebung)
 AVOe2005R.male.av = AVOe2005R_gen.av(
     "AVÖ 2005R male (age-shifted), loaded",
     "qx1965", "shiftM");

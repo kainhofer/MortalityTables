@@ -5,7 +5,10 @@
 \title{List all available sets of life tables provided by the \link[ValuationTables]{ValuationTables-package} package
 An existing life table can then be loaded with \link{valuationTables.load}.}
 \usage{
-valuationTables.list()
+valuationTables.list(pattern = "*")
+}
+\arguments{
+\item{pattern}{Restrict the results only to life table sets that match the pattern (default: "*" to show all sets)}
 }
 \description{
 List all available sets of life tables provided by the \link[ValuationTables]{ValuationTables-package} package

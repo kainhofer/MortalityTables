@@ -57,6 +57,8 @@ plotValuationTables = function(data, ..., xlim=NULL, ylim=NULL, xlab=NULL, ylab=
   pl
 }
 
+globalVariables(c("x", "y", ".x"))
+
 
 #
 # plotValuationTables(mort.AT.census.1869.male, mort.AT.census.1869.female, mort.AT.census.2011.male, mort.AT.census.2011.female, AVOe2005R.male, AVOe2005R.female, YOB=1972,title="Vergleich österreichische Sterbetafeln, YOB=1972 (bei Generationentafeln)")

@@ -69,3 +69,6 @@ plotValuationTableComparisons = function(
     }
     pl
 }
+
+globalVariables(c("x", "y"))
+

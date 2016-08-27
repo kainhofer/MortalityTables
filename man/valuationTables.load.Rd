@@ -4,10 +4,14 @@
 \alias{valuationTables.load}
 \title{Load a named set of life tables provided by the \link{ValuationTables} package}
 \usage{
-valuationTables.load(dataset)
+valuationTables.load(dataset, wildcard = FALSE)
 }
 \arguments{
-\item{dataset}{The set of life tables to be loaded. A list of all available data sets is provided by the}
+\item{dataset}{The set of life tables to be loaded. A list of all available
+data sets is provided by the}
+
+\item{wildcard}{Whether the dataset name contains wildcard. If TRUE, all
+datasets matching the pattern will be loaded}
 }
 \description{
 Load a named set of life tables provided by the \link{ValuationTables} package
