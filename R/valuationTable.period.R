@@ -4,7 +4,8 @@ NULL
 #' Class valuationTable.period - Period life tables
 #'
 #' A period life table, giving death probabilities for each age, up to
-#' maximum age omega. Optionally apply selection factors to the probabilities
+#' maximum age \code{omega}. The \code{baseYear} slot can be used to hold
+#' information about the period.
 #'
 #' @slot ages       The ages corresponding to the entries of the deathProbs
 #' @slot deathProbs The one-year death probabilities for the ages
