@@ -40,6 +40,7 @@ Collate:
     'lifeTable.R'
     'makeQxDataFrame.R'
     'periodDeathProbabilities.R'
+    'plot.valuationTable.R'
     'plotValuationTableComparisons.R'
     'plotValuationTables.R'
     'setLoading.R'
