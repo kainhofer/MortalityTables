@@ -1,0 +1,274 @@
+---
+title: "Using the ValuationTables Package"
+author: "Reinhold Kainhofer, reinhold@kainhofer.com"
+date: "`r Sys.Date()`"
+output: 
+    rmarkdown::html_vignette:
+        toc: true
+        toc_depth: 3
+        fig_width: 7
+        fig_height: 5
+vignette: >
+  %\VignetteIndexEntry{ValuationTables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+The ValuationTables package provides the `valuationTable` base class and
+some derived classes to handle different types of valuation life tables, mainly
+used for life insurance. Additionally it provides a plot function to compare
+multiple life tables either directly using the absolute mortalities in
+log-linear plots or using relative mortalities as percentages of a given
+reference table.
+
+## Types of Life Tables
+
+Provided types of valuation tables are:
+
+* Base class
+    : Class `valuationTable`
+* Period life table
+    : Class `valuationTable.period (ages, deathProbs, ..., baseYear=2000)`
+    : Death probabilities observed / predicted for one observation year;
+      No dependency on the bith year is assumed.
+* Cohort life table using age-specific trends
+    : Class `valuationTable.trendProjection`
+    : Death probabilities of a given base year are projected into the future
+      using age-specific trends $\lambda_x$. The death probability of an $x$-year old in year
+      `baseYear + n` is calculated as:
+          $q_x^{(baseYear+n)} = q_x^{(baseYear)} \cdot e^{-n\cdot\lambda_x}$
+    : Consequently, the death probabilities for a person born in year `YOB` can be calculated as
+        $q_x^{YOB} = q_x^{(base)} \cdot e^{-(YOB+x-baseYear)\cdot \lambda_x}$
+* Cohort life table approximation using age shift
+    : Class `valuationTable.ageShift`
+    : Death probabilities for cohort $YOB$ are obtained by using death probabilities
+      for cohort $X$ and modifying the technical age with a birth-year dependent shift:
+    :     $q_x^{YOB} = q_{x+shift(YOB)}^{(base)}$
+* Observed life table
+    : Class `valuationTable.observed`
+    : Death probabilities observed during several years. The probabilities are
+      stored as a matrix with observation year and age as dimensions.
+* Mixed life table
+    : Class `valuationTable.mixed`
+    : Arithmetic mean of two life tables with given weights. This approach is
+      often used to generate unisex life tables by mixing male and female
+      mortalities with given weights (e.g. 70:30 or 40:60)
+* Cohort life table using age-specific improvement factors
+    : Class `valuationTable.improvementFactors`
+    : Project base life table using age-specific improvement factors.
+
+## Loading the ValuationTables package
+```{r message=FALSE}
+library("ValuationTables")
+```
+
+## Provided Data Sets
+
+The package provides several real-life life tables published by census bureaus 
+and actuarial associations around the world. You can use the function 
+`valuationTables.list` to list all available datasets (if no argument is given)
+or all datasets that match the given pattern (wildcard character is *). You can 
+then use `valuationTables.load` to load either one single data set or all 
+datasets that match the pattern (if `wildcard=TRUE` is given).
+
+```{r}
+# list all available data sets
+valuationTables.list()
+
+# list all datasets for Austria
+valuationTables.list("Austria_*")
+
+# Load the German annuity table DAV 2004-R
+valuationTables.load("Germany_Annuities_DAV2004R")
+
+# Load all Austrian data sets
+valuationTables.load("Austria_*", wildcard=TRUE)
+```
+
+
+In the next few sections we will always use some of the provided life tables 
+for demonstration purposes. 
+
+
+## Working with life table objects
+
+### Plotting life tables
+
+The package provides two functions to plot lifetables:
+
+* `plotValuationTables(table1, table2, ...)`
+    : A log-linear plot comparing all given life tables.
+* `plotValuationTableComparisons(table1, table2, ..., reference=reftable)`
+    : Plot the given life tables as percentages relative to the reference table
+    
+Both functionalities are also combined into the S3 plot function for the 
+valuationTable class, so you can usually just call plot on the valuation tables.
+If the `reference` argument is given, `plotValuationTableComparisons` is used, 
+otherwise `plotValuationTables` is called.
+```{r}
+# Log-linear plot comparing some Austrian census tables
+plot(mort.AT.census.1951.male, mort.AT.census.1991.male, 
+     mort.AT.census.2001.male, mort.AT.census.2011.male, 
+     legend.position=c(1,0))
+
+# Relative death probabilities in percentage of the latest census
+plot(mort.AT.census.1951.male, mort.AT.census.1991.male, 
+     mort.AT.census.2001.male, 
+     reference = mort.AT.census.2011.male, legend.position=c(1,0.75), ylim=c(0,4))
+```
+
+For cohort life tables, the plot functions also take either the `YOB` or the 
+`Period` parameter to plot either the cohort death probabilities for the given 
+birth year or the period death probabilities for the given observation year.
+
+```{r}
+# Comparison of two Austrian annuity tables for birth year 1977
+plot(AVÖ1996R.male, AVOe2005R.male, YOB=1977, title="Comparison for YOB=1977")
+
+# Comparison of two Austrian annuity tables for observation year 2020
+plot(AVÖ1996R.male, AVOe2005R.male, Period=2020, title="Comparison for observation year 2020")
+
+```
+
+### Obtaining period and cohort death probabilities
+
+To obtain death probabilities from all the different types of tables, there are two functions:
+    
+* `deathProbabilities`: Returns the (cohort) death probabilities of the life table given the birth year
+* `periodDeathProbabilities`: Returns the (period) death probabilities of the life table for a given
+    observation year
+
+```{r message=FALSE}
+valuationTables.load("Austria_Annuities")
+# Get the cohort death probabilities for Austrian Annuitants born in 1977:
+qx.coh1977 = deathProbabilities(AVOe2005R.male, YOB=1977)
+
+# Get the period death probabilities for Austrian Annuitants observed in the year 2020:
+qx.per2020 = periodDeathProbabilities(AVOe2005R.male, Period=2020)
+```
+
+These functions return the death probabilities as a simple, numeric R vector. 
+
+There are two similar functions that return the death probabilities as a period life table object that can be used with all other functions provided by this package:
+
+* `getCohortTable`: Get a `valuationTable` object describing the death probabilities for people born in the given year
+* `getPeriodTable`: Get a `valuationTable` object describing the death probabilities observed in the given year
+
+```{r}
+# Get the cohort death probabilities for Austrian Annuitants born in 1977 as a valuationTable.period object:
+table.coh1977 = getCohortTable(AVOe2005R.male, YOB=1977)
+
+# Get the period death probabilities for Austrian Annuitants observed in the year 2020:
+table.per2020 = getPeriodTable(AVOe2005R.male, Period=2020)
+
+# Compare those two in a plot:
+plot(table.coh1977, table.per2020, title="Comparison of cohort 1977 with Period 2020", legend.position=c(1,0))
+
+```
+
+Not surprisingly, at 43 years the two death probabilities cross, because in 2020
+the person born 1977 is 43 years old, so the $q_x$ refer to the same person. 
+However, for younger ages, the period 2020 probabilities are lower, because 
+the mortality improvement for those younger ages has much less time in the 
+cohort 1977 table. For ages above 43 the cohort table describes the mortality 
+further into the future than 2020, so there is more improvement and thus lower 
+death probabilities for the cohort life table.
+
+
+
+
+### Other data extraction functions from life tables
+
+| function               | description |
+|:---------------------- |:---------------------------------------------------|
+|`ages(table)`           | Returns the vector of ages, for which the life table can provide death probabilities |
+|`getOmega(table)`       | Returns the maximum age, for which the life table can provide dath probabilities |
+|`ageShift(table, YOB)`  | Returns the age shift for the given year of birth |
+|`baseTable(table)`      | Returns the base table, from which the table projects (for cohort tables) |
+|`baseYear(table)`       | Returns the year of the base table |
+|`lifetable(table, YOB)`  | Returns the cohort death probabilities as a `lifetable` object for use with the lifecontingencies package|
+
+
+
+
+
+## Creating a life table object
+
+### Period life tables
+Period death probabilities are the simplest type of life table, giving the 
+probabilities of death observed during the
+corresponding year (the "period"). The death probabilities of different ages
+refer to different persons, being of the corresponding ages in the observation
+year. All that is needed to create a period life table are the death probabilities
+and the corresponding ages:
+```{r}
+lt = valuationTable.period(name="Sample period lifetable", ages=1:99, deathProbs=exp(-(99:1)/10))
+plot(lt, title="Simple log-linear period mortality table")
+deathProbabilities(lt)
+
+```
+
+
+### Observed life tables
+The observations for the given years
+
+TODO
+
+
+### Cohort life tables with trend projection
+
+TODO
+
+### Cohort life tables with age-shift
+
+TODO
+
+
+## Modifying life table objects
+
+### Copying life tables
+
+Life tables are simple pass-by-value S4 objects, so copying works by simple assignment. 
+
+```{r}
+b=AVOe2005R.female 
+b@name = "Modified Copy"
+# only b is modified, not the original table
+b@modification = function(qx) pmax(qx, 0.01)  
+plot(AVOe2005R.female, b, YOB=2000)
+```
+
+### Adding a modification to the raw probabilities
+
+Some uses require post-processing of the death probabilities, like adding a lower
+bound for the death probabilities. To achive this, all `valuationTable`-derived 
+classes have a slot `modification` that takes a function that is passed the vector 
+of death probabilities.
+
+```{r}
+lt.mod = valuationTable.period(name="Sample modified lifetable (lower bound of 3%)", ages=1:99, deathProbs=exp(-(99:1)/10), modification=function (qx) pmax(0.03, qx))
+plot(lt, lt.mod, title="Original and modified table")
+```
+
+### Adding a modification to the raw probabilities
+
+Some uses require post-processing of the death probabilities, like adding a lower
+bound for the death probabilities. To achive this, all `valuationTable`-derived 
+classes have a slot `modification` that takes a function that is passed the vector 
+of death probabilities.
+
+```{r}
+AVOe2005R.female.mod = setModification(AVOe2005R.female, modification=function (qx) pmax(0.03, qx));
+# Make sure the modified table has a new name, otherwise plots might break
+AVOe2005R.female.mod@name = "Modified table (lower bound of 3%)"
+plot(AVOe2005R.female, AVOe2005R.female.mod, title="Original and modified table")
+```
+
+
+
+

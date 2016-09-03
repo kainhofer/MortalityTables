@@ -8,15 +8,14 @@
 #' death probabilities are scaled by the given reference table and the y-axis
 #' shows the death rates as percentage of the reference table.
 #'
-#' @param data First life table to be plotted. Must be a \code{valuationTable} object for the dispatcher to call this function
+#' @param x First life table to be plotted. Must be a \code{valuationTable} object for the dispatcher to call this function
 #' @param ... Additional life tables to be plotted (\code{valuationTable} objects)
-#' @param xlim X-axis limitatation (as a two-element vector)
-#' @param ylim Y-axis limitatation (as a two-element vector)
-#' @param xlab X-axis label (default: "Alter")
-#' @param ylab Y-axis label (default: "Sterbewahrscheinlichkeit q_x")
+#' @param xlim,ylim Axes limitatation (as a two-element vectors)
+#' @param xlab,ylab Axes labels (default for x-axis: "Alter", default for y-axis: "Sterbewahrscheinlichkeit q_x")
 #' @param title The plot title
 #' @param legend.position The position of the legend (default is \code{c(0.9,0.1)})
 #' @param legend.key.width The keywith of the lines in the  legend (default is \code{unit(25,"mm")})
+#' @param reference The reference table that determines the 100\% values. If not given, the first argument of \code{data} is used as reference table.
 #'
 #' @examples
 #' # Load the Austrian census data
@@ -42,11 +41,11 @@
 #'
 #' @import scales
 #' @export
-plot.valuationTable = function(data, ..., reference=NULL) {
+plot.valuationTable = function(x, ..., reference=NULL) {
     if (!missing(reference) && !is.null(reference)) {
-        plotValuationTableComparisons(data, ..., reference=reference)
+        plotValuationTableComparisons(x, ..., reference=reference)
     } else {
-        plotValuationTables(data, ...)
+        plotValuationTables(x, ...)
     }
 }
 

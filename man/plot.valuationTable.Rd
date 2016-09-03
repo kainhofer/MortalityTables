@@ -4,20 +4,18 @@
 \alias{plot.valuationTable}
 \title{Plot multiple valuation tables (life tables) in one plot}
 \usage{
-\method{plot}{valuationTable}(data, ..., reference = NULL)
+\method{plot}{valuationTable}(x, ..., reference = NULL)
 }
 \arguments{
-\item{data}{First life table to be plotted. Must be a \code{valuationTable} object for the dispatcher to call this function}
+\item{x}{First life table to be plotted. Must be a \code{valuationTable} object for the dispatcher to call this function}
 
 \item{...}{Additional life tables to be plotted (\code{valuationTable} objects)}
 
-\item{xlim}{X-axis limitatation (as a two-element vector)}
+\item{reference}{The reference table that determines the 100\% values. If not given, the first argument of \code{data} is used as reference table.}
 
-\item{ylim}{Y-axis limitatation (as a two-element vector)}
+\item{xlim, ylim}{Axes limitatation (as a two-element vectors)}
 
-\item{xlab}{X-axis label (default: "Alter")}
-
-\item{ylab}{Y-axis label (default: "Sterbewahrscheinlichkeit q_x")}
+\item{xlab, ylab}{Axes labels (default for x-axis: "Alter", default for y-axis: "Sterbewahrscheinlichkeit q_x")}
 
 \item{title}{The plot title}
 

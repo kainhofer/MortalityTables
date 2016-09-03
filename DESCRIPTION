@@ -2,7 +2,7 @@ Package: ValuationTables
 Type: Package
 Version: 1.0
 Date: 2016-05-01
-Title: A framework for cohort life tables and general life insurance contracts
+Title: A framework for various types of life tables
 Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinhold@kainhofer.com"))
 Author: Reinhold Kainhofer [aut, cre]
 Maintainer: Reinhold Kainhofer <reinhold@kainhofer.com>
@@ -12,7 +12,9 @@ Depends:
     scales,
     utils
 Suggests:
-    lifecontingencies
+    lifecontingencies,
+    knitr,
+    rmarkdown
 Description: This package provides classes to implement cohort life tables
     for actuarial calculations. In particular, birthyear-dependent mortality
     tables using a yearly trend to extrapolate from a base year are implemented,
@@ -44,6 +46,8 @@ Collate:
     'plotValuationTableComparisons.R'
     'plotValuationTables.R'
     'setLoading.R'
+    'setModification.R'
     'undampenTrend.R'
     'valuationTables.list.R'
     'valuationTables.load.R'
+VignetteBuilder: knitr

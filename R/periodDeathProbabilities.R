@@ -40,10 +40,11 @@ setMethod("periodDeathProbabilities", "valuationTable.trendProjection",
                   damping = object@dampingFunction(Period - object@baseYear);
                   finalqx = exp(-object@trend * damping) * qx;
               } else {
-                  # TODO!!!
                   # dampingFunction interpolates between the two trends:
-                  # weights = sapply(YOB+0:(length(qx)-1), object@dampingFunction);
-                  # finalqx = qx*exp(-(object@trend*(1-weights) + object@trend2*(weights))*(YOB+0:(length(qx)-1)-object@baseYear));
+                  weight = object@dampingFunction(Period);
+                  finalqx = qx * exp(
+                      -(object@trend * (1 - weight) + object@trend2 * weight) *
+                          (Period - object@baseYear))
               }
               object@modification(finalqx)
           })

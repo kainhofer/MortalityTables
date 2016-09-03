@@ -77,7 +77,6 @@ AVOe2005R_gen.av = function(nm, probs, shft) {
     )
 }
 
-str(AVOe2005R.av.verschiebung)
 AVOe2005R.male.av = AVOe2005R_gen.av(
     "AVÖ 2005R male (age-shifted), loaded",
     "qx1965", "shiftM");
