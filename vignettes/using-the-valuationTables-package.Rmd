@@ -243,16 +243,19 @@ b@modification = function(qx) pmax(qx, 0.01)
 plot(AVOe2005R.female, b, YOB=2000)
 ```
 
-### Adding a modification to the raw probabilities
+### Adding a security loading to the raw probabilities
 
-Some uses require post-processing of the death probabilities, like adding a lower
-bound for the death probabilities. To achive this, all `valuationTable`-derived 
-classes have a slot `modification` that takes a function that is passed the vector 
-of death probabilities.
+When calculating premiums for life insurance contracts, one often needs to add 
+a certain security loading on the raw death probabilities (e.g. 10% increased
+death probabilities) to account for statistical fluctuations. This can be easily
+done with the `setLoading` function that returns a copy of the given table and 
+adds the given security loading.
 
 ```{r}
-lt.mod = valuationTable.period(name="Sample modified lifetable (lower bound of 3%)", ages=1:99, deathProbs=exp(-(99:1)/10), modification=function (qx) pmax(0.03, qx))
-plot(lt, lt.mod, title="Original and modified table")
+AVOe2005R.female.sec = setLoading(AVOe2005R.female, loading = 0.1);
+# Make sure the modified table has a new name, otherwise plots might break
+AVOe2005R.female.sec@name = "Table with 10% loading"
+plot(AVOe2005R.female, AVOe2005R.female.sec, title="Original and modified table")
 ```
 
 ### Adding a modification to the raw probabilities
@@ -268,7 +271,4 @@ AVOe2005R.female.mod = setModification(AVOe2005R.female, modification=function (
 AVOe2005R.female.mod@name = "Modified table (lower bound of 3%)"
 plot(AVOe2005R.female, AVOe2005R.female.mod, title="Original and modified table")
 ```
-
-
-
 
