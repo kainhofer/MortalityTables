@@ -45,6 +45,8 @@ setMethod("deathProbabilities","valuationTable.trendProjection",
                   finalqx = exp(-object@trend * damping) * qx;
               } else {
                   # dampingFunction interpolates between the two trends:
+                  # The damping functions does NOT give yearly weights,
+                  # but rather cumulative weights from the base year until the observation year!
                   weights = sapply(YOB + 0:(length(qx)-1), object@dampingFunction);
                   finalqx = qx * exp(
                       -(object@trend * (1 - weights) + object@trend2 * weights) *
