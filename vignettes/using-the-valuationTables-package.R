@@ -62,6 +62,76 @@ deathProbabilities(lt)
 
 
 ## ------------------------------------------------------------------------
+atPlus2 = valuationTable.trendProjection(
+    name = "Austrian Census Males 2011, 2% yearly trend",
+    baseYear = 2011,
+    deathProbs = deathProbabilities(mort.AT.census.2011.male),
+    ages = ages(mort.AT.census.2011.male),
+    trend = rep(0.02, length(ages(mort.AT.census.2011.male)))
+)
+
+## ------------------------------------------------------------------------
+atPlus2.damp = valuationTable.trendProjection(
+    name = "Austrian M '11, 2% yearly, damping until 2111",
+    baseYear = 2011,
+    deathProbs = deathProbabilities(mort.AT.census.2011.male),
+    ages = ages(mort.AT.census.2011.male),
+    trend = rep(0.02, length(ages(mort.AT.census.2011.male))),
+    # damping function: 2011: full effect, linear reduction until yearly trend=0 in 2111:
+    # 2011: 100%, 2012: 99%, 2013: 98% => For 2013 we have a cumulative trend 
+    # of 297% instead of 300% for three full yearly trends!
+    dampingFunction = function(n) { n - n*(n+1)/2/100 }
+)
+
+plot(mort.AT.census.2011.male, atPlus2, atPlus2.damp, YOB=2011, legend.position=c(0.8,0.75))
+
+## ------------------------------------------------------------------------
+atPlus2.damp2 = valuationTable.trendProjection(
+    name = "Austrian M '11, 2% yearly, 1% long-term",
+    baseYear = 2011,
+    deathProbs = deathProbabilities(mort.AT.census.2011.male),
+    ages = ages(mort.AT.census.2011.male),
+    trend = rep(0.02, length(ages(mort.AT.census.2011.male))),
+    trend2 = rep(0.01, length(ages(mort.AT.census.2011.male))),
+    # damping function interpolates between the two trends: 
+    # until 2021 trend 1, from 2031 trend 2, linearly beteen
+    dampingFunction = function(year) { 
+        if (year <= 2021) 1
+        else if (year>2031) 14.5/(year-2011)
+        else 1 - (year-2021)*(year-2021+1)/20/(year-2011)
+    }
+)
+
+plot(mort.AT.census.2011.male, atPlus2, atPlus2.damp, atPlus2.damp2, YOB=2011, legend.position=c(0.8,0.75))
+
+## ------------------------------------------------------------------------
+baseTableShift = getCohortTable(atPlus2, YOB=2011);
+baseTableShift@name = "Base table of the shift (YOB 2011)"
+
+atShifted = valuationTable.ageShift(
+    name = "Approximation with age shift",
+    baseYear = 2011,
+    deathProbs = deathProbabilities(baseTableShift),
+    ages = ages(baseTableShift),
+    ageShifts = data.frame(
+        shifts = c(
+            rep( 0, 3), 
+            rep(-1, 3), 
+            rep(-2, 3), 
+            rep(-3, 3), 
+            rep(-4, 3), 
+            rep(-5, 3), 
+            rep(-6, 3)
+        ),
+        row.names = 2011:2031
+    )
+)
+
+ageShift(atShifted, YOB=2021)
+
+plot(baseTableShift, atPlus2, atShifted, YOB=2021, legend.position=c(0.8,0.75))
+
+## ------------------------------------------------------------------------
 b=AVOe2005R.female 
 b@name = "Modified Copy"
 # only b is modified, not the original table
@@ -69,8 +139,10 @@ b@modification = function(qx) pmax(qx, 0.01)
 plot(AVOe2005R.female, b, YOB=2000)
 
 ## ------------------------------------------------------------------------
-lt.mod = valuationTable.period(name="Sample modified lifetable (lower bound of 3%)", ages=1:99, deathProbs=exp(-(99:1)/10), modification=function (qx) pmax(0.03, qx))
-plot(lt, lt.mod, title="Original and modified table")
+AVOe2005R.female.sec = setLoading(AVOe2005R.female, loading = 0.1);
+# Make sure the modified table has a new name, otherwise plots might break
+AVOe2005R.female.sec@name = "Table with 10% loading"
+plot(AVOe2005R.female, AVOe2005R.female.sec, title="Original and modified table")
 
 ## ------------------------------------------------------------------------
 AVOe2005R.female.mod = setModification(AVOe2005R.female, modification=function (qx) pmax(0.03, qx));

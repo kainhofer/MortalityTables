@@ -6,6 +6,7 @@ Title: A framework for various types of life tables
 Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinhold@kainhofer.com"))
 Author: Reinhold Kainhofer [aut, cre]
 Maintainer: Reinhold Kainhofer <reinhold@kainhofer.com>
+URL: https://gitlab.open-tools.net/R/r-valuation-tables
 Depends:
     ggplot2,
     methods,
