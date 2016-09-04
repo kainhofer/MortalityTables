@@ -3,26 +3,26 @@
 \docType{methods}
 \name{getCohortTable}
 \alias{getCohortTable}
-\alias{getCohortTable,valuationTable-method}
-\title{Return the cohort life table as a \code{valuationTable.period} object}
+\alias{getCohortTable,mortalityTable-method}
+\title{Return the cohort life table as a \code{mortalityTable.period} object}
 \usage{
 getCohortTable(object, YOB, ...)
 
-\S4method{getCohortTable}{valuationTable}(object, YOB, ...)
+\S4method{getCohortTable}{mortalityTable}(object, YOB, ...)
 }
 \arguments{
-\item{object}{The life table object (class inherited from valuationTable)}
+\item{object}{The life table object (class inherited from mortalityTable)}
 
 \item{YOB}{The birth year for which the life table should be calculated}
 
 \item{...}{Other parameters (currently unused)}
 }
 \description{
-Return the cohort life table as a \code{valuationTable.period} object
+Return the cohort life table as a \code{mortalityTable.period} object
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable}: Return the cohort life table as a
-\code{valuationTable.period} object
+\item \code{mortalityTable}: Return the cohort life table as a
+\code{mortalityTable.period} object
 }}
 

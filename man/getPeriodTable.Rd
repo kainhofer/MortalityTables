@@ -3,15 +3,15 @@
 \docType{methods}
 \name{getPeriodTable}
 \alias{getPeriodTable}
-\alias{getPeriodTable,valuationTable-method}
-\title{Return the period life table as a \code{valuationTable.period} object}
+\alias{getPeriodTable,mortalityTable-method}
+\title{Return the period life table as a \code{mortalityTable.period} object}
 \usage{
 getPeriodTable(object, Period, ...)
 
-\S4method{getPeriodTable}{valuationTable}(object, Period, ...)
+\S4method{getPeriodTable}{mortalityTable}(object, Period, ...)
 }
 \arguments{
-\item{object}{The life table object (class inherited from valuationTable)}
+\item{object}{The life table object (class inherited from mortalityTable)}
 
 \item{Period}{The observation year, for which the death probabilities should
 be determined}
@@ -19,11 +19,11 @@ be determined}
 \item{...}{Other parameters (currently unused)}
 }
 \description{
-Return the period life table as a \code{valuationTable.period} object
+Return the period life table as a \code{mortalityTable.period} object
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable}: Return the period life table as a
-\code{valuationTable.period} object
+\item \code{mortalityTable}: Return the period life table as a
+\code{mortalityTable.period} object
 }}
 

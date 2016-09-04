@@ -2,13 +2,13 @@
 % Please edit documentation in R/makeQxDataFrame.R
 \name{makeQxDataFrame}
 \alias{makeQxDataFrame}
-\title{Converts one or multiple life table objects to a data frame that can be
-plotted by \code{plotValuationTables} or \code{plotValuationTableComparisons}}
+\title{Converts one or multiple mortality table objects to a data frame that can be
+plotted by \code{plotMortalityTables} or \code{plotMortalityTableComparisons}}
 \usage{
 makeQxDataFrame(..., YOB = 1972, Period = NA, reference = NULL)
 }
 \arguments{
-\item{...}{Life tables (objects of classes derived from \code{valuationTable})}
+\item{...}{Life tables (objects of classes derived from \code{mortalityTable})}
 
 \item{YOB}{desired year of birth to be plotted as cohort life table (default: 1972)}
 
@@ -20,8 +20,8 @@ probabilities (i.e. the q_x for all ages are divided by the
 corresponding probabilities of the reference table)}
 }
 \description{
-It is not required to call this function manually, \code{plotValuationTables}
-will automatically do it if object derived from class \code{valuationTable}
+It is not required to call this function manually, \code{plotMortalityTables}
+will automatically do it if object derived from class \code{mortalityTable}
 are passed.
 }
 

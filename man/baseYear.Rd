@@ -3,18 +3,18 @@
 \docType{methods}
 \name{baseYear}
 \alias{baseYear}
-\alias{baseYear,valuationTable-method}
-\alias{baseYear,valuationTable.mixed-method}
+\alias{baseYear,mortalityTable-method}
+\alias{baseYear,mortalityTable.mixed-method}
 \title{Return the base year of the life table}
 \usage{
 baseYear(object, ...)
 
-\S4method{baseYear}{valuationTable}(object, ...)
+\S4method{baseYear}{mortalityTable}(object, ...)
 
-\S4method{baseYear}{valuationTable.mixed}(object, ...)
+\S4method{baseYear}{mortalityTable.mixed}(object, ...)
 }
 \arguments{
-\item{object}{The life table object (class inherited from valuationTable)}
+\item{object}{The life table object (class inherited from mortalityTable)}
 
 \item{...}{Other parameters (currently unused)}
 }
@@ -23,8 +23,8 @@ Return the base year of the life table
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable}: Return the base year of the life table
+\item \code{mortalityTable}: Return the base year of the life table
 
-\item \code{valuationTable.mixed}: Return the base year of the life table
+\item \code{mortalityTable.mixed}: Return the base year of the life table
 }}
 

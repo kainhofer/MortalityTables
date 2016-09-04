@@ -1,10 +1,10 @@
-#' @include valuationTable.R valuationTable.period.R valuationTable.trendProjection.R valuationTable.improvementFactors.R valuationTable.mixed.R
+#' @include mortalityTable.R mortalityTable.period.R mortalityTable.trendProjection.R mortalityTable.improvementFactors.R mortalityTable.mixed.R
 NULL
 
 #' Return the (period) death probabilities of the life table for a given
 #' observation year
 #'
-#' @param object The life table object (class inherited from valuationTable)
+#' @param object The life table object (class inherited from mortalityTable)
 #' @param ... Other parameters (currently unused)
 #' @param Period  The observation year for which the period death probabilities should be determined
 #'
@@ -13,14 +13,14 @@ setGeneric("periodDeathProbabilities", function(object, ..., Period = 1975) stan
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
 #'             of the life table for a given observation year
-setMethod("periodDeathProbabilities", "valuationTable.period",
+setMethod("periodDeathProbabilities", "mortalityTable.period",
           function(object, ..., Period = 1975) {
               object@modification(object@deathProbs * (1 + object@loading));
           })
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
 #'             of the life table for a given observation year
-setMethod("periodDeathProbabilities", "valuationTable.ageShift",
+setMethod("periodDeathProbabilities", "mortalityTable.ageShift",
           function (object,  ..., Period = 1975) {
               # TODO
               qx = object@deathProbs * (1 + object@loading);
@@ -32,7 +32,7 @@ setMethod("periodDeathProbabilities", "valuationTable.ageShift",
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
 #'             of the life table for a given observation year
-setMethod("periodDeathProbabilities", "valuationTable.trendProjection",
+setMethod("periodDeathProbabilities", "mortalityTable.trendProjection",
           function (object,  ..., Period = 1975) {
               qx = object@deathProbs * (1 + object@loading);
               if (is.null(object@trend2) || length(object@trend2) <= 1) {
@@ -51,7 +51,7 @@ setMethod("periodDeathProbabilities", "valuationTable.trendProjection",
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
 #'             of the life table for a given observation year
-setMethod("periodDeathProbabilities", "valuationTable.improvementFactors",
+setMethod("periodDeathProbabilities", "mortalityTable.improvementFactors",
           function (object, ..., Period = 1975) {
               qx = object@deathProbs * (1 + object@loading);
               finalqx = (1 - object@improvement) ^ (Period - object@baseYear) * qx;
@@ -60,7 +60,7 @@ setMethod("periodDeathProbabilities", "valuationTable.improvementFactors",
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
 #'             of the life table for a given observation year
-setMethod("periodDeathProbabilities", "valuationTable.mixed",
+setMethod("periodDeathProbabilities", "mortalityTable.mixed",
           function (object,  ..., Period = 1975) {
               qx1 = periodDeathProbabilities(object@table1, ..., Period = Period) * (1 + object@loading);
               qx2 = periodDeathProbabilities(object@table2, ..., Period = Period) * (1 + object@loading);

@@ -1,9 +1,9 @@
-#' @include valuationTable.ageShift.R
+#' @include mortalityTable.ageShift.R
 NULL
 
 #' Return the age shift of the age-shifted life table given the birth year
 #'
-#' @param object The life table object (class inherited from valuationTable)
+#' @param object The life table object (class inherited from mortalityTable)
 #' @param ... Other parameters (currently unused)
 #' @param YOB The birth year for which the age shift should be determined.
 #'
@@ -13,7 +13,7 @@ setGeneric("ageShift", function(object, YOB=1975, ...) standardGeneric("ageShift
 #' @describeIn ageShift Return the age shift of the age-shifted life table
 #'                      given the birth year
 setMethod("ageShift",
-          "valuationTable.ageShift",
+          "mortalityTable.ageShift",
           function(object, YOB, ...) {
               shift = object@ageShifts[toString(YOB),];
               if (is.na(shift)) {

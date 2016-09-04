@@ -3,18 +3,18 @@
 \docType{methods}
 \name{baseTable}
 \alias{baseTable}
-\alias{baseTable,valuationTable-method}
-\alias{baseTable,valuationTable.period-method}
+\alias{baseTable,mortalityTable-method}
+\alias{baseTable,mortalityTable.period-method}
 \title{Return the base table of the life table}
 \usage{
 baseTable(object, ...)
 
-\S4method{baseTable}{valuationTable}(object, ...)
+\S4method{baseTable}{mortalityTable}(object, ...)
 
-\S4method{baseTable}{valuationTable.period}(object, ...)
+\S4method{baseTable}{mortalityTable.period}(object, ...)
 }
 \arguments{
-\item{object}{The life table object (class inherited from valuationTable)}
+\item{object}{The life table object (class inherited from mortalityTable)}
 
 \item{...}{Other parameters (currently unused)}
 }
@@ -23,8 +23,8 @@ Return the base table of the life table
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable}: Return the base table of the life table
+\item \code{mortalityTable}: Return the base table of the life table
 
-\item \code{valuationTable.period}: Return the base table of the life table
+\item \code{mortalityTable.period}: Return the base table of the life table
 }}
 

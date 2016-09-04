@@ -3,24 +3,24 @@
 \docType{methods}
 \name{ages}
 \alias{ages}
-\alias{ages,valuationTable.joined-method}
-\alias{ages,valuationTable.mixed-method}
-\alias{ages,valuationTable.observed-method}
-\alias{ages,valuationTable.period-method}
+\alias{ages,mortalityTable.joined-method}
+\alias{ages,mortalityTable.mixed-method}
+\alias{ages,mortalityTable.observed-method}
+\alias{ages,mortalityTable.period-method}
 \title{Return the defined ages of the life table}
 \usage{
 ages(object, ...)
 
-\S4method{ages}{valuationTable.period}(object, ...)
+\S4method{ages}{mortalityTable.period}(object, ...)
 
-\S4method{ages}{valuationTable.mixed}(object, ...)
+\S4method{ages}{mortalityTable.mixed}(object, ...)
 
-\S4method{ages}{valuationTable.joined}(object, ...)
+\S4method{ages}{mortalityTable.joined}(object, ...)
 
-\S4method{ages}{valuationTable.observed}(object, ...)
+\S4method{ages}{mortalityTable.observed}(object, ...)
 }
 \arguments{
-\item{object}{A life table object (instance of a \code{\linkS4class{valuationTable}} class)}
+\item{object}{A life table object (instance of a \code{\linkS4class{mortalityTable}} class)}
 
 \item{...}{Currently unused}
 }
@@ -29,12 +29,12 @@ Return the defined ages of the life table
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable.period}: Return the defined ages of the period life table
+\item \code{mortalityTable.period}: Return the defined ages of the period life table
 
-\item \code{valuationTable.mixed}: Return the defined ages of the mixed life table
+\item \code{mortalityTable.mixed}: Return the defined ages of the mixed life table
 
-\item \code{valuationTable.joined}: Return the defined ages of the joined life table
+\item \code{mortalityTable.joined}: Return the defined ages of the joined life table
 
-\item \code{valuationTable.observed}: Return the defined ages of the observed life table
+\item \code{mortalityTable.observed}: Return the defined ages of the observed life table
 }}
 

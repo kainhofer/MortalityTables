@@ -3,36 +3,36 @@
 \docType{methods}
 \name{getOmega}
 \alias{getOmega}
-\alias{getOmega,valuationTable.joined-method}
-\alias{getOmega,valuationTable.mixed-method}
-\alias{getOmega,valuationTable.observed-method}
-\alias{getOmega,valuationTable.period-method}
+\alias{getOmega,mortalityTable.joined-method}
+\alias{getOmega,mortalityTable.mixed-method}
+\alias{getOmega,mortalityTable.observed-method}
+\alias{getOmega,mortalityTable.period-method}
 \title{Return the maximum age of the life table}
 \usage{
 getOmega(object)
 
-\S4method{getOmega}{valuationTable.period}(object)
+\S4method{getOmega}{mortalityTable.period}(object)
 
-\S4method{getOmega}{valuationTable.mixed}(object)
+\S4method{getOmega}{mortalityTable.mixed}(object)
 
-\S4method{getOmega}{valuationTable.joined}(object)
+\S4method{getOmega}{mortalityTable.joined}(object)
 
-\S4method{getOmega}{valuationTable.observed}(object)
+\S4method{getOmega}{mortalityTable.observed}(object)
 }
 \arguments{
-\item{object}{A life table object (instance of a \code{valuationTable} class)}
+\item{object}{A life table object (instance of a \code{mortalityTable} class)}
 }
 \description{
 Return the maximum age of the life table
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable.period}: Return the maximum age of the period life table
+\item \code{mortalityTable.period}: Return the maximum age of the period life table
 
-\item \code{valuationTable.mixed}: Return the maximum age of the mixed life table
+\item \code{mortalityTable.mixed}: Return the maximum age of the mixed life table
 
-\item \code{valuationTable.joined}: Return the maximum age of the joined life table
+\item \code{mortalityTable.joined}: Return the maximum age of the joined life table
 
-\item \code{valuationTable.observed}: Return the maximum age of the joined life table
+\item \code{mortalityTable.observed}: Return the maximum age of the joined life table
 }}
 

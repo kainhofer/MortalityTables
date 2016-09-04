@@ -3,22 +3,22 @@
 \docType{methods}
 \name{undampenTrend}
 \alias{undampenTrend}
-\alias{undampenTrend,valuationTable.trendProjection-method}
-\title{Return a \code{valuationTable.trendProjection} object with the trend damping removed.}
+\alias{undampenTrend,mortalityTable.trendProjection-method}
+\title{Return a \code{mortalityTable.trendProjection} object with the trend damping removed.}
 \usage{
 undampenTrend(object)
 
-\S4method{undampenTrend}{valuationTable.trendProjection}(object)
+\S4method{undampenTrend}{mortalityTable.trendProjection}(object)
 }
 \arguments{
-\item{object}{The life table object (class inherited from valuationTable)}
+\item{object}{The life table object (class inherited from mortalityTable)}
 }
 \description{
-Return a \code{valuationTable.trendProjection} object with the trend damping removed.
+Return a \code{mortalityTable.trendProjection} object with the trend damping removed.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable.trendProjection}: Return a \code{valuationTable.trendProjection}
+\item \code{mortalityTable.trendProjection}: Return a \code{mortalityTable.trendProjection}
 object with the trend damping removed.
 }}
 

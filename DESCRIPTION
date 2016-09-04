@@ -1,12 +1,12 @@
-Package: ValuationTables
+Package: MortalityTables
 Type: Package
 Version: 1.0
 Date: 2016-05-01
-Title: A framework for various types of life tables
+Title: A framework for various types of mortality / life tables
 Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinhold@kainhofer.com"))
 Author: Reinhold Kainhofer [aut, cre]
 Maintainer: Reinhold Kainhofer <reinhold@kainhofer.com>
-URL: https://gitlab.open-tools.net/R/r-valuation-tables
+URL: https://gitlab.open-tools.net/R/r-mortality-tables
 Depends:
     ggplot2,
     methods,
@@ -24,31 +24,31 @@ Description: This package provides classes to implement cohort life tables
 License: GPL (>= 2)
 RoxygenNote: 5.0.1
 Collate:
-    'valuationTable.R'
-    'valuationTable.period.R'
-    'valuationTable.ageShift.R'
+    'mortalityTable.R'
+    'mortalityTable.period.R'
+    'mortalityTable.ageShift.R'
     'ageShift.R'
-    'valuationTable.observed.R'
-    'valuationTable.joined.R'
-    'valuationTable.mixed.R'
+    'mortalityTable.observed.R'
+    'mortalityTable.joined.R'
+    'mortalityTable.mixed.R'
     'ages.R'
     'baseTable.R'
     'baseYear.R'
-    'valuationTable.improvementFactors.R'
-    'valuationTable.trendProjection.R'
+    'mortalityTable.improvementFactors.R'
+    'mortalityTable.trendProjection.R'
     'deathProbabilities.R'
     'getCohortTable.R'
     'getOmega.R'
     'getPeriodTable.R'
     'lifeTable.R'
     'makeQxDataFrame.R'
+    'mortalityTables.list.R'
+    'mortalityTables.load.R'
     'periodDeathProbabilities.R'
-    'plot.valuationTable.R'
-    'plotValuationTableComparisons.R'
-    'plotValuationTables.R'
+    'plot.mortalityTable.R'
+    'plotMortalityTableComparisons.R'
+    'plotMortalityTables.R'
     'setLoading.R'
     'setModification.R'
     'undampenTrend.R'
-    'valuationTables.list.R'
-    'valuationTables.load.R'
 VignetteBuilder: knitr

@@ -1,11 +1,11 @@
-#' Converts one or multiple life table objects to a data frame that can be
-#' plotted by \code{plotValuationTables} or \code{plotValuationTableComparisons}
+#' Converts one or multiple mortality table objects to a data frame that can be
+#' plotted by \code{plotMortalityTables} or \code{plotMortalityTableComparisons}
 #'
-#' It is not required to call this function manually, \code{plotValuationTables}
-#' will automatically do it if object derived from class \code{valuationTable}
+#' It is not required to call this function manually, \code{plotMortalityTables}
+#' will automatically do it if object derived from class \code{mortalityTable}
 #' are passed.
 #'
-#' @param ... Life tables (objects of classes derived from \code{valuationTable})
+#' @param ... Life tables (objects of classes derived from \code{mortalityTable})
 #' @param YOB desired year of birth to be plotted as cohort life table (default: 1972)
 #' @param Period desired observation year to be plotted (default: NA). If both
 #'        \code{YOB} and \code{Period} are given, a period comparison is generated.

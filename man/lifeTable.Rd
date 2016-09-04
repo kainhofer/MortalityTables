@@ -3,15 +3,15 @@
 \docType{methods}
 \name{lifeTable}
 \alias{lifeTable}
-\alias{lifeTable,valuationTable-method}
+\alias{lifeTable,mortalityTable-method}
 \title{Return the lifetable object (package lifecontingencies) for the cohort life table}
 \usage{
 lifeTable(object, ...)
 
-\S4method{lifeTable}{valuationTable}(object, ...)
+\S4method{lifeTable}{mortalityTable}(object, ...)
 }
 \arguments{
-\item{object}{The life table object (class inherited from valuationTable)}
+\item{object}{The life table object (class inherited from mortalityTable)}
 
 \item{...}{Parameters to be passed to the \code{deathProbabilities} method
 of the life table}
@@ -21,7 +21,7 @@ Return the lifetable object (package lifecontingencies) for the cohort life tabl
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable}: Return the lifetable object (package lifecontingencies)
+\item \code{mortalityTable}: Return the lifetable object (package lifecontingencies)
 for the cohort life table
 }}
 

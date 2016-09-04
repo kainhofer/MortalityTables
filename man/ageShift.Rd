@@ -3,15 +3,15 @@
 \docType{methods}
 \name{ageShift}
 \alias{ageShift}
-\alias{ageShift,valuationTable.ageShift-method}
+\alias{ageShift,mortalityTable.ageShift-method}
 \title{Return the age shift of the age-shifted life table given the birth year}
 \usage{
 ageShift(object, YOB = 1975, ...)
 
-\S4method{ageShift}{valuationTable.ageShift}(object, YOB = 1975, ...)
+\S4method{ageShift}{mortalityTable.ageShift}(object, YOB = 1975, ...)
 }
 \arguments{
-\item{object}{The life table object (class inherited from valuationTable)}
+\item{object}{The life table object (class inherited from mortalityTable)}
 
 \item{YOB}{The birth year for which the age shift should be determined.}
 
@@ -22,7 +22,7 @@ Return the age shift of the age-shifted life table given the birth year
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable.ageShift}: Return the age shift of the age-shifted life table
+\item \code{mortalityTable.ageShift}: Return the age shift of the age-shifted life table
 given the birth year
 }}
 

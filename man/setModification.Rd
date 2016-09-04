@@ -3,15 +3,15 @@
 \docType{methods}
 \name{setModification}
 \alias{setModification}
-\alias{setModification,valuationTable-method}
+\alias{setModification,mortalityTable-method}
 \title{Return a copy of the table with the given modification function added}
 \usage{
 setModification(object, modification = 0)
 
-\S4method{setModification}{valuationTable}(object, modification = 0)
+\S4method{setModification}{mortalityTable}(object, modification = 0)
 }
 \arguments{
-\item{object}{A life table object (instance of a \code{valuationTable} class)}
+\item{object}{A life table object (instance of a \code{mortalityTable} class)}
 
 \item{modification}{The postprocessing modification function (for example, so enforce a lower bound).}
 }
@@ -20,6 +20,6 @@ Return a copy of the table with the given modification function added
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable}: Return the life table with the given modification set
+\item \code{mortalityTable}: Return the life table with the given modification set
 }}
 

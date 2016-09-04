@@ -3,15 +3,15 @@
 \docType{methods}
 \name{setLoading}
 \alias{setLoading}
-\alias{setLoading,valuationTable-method}
+\alias{setLoading,mortalityTable-method}
 \title{Return a copy of the table with an additional loading added}
 \usage{
 setLoading(object, loading = 0)
 
-\S4method{setLoading}{valuationTable}(object, loading = 0)
+\S4method{setLoading}{mortalityTable}(object, loading = 0)
 }
 \arguments{
-\item{object}{A life table object (instance of a \code{valuationTable} class)}
+\item{object}{A life table object (instance of a \code{mortalityTable} class)}
 
 \item{loading}{The additional (security) loading to be added to the table.}
 }
@@ -20,6 +20,6 @@ Return a copy of the table with an additional loading added
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable}: Return the life table with the given loading set
+\item \code{mortalityTable}: Return the life table with the given loading set
 }}
 

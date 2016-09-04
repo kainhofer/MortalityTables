@@ -1,9 +1,9 @@
-#' @include valuationTable.R
+#' @include mortalityTable.R
 NULL
 
-#' Return the period life table as a \code{valuationTable.period} object
+#' Return the period life table as a \code{mortalityTable.period} object
 #'
-#' @param object The life table object (class inherited from valuationTable)
+#' @param object The life table object (class inherited from mortalityTable)
 #' @param Period The observation year, for which the death probabilities should
 #'        be determined
 #' @param ... Other parameters (currently unused)
@@ -15,10 +15,10 @@ setGeneric("getPeriodTable",
 );
 
 #' @describeIn getPeriodTable Return the period life table as a
-#'             \code{valuationTable.period} object
-setMethod("getPeriodTable","valuationTable",
+#'             \code{mortalityTable.period} object
+setMethod("getPeriodTable","mortalityTable",
           function (object, Period, ...) {
-              valuationTable.period(
+              mortalityTable.period(
                   name = paste(object@name, ", Period ", Period),
                   baseYear = Period,
                   ages = ages(object),

@@ -3,30 +3,30 @@
 \docType{methods}
 \name{deathProbabilities}
 \alias{deathProbabilities}
-\alias{deathProbabilities,valuationTable.ageShift-method}
-\alias{deathProbabilities,valuationTable.improvementFactors-method}
-\alias{deathProbabilities,valuationTable.mixed-method}
-\alias{deathProbabilities,valuationTable.period-method}
-\alias{deathProbabilities,valuationTable.trendProjection-method}
+\alias{deathProbabilities,mortalityTable.ageShift-method}
+\alias{deathProbabilities,mortalityTable.improvementFactors-method}
+\alias{deathProbabilities,mortalityTable.mixed-method}
+\alias{deathProbabilities,mortalityTable.period-method}
+\alias{deathProbabilities,mortalityTable.trendProjection-method}
 \title{Return the (cohort) death probabilities of the life table given the birth year (if needed)}
 \usage{
 deathProbabilities(object, ..., YOB = 1975)
 
-\S4method{deathProbabilities}{valuationTable.period}(object, ..., YOB = 1975)
+\S4method{deathProbabilities}{mortalityTable.period}(object, ..., YOB = 1975)
 
-\S4method{deathProbabilities}{valuationTable.ageShift}(object, ...,
+\S4method{deathProbabilities}{mortalityTable.ageShift}(object, ...,
   YOB = 1975)
 
-\S4method{deathProbabilities}{valuationTable.trendProjection}(object, ...,
+\S4method{deathProbabilities}{mortalityTable.trendProjection}(object, ...,
   YOB = 1975)
 
-\S4method{deathProbabilities}{valuationTable.improvementFactors}(object, ...,
+\S4method{deathProbabilities}{mortalityTable.improvementFactors}(object, ...,
   YOB = 1975)
 
-\S4method{deathProbabilities}{valuationTable.mixed}(object, ..., YOB = 1975)
+\S4method{deathProbabilities}{mortalityTable.mixed}(object, ..., YOB = 1975)
 }
 \arguments{
-\item{object}{The life table object (class inherited from valuationTable)}
+\item{object}{The life table object (class inherited from mortalityTable)}
 
 \item{...}{Other parameters (currently unused)}
 
@@ -37,19 +37,19 @@ Return the (cohort) death probabilities of the life table given the birth year (
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{valuationTable.period}: Return the (cohort) death probabilities of the
+\item \code{mortalityTable.period}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{valuationTable.ageShift}: Return the (cohort) death probabilities of the
+\item \code{mortalityTable.ageShift}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{valuationTable.trendProjection}: Return the (cohort) death probabilities of the
+\item \code{mortalityTable.trendProjection}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{valuationTable.improvementFactors}: Return the (cohort) death probabilities of the
+\item \code{mortalityTable.improvementFactors}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{valuationTable.mixed}: Return the (cohort) death probabilities of the
+\item \code{mortalityTable.mixed}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 }}
 

@@ -1,9 +1,9 @@
-#' @include valuationTable.R
+#' @include mortalityTable.R
 NULL
 
 #' Return the lifetable object (package lifecontingencies) for the cohort life table
 #'
-#' @param object The life table object (class inherited from valuationTable)
+#' @param object The life table object (class inherited from mortalityTable)
 #' @param ... Parameters to be passed to the \code{deathProbabilities} method
 #'            of the life table
 #'
@@ -12,7 +12,7 @@ setGeneric("lifeTable", function(object, ...) standardGeneric("lifeTable"));
 
 #' @describeIn lifeTable Return the lifetable object (package lifecontingencies)
 #'             for the cohort life table
-setMethod("lifeTable","valuationTable",
+setMethod("lifeTable","mortalityTable",
           function (object,  ...) {
               qx = deathProbabilities(object, ...);
               if (qx[[length(qx)]] != 1) {

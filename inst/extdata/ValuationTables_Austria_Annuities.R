@@ -1,3 +1,0 @@
-stopifnot(require(methods), require(utils), require(ValuationTables)) # ValuationTable classes; new; Excel reader
-
-valuationTables.load("Austria_Annuities_*", wildcard=TRUE)
