@@ -25,7 +25,7 @@ AVOe1996R.trend.switching = function(year) {
     }
 }
 
-AVÖ1996R.male = mortalityTable.trendProjection(
+AVOe1996R.male = mortalityTable.trendProjection(
     name = "AVÖ 1996R male",
     ages = AVOe1996R.exakt.data$age, baseYear = 1991,
     deathProbs = AVOe1996R.exakt.data$qx1991 * AVOe1996R.exakt.data$factorM,
@@ -34,7 +34,7 @@ AVÖ1996R.male = mortalityTable.trendProjection(
     dampingFunction = AVOe1996R.trend.switching
 );
 
-AVÖ1996R.female = mortalityTable.trendProjection(
+AVOe1996R.female = mortalityTable.trendProjection(
     name = "AVÖ 1996R female",
     ages = AVOe1996R.exakt.data$age, baseYear = 1991,
     deathProbs = AVOe1996R.exakt.data$qy1991 * AVOe1996R.exakt.data$factorF,
@@ -43,7 +43,7 @@ AVÖ1996R.female = mortalityTable.trendProjection(
     dampingFunction = AVOe1996R.trend.switching
 );
 
-AVÖ1996R.male.group = mortalityTable.trendProjection(
+AVOe1996R.male.group = mortalityTable.trendProjection(
     name = "AVÖ 1996R male, group",
     ages = AVOe1996R.exakt.data$age, baseYear = 1991,
     deathProbs = AVOe1996R.exakt.data$qx1991 * AVOe1996R.exakt.data$factorMG,
@@ -52,7 +52,7 @@ AVÖ1996R.male.group = mortalityTable.trendProjection(
     dampingFunction = AVOe1996R.trend.switching
 );
 
-AVÖ1996R.female.group = mortalityTable.trendProjection(
+AVOe1996R.female.group = mortalityTable.trendProjection(
     name = "AVÖ 1996R female, group",
     ages = AVOe1996R.exakt.data$age, baseYear = 1991,
     deathProbs = AVOe1996R.exakt.data$qy1991 * AVOe1996R.exakt.data$factorFG,

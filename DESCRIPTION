@@ -1,8 +1,8 @@
 Package: MortalityTables
 Type: Package
 Version: 1.0
-Date: 2016-05-01
-Title: A framework for various types of mortality / life tables
+Date: 2016-09-01
+Title: A Framework for Various Types of Mortality / Life Tables
 Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinhold@kainhofer.com"))
 Author: Reinhold Kainhofer [aut, cre]
 Maintainer: Reinhold Kainhofer <reinhold@kainhofer.com>
@@ -16,8 +16,8 @@ Suggests:
     lifecontingencies,
     knitr,
     rmarkdown
-Description: This package provides classes to implement cohort life tables
-    for actuarial calculations. In particular, birthyear-dependent mortality
+Description: Classes to implement and plot cohort life tables
+    for actuarial calculations. In particular, birth-year dependent mortality
     tables using a yearly trend to extrapolate from a base year are implemented,
     as well as period life table, cohort life tables using an age shift, and
     merged life tables.

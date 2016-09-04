@@ -1,8 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-ValuationTables.RData
+MortalityTables.RData
 data.saved
 data-raw
 ^\.~.*#$
 PossibleTables.txt
+^MortalityTables_.*\.tar\.gz$
 

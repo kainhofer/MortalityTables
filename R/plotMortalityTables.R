@@ -61,7 +61,7 @@ globalVariables(c("x", "y", ".x"))
 
 
 #
-# plotMortalityTables(mort.AT.census.1869.male, mort.AT.census.1869.female, mort.AT.census.2011.male, mort.AT.census.2011.female, AVOe2005R.male, AVOe2005R.female, YOB=1972,title="Vergleich österreichische Sterbetafeln, YOB=1972 (bei Generationentafeln)")
+# plotMortalityTables(mort.AT.census.1869.male, mort.AT.census.1869.female, mort.AT.census.2011.male, mort.AT.census.2011.female, AVOe2005R.male, AVOe2005R.female, YOB=1972,title="Austrian Tables, YOB=1972 (for cohort tables)")
 #
-# plotMortalityTables(mort.AT.census.2001.male, AVOe2005R.male, YOB=1972, title="Vergleich österreichische Sterbetafeln")
-#  plotMortalityTables(getCohortTable(AVOe2005R.male, YOB=1972), getCohortTable(AVOe2005R.male, YOB=2016), title="Vergleich österreichische Sterbetafeln")
+# plotMortalityTables(mort.AT.census.2001.male, AVOe2005R.male, YOB=1972, title="Comparison Austrian Tables")
+#  plotMortalityTables(getCohortTable(AVOe2005R.male, YOB=1972), getCohortTable(AVOe2005R.male, YOB=2016), title="Comparison Austrian Tables")

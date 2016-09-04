@@ -30,10 +30,10 @@ plot(mort.AT.census.1951.male, mort.AT.census.1991.male,
 
 ## ------------------------------------------------------------------------
 # Comparison of two Austrian annuity tables for birth year 1977
-plot(AVÖ1996R.male, AVOe2005R.male, YOB=1977, title="Comparison for YOB=1977")
+plot(AVOe1996R.male, AVOe2005R.male, YOB=1977, title="Comparison for YOB=1977")
 
 # Comparison of two Austrian annuity tables for observation year 2020
-plot(AVÖ1996R.male, AVOe2005R.male, Period=2020, title="Comparison for observation year 2020")
+plot(AVOe1996R.male, AVOe2005R.male, Period=2020, title="Comparison for observation year 2020")
 
 
 ## ----message=FALSE-------------------------------------------------------
