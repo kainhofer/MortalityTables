@@ -316,6 +316,16 @@ same, unmodified base table for all cohorts. Basically, it works like this:
 So, an age-shifted cohort life table just needs the base table and for each 
 birth year the amount the age is modified.
 
+For those people, who think visually, age shifting works on the death 
+probabilities as following: A normal trend moves the $q_x$ curve downwards. 
+Age-shifting approximates this by shifting the $q_x$ curve to the right without
+modifying its values.
+
+The following example clearly shows this, with the blue curve being the base 
+table for YOB 2011. A full trend projection moves the curve down to the green line,
+while age-shifting moves the base curve to the right so that it coincides as 
+much as possible with the exact (green) line.
+
 ```{r}
 baseTableShift = getCohortTable(atPlus2, YOB=2011);
 baseTableShift@name = "Base table of the shift (YOB 2011)"
