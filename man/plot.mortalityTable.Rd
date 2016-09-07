@@ -7,21 +7,30 @@
 \method{plot}{mortalityTable}(x, ..., reference = NULL)
 }
 \arguments{
-\item{x}{First life table to be plotted. Must be a \code{mortalityTable} object for the dispatcher to call this function}
+\item{x}{First life table to be plotted. Must be a \code{mortalityTable}
+object for the dispatcher to call this function}
 
-\item{...}{Additional life tables to be plotted (\code{mortalityTable} objects)}
+\item{...}{Additional life tables to be plotted (\code{mortalityTable}
+objects) as well as any of the following parameters (which are
+passed on to \code{\link{plotMortalityTables}} or
+\code{\link{plotMortalityTableComparisons}}):
+    \describe{
+      \item{\code{xlim,ylim}}{Axes limitatation (as a
+              two-element vectors)}
+      \item{\code{xlab,ylab}}{Axes labels (default for
+              x-axis: "Alter", default for y-axis:
+              "Sterbewahrscheinlichkeit q_x")}
+      \item{\code{title}}{The plot title}
+      \item{\code{legend.position}}{The position of
+              the legend (default is \code{c(0.9,0.1)})}
+      \item{\code{legend.key.width}}{The keywith of the
+              lines in the  legend (default is
+              \code{unit(25,"mm")})}
+    }}
 
-\item{reference}{The reference table that determines the 100\% values. If not given, the first argument of \code{data} is used as reference table.}
-
-\item{xlim, ylim}{Axes limitatation (as a two-element vectors)}
-
-\item{xlab, ylab}{Axes labels (default for x-axis: "Alter", default for y-axis: "Sterbewahrscheinlichkeit q_x")}
-
-\item{title}{The plot title}
-
-\item{legend.position}{The position of the legend (default is \code{c(0.9,0.1)})}
-
-\item{legend.key.width}{The keywith of the lines in the  legend (default is \code{unit(25,"mm")})}
+\item{reference}{The reference table that determines the 100\% values.
+If not given, the absolute mortality values are
+compared and plotted on a log-linear scale.}
 }
 \description{
 \code{plot.mortalityTable} displays multiple life tables (objects of child
