@@ -6,8 +6,15 @@ NULL
 #' @param object A life table object (instance of a \code{\linkS4class{mortalityTable}} class)
 #' @param ... Currently unused
 #'
+#' @examples
+#' mortalityTables.load("Austria_*", wildcard=TRUE)
+#' ages(AVOe2005R.male)
+#' ages(AVOe1996R.male)
+#' ages(mort.AT.census.2011.male)
+#'
 #' @exportMethod ages
 setGeneric("ages", function(object, ...) standardGeneric("ages"));
+
 
 #' @describeIn ages Return the defined ages of the period life table
 setMethod("ages", "mortalityTable.period",
