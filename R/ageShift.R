@@ -7,6 +7,12 @@ NULL
 #' @param ... Other parameters (currently unused)
 #' @param YOB The birth year for which the age shift should be determined.
 #'
+#' @examples
+#' mortalityTables.load("Austria_Annuities")
+#' ageShift(AVOe2005R.male.av, YOB=1910)
+#' ageShift(AVOe2005R.male.av, YOB=1955)
+#' ageShift(AVOe2005R.male.av, YOB=2010)
+#'
 #' @exportMethod ageShift
 setGeneric("ageShift", function(object, YOB=1975, ...) standardGeneric("ageShift"));
 

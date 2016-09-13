@@ -6,6 +6,10 @@ NULL
 #' @param object The life table object (class inherited from mortalityTable)
 #' @param ... Other parameters (currently unused)
 #'
+#' @examples
+#' mortalityTables.load("Austria_Annuities")
+#' baseTable(AVOe2005R.male)
+#'
 #' @exportMethod baseTable
 setGeneric("baseTable", function(object, ...) standardGeneric("baseTable"));
 
