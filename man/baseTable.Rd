@@ -27,4 +27,9 @@ Return the base table of the life table
 
 \item \code{mortalityTable.period}: Return the base table of the life table
 }}
+\examples{
+mortalityTables.load("Austria_Annuities")
+baseTable(AVOe2005R.male)
+
+}
 

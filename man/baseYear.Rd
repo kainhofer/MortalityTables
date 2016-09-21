@@ -27,4 +27,9 @@ Return the base year of the life table
 
 \item \code{mortalityTable.mixed}: Return the base year of the life table
 }}
+\examples{
+mortalityTables.load("Austria_Annuities")
+baseYear(AVOe2005R.male)
+
+}
 
