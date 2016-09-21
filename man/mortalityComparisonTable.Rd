@@ -14,6 +14,8 @@ mortalityComparisonTable(table1, table2, years, ages, binsize = 5, ...)
 \item{ages}{Vector of ages to include in the comparisons}
 
 \item{binsize}{How many ages to combine into one age band}
+
+\item{...}{Other parameters (currently unused)}
 }
 \description{
 Calculate relative mortalities for age bands and birth years
@@ -21,10 +23,17 @@ Calculate relative mortalities for age bands and birth years
 \examples{
 mortalityTables.load("Austria_Annuities")
 # Compare mortality of Austrian male and female annuitants born 1930 to 2030
-mortalityComparisonTable(AVOe2005R.male, AVOe2005R.female, years = seq(1930, 2030, by = 10), ages = 0:119)
+mortalityComparisonTable(
+    AVOe2005R.male, AVOe2005R.female,
+    years = seq(1930, 2030, by = 10),
+    ages = 0:119)
 
-# Compare the two Austrian male annuity tables AVÖ 2005-R and AVÖ 1996-R, combine ages 10-19, 20-29, etc.
-mortalityComparisonTable(AVOe2005R.male, AVOe1996R.male, years = seq(1930, 2030, by = 10), ages = 0:109, binsize=10)
+# Compare the two Austrian male annuity tables AVOe 2005-R and AVOe 1996-R,
+# combining ages 10-19, 20-29, etc.
+mortalityComparisonTable(
+    AVOe2005R.male, AVOe1996R.male,
+    years = seq(1930, 2030, by = 10),
+    ages = 0:109, binsize=10)
 
 
 }
