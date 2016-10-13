@@ -68,9 +68,9 @@ setMethod("deathProbabilities","mortalityTable.improvementFactors",
 #'                                life table given the birth year (if needed)
 setMethod("deathProbabilities","mortalityTable.mixed",
           function (object,  ..., YOB = 1975) {
-              qx1 = deathProbabilities(object@table1, ..., YOB) * (1 + object@loading);
-              qx2 = deathProbabilities(object@table2, ..., YOB) * (1 + object@loading);
-              mixedqx = (object@weight1 * qx1 + object@weight2 * qx2)/(object@weight1 + object@weight2);
+              qx1 = deathProbabilities(object@table1, ..., YOB);
+              qx2 = deathProbabilities(object@table2, ..., YOB);
+              mixedqx = (object@weight1 * qx1 + object@weight2 * qx2)/(object@weight1 + object@weight2) * (1 + object@loading);
               object@modification(mixedqx)
           })
 

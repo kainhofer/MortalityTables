@@ -62,9 +62,9 @@ setMethod("periodDeathProbabilities", "mortalityTable.improvementFactors",
 #'             of the life table for a given observation year
 setMethod("periodDeathProbabilities", "mortalityTable.mixed",
           function (object,  ..., Period = 1975) {
-              qx1 = periodDeathProbabilities(object@table1, ..., Period = Period) * (1 + object@loading);
-              qx2 = periodDeathProbabilities(object@table2, ..., Period = Period) * (1 + object@loading);
-              mixedqx = (object@weight1 * qx1 + object@weight2 * qx2) / (object@weight1 + object@weight2);
+              qx1 = periodDeathProbabilities(object@table1, ..., Period = Period);
+              qx2 = periodDeathProbabilities(object@table2, ..., Period = Period);
+              mixedqx = (object@weight1 * qx1 + object@weight2 * qx2) / (object@weight1 + object@weight2) * (1 + object@loading);
               object@modification(mixedqx)
           })
 
