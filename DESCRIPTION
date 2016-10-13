@@ -42,6 +42,7 @@ Collate:
     'getPeriodTable.R'
     'lifeTable.R'
     'makeQxDataFrame.R'
+    'mortalityComparisonTable.R'
     'mortalityTables.list.R'
     'mortalityTables.load.R'
     'periodDeathProbabilities.R'
