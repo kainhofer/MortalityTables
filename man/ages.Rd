@@ -37,4 +37,11 @@ Return the defined ages of the life table
 
 \item \code{mortalityTable.observed}: Return the defined ages of the observed life table
 }}
+\examples{
+mortalityTables.load("Austria_*", wildcard=TRUE)
+ages(AVOe2005R.male)
+ages(AVOe1996R.male)
+ages(mort.AT.census.2011.male)
+
+}
 
