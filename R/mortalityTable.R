@@ -22,7 +22,7 @@
 #'
 #' @export mortalityTable
 #' @exportClass mortalityTable
-mortalityTable=setClass(
+mortalityTable = setClass(
     "mortalityTable",
     slots = list(
         name = "character",
