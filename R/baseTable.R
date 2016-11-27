@@ -15,12 +15,12 @@ setGeneric("baseTable", function(object, ...) standardGeneric("baseTable"));
 
 #' @describeIn baseTable Return the base table of the life table
 setMethod("baseTable", "mortalityTable",
-          function (object,  ...) {
+          function(object,  ...) {
               c()
           })
 
 #' @describeIn baseTable Return the base table of the life table
 setMethod("baseTable", "mortalityTable.period",
-          function (object,  ...) {
+          function(object,  ...) {
               object@deathProbs
           })

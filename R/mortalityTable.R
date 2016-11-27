@@ -32,7 +32,7 @@ mortalityTable = setClass(
     ),
     prototype = list(
         name = "Actuarial Mortality Table",
-        baseYear = 2000,
+        baseYear = 0,
         loading = 0,
         modification = identity
     ),

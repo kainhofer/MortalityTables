@@ -22,6 +22,6 @@ setMethod("getPeriodTable","mortalityTable",
                   name = paste(object@name, ", Period ", Period),
                   baseYear = Period,
                   ages = ages(object),
-                  deathProbs = periodDeathProbabilities(object, Period = Period)
+                  deathProbs = periodDeathProbabilities(object, Period = Period, ...)
               )
           })

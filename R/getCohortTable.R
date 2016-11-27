@@ -13,11 +13,11 @@ setGeneric("getCohortTable", function(object, YOB, ...) standardGeneric("getCoho
 #' @describeIn getCohortTable Return the cohort life table as a
 #'             \code{mortalityTable.period} object
 setMethod("getCohortTable","mortalityTable",
-          function (object, YOB, ...) {
+          function(object, YOB, ...) {
               mortalityTable.period(
                   name = paste(object@name, ", YOB ", YOB),
                   baseYear = YOB,
                   ages = ages(object),
-                  deathProbs = deathProbabilities(object, YOB = YOB)
+                  deathProbs = deathProbabilities(object, YOB = YOB, ...)
               );
           })
