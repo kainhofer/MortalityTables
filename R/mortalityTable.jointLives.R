@@ -45,11 +45,19 @@ deathProbabilitiesIndividual = function(tables, YOB, ageDifferences) {
 
     # Find the required length to have all (shifted) death probabilities fit
     # last value will be repeated for shorter tables
-    qxlen = max(mapply(
-        function(table, yob, difference) {
-            getOmega(table) - difference
-        },
-        tables, YOB, ageDifferences)) + 1;
+    # FIXME: For now, wee cannot make the table longer than the first table, because
+    # ages(...) will always just return a list of ages allowed for the first table.
+    # The reason is that the deathProbabilities function gets a list of ageDifferences
+    # influencing the possible length of the death probabilities, while the ages
+    # function has only the mortalityTable.2Lives object without any further information,
+    # i.e. the age differences are not part of the mortality table definition,
+    # but ages(...) has only access to that definition and nothing else.
+    # qxlen = max(mapply(
+    #     function(table, yob, difference) {
+    #         getOmega(table) - difference
+    #     },
+    #     tables, YOB, ageDifferences)) + 1;
+    qxlen = getOmega(tables[[1]]) + 1;
     qxMatrix = mapply(
         function(table, yob, difference) {
             qx = deathProbabilities(table, yob);
@@ -77,11 +85,19 @@ periodDeathProbabilitiesIndividual = function(tables, period, ageDifferences) {
 
     # Find the required length to have all (shifted) death probabilities fit
     # last value will be repeated for shorter tables
-    qxlen = max(mapply(
-        function(table, difference) {
-            getOmega(table) - difference
-        },
-        tables, ageDifferences)) + 1;
+    # FIXME: For now, wee cannot make the table longer than the first table, because
+    # ages(...) will always just return a list of ages allowed for the first table.
+    # The reason is that the deathProbabilities function gets a list of ageDifferences
+    # influencing the possible length of the death probabilities, while the ages
+    # function has only the mortalityTable.2Lives object without any further information,
+    # i.e. the age differences are not part of the mortality table definition,
+    # but ages(...) has only access to that definition and nothing else.
+    # qxlen = max(mapply(
+    #     function(table, yob, difference) {
+    #         getOmega(table) - difference
+    #     },
+    #     tables, YOB, ageDifferences)) + 1;
+    qxlen = getOmega(tables[[1]]) + 1;
     qxMatrix = mapply(
         function(table, difference) {
             qx = periodDeathProbabilities(table, Period = period);
@@ -104,19 +120,19 @@ periodDeathProbabilitiesIndividual = function(tables, period, ageDifferences) {
 #' @describeIn ages Return the defined ages of the joint lives mortality table (returns the ages of the first table used for joint lives)
 setMethod("ages", "mortalityTable.jointLives",
           function(object, ...) {
-              ages(c(object@table)[1], ...);
+              ages(c(object@table)[[1]], ...);
           })
 
 #' @describeIn baseTable Return the base table of the joint lives mortality table (returns the base table of the first table used for joint lives)
 setMethod("baseTable", "mortalityTable.jointLives",
           function(object,  ...) {
-              baseTable(c(object@table)[1], ...)
+              baseTable(c(object@table)[[1]], ...)
           })
 
 #' @describeIn baseYear Return the base year of the life table
 setMethod("baseYear", "mortalityTable.jointLives",
           function(object,  ...) {
-              baseYear(c(object@table)[1], ...)
+              baseYear(c(object@table)[[1]], ...)
           })
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
@@ -131,9 +147,9 @@ setMethod("deathProbabilities", "mortalityTable.jointLives",
           })
 
 #' @describeIn getOmega Return the maximum age of the joint lives mortality table (returns the maximum age of the first table used for joint lives, as the ages of the joint lives are now known to the function)
-setMethod("getOmega", "mortalityTable.observed",
+setMethod("getOmega", "mortalityTable.jointLives",
           function(object) {
-              max(object@ages, na.rm = TRUE);
+              getOmega(c(object@table)[[1]])
           })
 
 
@@ -145,6 +161,9 @@ setMethod("periodDeathProbabilities", "mortalityTable.jointLives",
               # First death probabilities are characterized as p_x1x2x3.. = \prod p_xi, i.e.
               # q_x1x2x3... = 1 - \prod (1 - p_xi)
               qx = 1 - apply(1 - qxMatrix, 1, prod)
+              # Cut to same length as ages:
+              ages = ages(object);
+              qx = qx[1:length(ages)];
               object@modification(qx * (1 + object@loading));
           })
 

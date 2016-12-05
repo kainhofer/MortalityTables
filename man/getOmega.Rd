@@ -4,6 +4,7 @@
 \name{getOmega}
 \alias{getOmega}
 \alias{getOmega,mortalityTable.joined-method}
+\alias{getOmega,mortalityTable.jointLives-method}
 \alias{getOmega,mortalityTable.mixed-method}
 \alias{getOmega,mortalityTable.observed-method}
 \alias{getOmega,mortalityTable.period-method}
@@ -19,7 +20,7 @@ getOmega(object)
 
 \S4method{getOmega}{mortalityTable.observed}(object)
 
-\S4method{getOmega}{mortalityTable.observed}(object)
+\S4method{getOmega}{mortalityTable.jointLives}(object)
 }
 \arguments{
 \item{object}{A life table object (instance of a \code{mortalityTable} class)}
@@ -37,6 +38,6 @@ Return the maximum age of the life table
 
 \item \code{mortalityTable.observed}: Return the maximum age of the joined life table
 
-\item \code{mortalityTable.observed}: Return the maximum age of the joint lives mortality table (returns the maximum age of the first table used for joint lives, as the ages of the joint lives are now known to the function)
+\item \code{mortalityTable.jointLives}: Return the maximum age of the joint lives mortality table (returns the maximum age of the first table used for joint lives, as the ages of the joint lives are now known to the function)
 }}
 
