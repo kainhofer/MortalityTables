@@ -1,6 +1,7 @@
 #' @include mortalityTable.R periodDeathProbabilities.R
 NULL
 
+setClassUnion("mortalityTable(s)", c("mortalityTable", "list"))
 #' Class mortalityTable.jointLives - Life table for multiple joint lives
 #'
 #' A cohort life table obtained by calculating joint death probabilities for
@@ -13,7 +14,7 @@ NULL
 mortalityTable.jointLives = setClass(
     "mortalityTable.jointLives",
     slots = list(
-        table = "mortalityTable"
+        table = "mortalityTable(s)"
     ),
     contains = "mortalityTable"
 )
