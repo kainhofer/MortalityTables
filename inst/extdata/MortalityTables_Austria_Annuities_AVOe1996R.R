@@ -63,13 +63,13 @@ AVOe1996R.female.group = mortalityTable.trendProjection(
 
 AVOe1996R.male.av325 = mortalityTable.ageShift(
     name = "AVÖ 1996R M mit Altersverschiebung (3,25%)",
-    ages = AVOe1996R.male,
+    ages = ages(AVOe1996R.male),
     deathProbs = deathProbabilities(AVOe1996R.male, YOB = 1950),
     ageShifts = generateAgeShift(initial = 1, YOBs = c(1922, 1944, 1958, 1973, 1989, 2006, 2023, 2041, 2056))
 )
 AVOe1996R.female.av325 = mortalityTable.ageShift(
     name = "AVÖ 1996R F mit Altersverschiebung (3,25%)",
-    ages = AVOe1996R.female,
+    ages = ages(AVOe1996R.female),
     deathProbs = deathProbabilities(AVOe1996R.female, YOB = 1950),
     ageShifts = generateAgeShift(initial = 2, YOBs = c(1922, 1932, 1945, 1956, 1968, 1980, 1993, 2007, 2021, 2036, 2051, 2056))
 )
