@@ -8,20 +8,20 @@ stopifnot(require(methods), require(utils), require(MortalityTables)) # Mortalit
 AVOe1996R.exakt.data = utils::read.csv(
     system.file("extdata",
                 "Austria_Annuities_AVOe1996R.csv",
-                package="MortalityTables"),
-    skip=2)
+                package = "MortalityTables"),
+    skip = 2)
 
 AVOe1996R.trend.switching = function(year) {
     if (year <= 1971) {
-        15/(1991-year)
+        15/(1991 - year)
     } else if (1971 < year && year < 1981) {
-        1+(year-1981)^2/(year-1991)/20
+         1 + (year - 1981)^2/(year - 1991)/20
     } else if (1981 <= year && year <= 2000) {
         1
     } else if (2000 < year && year < 2010) {
-        1-(year-2000)^2/(year-1991)/20
+        1 - (year - 2000)^2/(year - 1991)/20
     } else if (year >= 2010) {
-        14/(year-1991)
+        14/(year - 1991)
     }
 }
 
