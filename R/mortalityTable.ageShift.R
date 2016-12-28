@@ -20,3 +20,21 @@ mortalityTable.ageShift = setClass(
     ),
     contains = "mortalityTable.period"
 )
+
+#' Generate data.frame containing age shifts for each birth year
+#'
+#' Generate a dataframe suitable to be passed to the mortalityTable.ageShift
+#' class.
+#'
+#' @param initial Age shift for the first birth year given in the \code{YOBs} vector
+#' @param YOBs    Vector of birth years in which the age shift changes by \code{step}. The last entry gives the first birth year that does not have any shift defined any more.
+#' @param step    How much the age shift changes in each year given in the \code{YOBs} vector
+#'
+#' @examples generateAgeShift(1, YOBs = c(1922, 1944, 1958, 1973, 1989, 2006, 2023, 2041, 2056))
+#' @export
+generateAgeShift = function(initial = 0, YOBs = c(1900, 2100), step = -1) {
+    lns = diff(YOBs)
+    shifts = unlist(mapply(rep, initial + step * 0:(length(lns)-1), lns, SIMPLIFY = TRUE))
+    data.frame(shifts = shifts, row.names = YOBs[1]:(tail(YOBs, 1)-1))
+}
+
