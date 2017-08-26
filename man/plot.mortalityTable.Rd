@@ -65,4 +65,3 @@ plot(mort.AT.census.1869.male, mort.AT.census.1869.female,
 \seealso{
 \code{\link{plotMortalityTables}} and \code{\link{plotMortalityTableComparisons}}
 }
-

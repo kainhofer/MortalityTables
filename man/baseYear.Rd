@@ -4,8 +4,8 @@
 \name{baseYear}
 \alias{baseYear}
 \alias{baseYear,mortalityTable-method}
-\alias{baseYear,mortalityTable.jointLives-method}
 \alias{baseYear,mortalityTable.mixed-method}
+\alias{baseYear,mortalityTable.jointLives-method}
 \title{Return the base year of the life table}
 \usage{
 baseYear(object, ...)
@@ -32,9 +32,9 @@ Return the base year of the life table
 
 \item \code{mortalityTable.jointLives}: Return the base year of the life table
 }}
+
 \examples{
 mortalityTables.load("Austria_Annuities")
 baseYear(AVOe2005R.male)
 
 }
-

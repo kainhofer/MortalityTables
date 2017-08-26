@@ -2,8 +2,8 @@
 % Please edit documentation in R/mortalityTable.mixed.R
 \docType{class}
 \name{mortalityTable.mixed-class}
-\alias{mortalityTable.mixed}
 \alias{mortalityTable.mixed-class}
+\alias{mortalityTable.mixed}
 \title{Class mortalityTable.mixed - Life table as a mix of two life tables}
 \description{
 A cohort life table obtained by mixing two life tables with the given weights

@@ -3,11 +3,11 @@
 \docType{methods}
 \name{ages}
 \alias{ages}
-\alias{ages,mortalityTable.joined-method}
-\alias{ages,mortalityTable.jointLives-method}
-\alias{ages,mortalityTable.mixed-method}
-\alias{ages,mortalityTable.observed-method}
 \alias{ages,mortalityTable.period-method}
+\alias{ages,mortalityTable.mixed-method}
+\alias{ages,mortalityTable.joined-method}
+\alias{ages,mortalityTable.observed-method}
+\alias{ages,mortalityTable.jointLives-method}
 \title{Return the defined ages of the life table}
 \usage{
 ages(object, ...)
@@ -42,6 +42,7 @@ Return the defined ages of the life table
 
 \item \code{mortalityTable.jointLives}: Return the defined ages of the joint lives mortality table (returns the ages of the first table used for joint lives)
 }}
+
 \examples{
 mortalityTables.load("Austria_*", wildcard=TRUE)
 ages(AVOe2005R.male)
@@ -49,4 +50,3 @@ ages(AVOe1996R.male)
 ages(mort.AT.census.2011.male)
 
 }
-

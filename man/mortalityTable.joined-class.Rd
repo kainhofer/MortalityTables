@@ -2,8 +2,8 @@
 % Please edit documentation in R/mortalityTable.joined.R
 \docType{class}
 \name{mortalityTable.joined-class}
-\alias{mortalityTable.joined}
 \alias{mortalityTable.joined-class}
+\alias{mortalityTable.joined}
 \title{Class mortalityTable.joined - Life table created by joining two life tables}
 \description{
 A cohort life table obtained by joining two cohort life tables, each of which

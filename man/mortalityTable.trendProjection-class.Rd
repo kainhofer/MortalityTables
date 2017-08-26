@@ -2,8 +2,8 @@
 % Please edit documentation in R/mortalityTable.trendProjection.R
 \docType{class}
 \name{mortalityTable.trendProjection-class}
-\alias{mortalityTable.trendProjection}
 \alias{mortalityTable.trendProjection-class}
+\alias{mortalityTable.trendProjection}
 \title{Class mortalityTable.trendProjection - Cohort mortality table with age-specific trend}
 \description{
 A cohort mortality table, obtained by a trend projection from a given base table

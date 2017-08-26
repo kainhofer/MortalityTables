@@ -2,8 +2,8 @@
 % Please edit documentation in R/mortalityTable.R
 \docType{class}
 \name{mortalityTable-class}
-\alias{mortalityTable}
 \alias{mortalityTable-class}
+\alias{mortalityTable}
 \title{Class mortalityTable}
 \description{
 Class \code{mortalityTable} is the (virtual) base class for all mortality

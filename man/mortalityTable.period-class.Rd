@@ -2,8 +2,8 @@
 % Please edit documentation in R/mortalityTable.period.R
 \docType{class}
 \name{mortalityTable.period-class}
-\alias{mortalityTable.period}
 \alias{mortalityTable.period-class}
+\alias{mortalityTable.period}
 \title{Class mortalityTable.period - Period life tables}
 \description{
 A period life table, giving death probabilities for each age, up to

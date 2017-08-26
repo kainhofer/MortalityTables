@@ -2,8 +2,8 @@
 % Please edit documentation in R/mortalityTable.improvementFactors.R
 \docType{class}
 \name{mortalityTable.improvementFactors-class}
-\alias{mortalityTable.improvementFactors}
 \alias{mortalityTable.improvementFactors-class}
+\alias{mortalityTable.improvementFactors}
 \title{Class mortalityTable.improvementFactors - Cohort life table with improvement
 factors}
 \description{

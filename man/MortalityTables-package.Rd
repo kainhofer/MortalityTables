@@ -8,4 +8,14 @@
 \description{
 Provide life table classes for life insurance purposes
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://gitlab.open-tools.net/R/r-mortality-tables}
+}
 
+}
+\author{
+\strong{Maintainer}: Reinhold Kainhofer \email{reinhold@kainhofer.com}
+
+}

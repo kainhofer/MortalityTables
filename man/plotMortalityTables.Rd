@@ -30,4 +30,3 @@ plotMortalityTables(data, ..., xlim = NULL, ylim = NULL, xlab = NULL,
 \description{
 \code{plotMortalityTables} prints multiple life tables (objects of child classes of \code{mortalityTable}) in one log-linear plot, with a legend showing the names of the tables.
 }
-

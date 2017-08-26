@@ -22,8 +22,8 @@ Description: Classes to implement and plot cohort life tables
     as well as period life table, cohort life tables using an age shift, and
     merged life tables.
 License: GPL (>= 2)
-RoxygenNote: 5.0.1
-Collate:
+RoxygenNote: 6.0.1
+Collate: 
     'mortalityTable.R'
     'mortalityTable.period.R'
     'mortalityTable.ageShift.R'
@@ -47,6 +47,7 @@ Collate:
     'mortalityTable.jointLives.R'
     'mortalityTables.list.R'
     'mortalityTables.load.R'
+    'pensionTable.R'
     'plot.mortalityTable.R'
     'plotMortalityTableComparisons.R'
     'plotMortalityTables.R'

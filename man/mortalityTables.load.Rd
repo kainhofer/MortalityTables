@@ -19,4 +19,3 @@ directory. Defaults to the "MortalityTables" package.}
 \description{
 Load a named set of mortality tables provided by the \link{MortalityTables} package
 }
-

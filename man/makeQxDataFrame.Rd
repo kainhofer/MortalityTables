@@ -24,4 +24,3 @@ It is not required to call this function manually, \code{plotMortalityTables}
 will automatically do it if object derived from class \code{mortalityTable}
 are passed.
 }
-

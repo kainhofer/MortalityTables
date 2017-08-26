@@ -3,11 +3,11 @@
 \docType{methods}
 \name{getOmega}
 \alias{getOmega}
-\alias{getOmega,mortalityTable.joined-method}
-\alias{getOmega,mortalityTable.jointLives-method}
-\alias{getOmega,mortalityTable.mixed-method}
-\alias{getOmega,mortalityTable.observed-method}
 \alias{getOmega,mortalityTable.period-method}
+\alias{getOmega,mortalityTable.mixed-method}
+\alias{getOmega,mortalityTable.joined-method}
+\alias{getOmega,mortalityTable.observed-method}
+\alias{getOmega,mortalityTable.jointLives-method}
 \title{Return the maximum age of the life table}
 \usage{
 getOmega(object)

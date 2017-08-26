@@ -4,8 +4,8 @@
 \name{baseTable}
 \alias{baseTable}
 \alias{baseTable,mortalityTable-method}
-\alias{baseTable,mortalityTable.jointLives-method}
 \alias{baseTable,mortalityTable.period-method}
+\alias{baseTable,mortalityTable.jointLives-method}
 \title{Return the base table of the life table}
 \usage{
 baseTable(object, ...)
@@ -32,9 +32,9 @@ Return the base table of the life table
 
 \item \code{mortalityTable.jointLives}: Return the base table of the joint lives mortality table (returns the base table of the first table used for joint lives)
 }}
+
 \examples{
 mortalityTables.load("Austria_Annuities")
 baseTable(AVOe2005R.male)
 
 }
-

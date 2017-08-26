@@ -2,8 +2,8 @@
 % Please edit documentation in R/mortalityTable.observed.R
 \docType{class}
 \name{mortalityTable.observed-class}
-\alias{mortalityTable.observed}
 \alias{mortalityTable.observed-class}
+\alias{mortalityTable.observed}
 \title{Class mortalityTable.observed - Life table from actual observations}
 \description{
 A cohort life table described by actual observations (data frame of PODs

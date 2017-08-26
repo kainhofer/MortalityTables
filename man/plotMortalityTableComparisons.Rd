@@ -32,4 +32,3 @@ plotMortalityTableComparisons(data, ..., xlim = NULL, ylim = NULL,
 \description{
 \code{plotMortalityTableComparisons} prints multiple life tables (objects of child classes of \code{mortalityTable}) in one plot and scales each by the given reference table, so that the relative mortality can be easily seen. A legend is added showing the names of the tables.
 }
-

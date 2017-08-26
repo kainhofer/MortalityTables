@@ -2,8 +2,8 @@
 % Please edit documentation in R/mortalityTable.jointLives.R
 \docType{class}
 \name{mortalityTable.jointLives-class}
-\alias{mortalityTable.jointLives}
 \alias{mortalityTable.jointLives-class}
+\alias{mortalityTable.jointLives}
 \title{Class mortalityTable.jointLives - Life table for multiple joint lives}
 \description{
 A cohort life table obtained by calculating joint death probabilities for
