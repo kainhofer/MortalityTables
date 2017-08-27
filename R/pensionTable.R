@@ -58,12 +58,72 @@ pensionTable = setClass(
     contains = "mortalityTable"
 )
 
+#' Return all transition probabilities of the pension table
+#'
+#' @param object A pension table object (instance of a \code{\linkS4class{pensionTable}} class)
+#' @param ... Currently unused
+#' @param YOB Year of birth
+#'
+#' @examples
+#' pensionTables.load("Austria_*", wildcard=TRUE)
+#' transitionProbabilities(EttlPagler.male)
+#'
+#' @exportMethod transitionProbabilities
+setGeneric("transitionProbabilities", function(object, ...) standardGeneric("transitionProbabilities"));
+
 #' @describeIn baseTable Return the base table of the joint lives mortality table (returns the base table of the first table used for joint lives)
 setMethod("transitionProbabilities", "pensionTable",
           function(object, ...,  YOB = 1982) {
               x = ages(object@qx);
               q = deathProbabilities(object@qx, ..., YOB = YOB);
               i = deathProbabilities(object@ix, ..., YOB = YOB);
-              data.frame(x, q, i)
+              qi = deathProbabilities(object@qix, ..., YOB = YOB);
+              r = deathProbabilities(object@rx, ..., YOB = YOB);
+              ap = deathProbabilities(object@apx, ..., YOB = YOB);
+              api = deathProbabilities(object@apix, ..., YOB = YOB);
+              qp = deathProbabilities(object@qpx, ..., YOB = YOB);
+              h = deathProbabilities(object@hx, ..., YOB = YOB);
+              qw = deathProbabilities(object@qwy, ..., YOB = YOB);
+              yx = deathProbabilities(object@yx, ..., YOB = YOB);
+              qg = deathProbabilities(object@qgx, ..., YOB = YOB);
+              data.frame(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg)
           })
 
+
+if (FALSE) {
+    epP = transitionProbabilities(EttlPagler.male, YOB = 1982)
+    avoe08p = transitionProbabilities(AVOe2008P.male, YOB = 1977)
+}
+
+
+setGeneric("anwartschaften", function(object, ...) standardGeneric("anwartschaften"));
+
+setMethod("anwartschaften", "pensionTable",
+    function(object, ...,  i = 0.03, YOB = 1982) {
+        probs = transitionProbabilities(object, ..., YOB);
+        anwartschaften(probs, ..., YOB)
+    }
+);
+
+bwRente = function(p, v) {
+    Reduce(function(pp, ax1) { 1 + pp * ax1 * v }, p, 0.0, right = TRUE, accumulate = TRUE)[-(length(p) + 1)];
+}
+
+setMethod("anwartschaften", "data.frame",
+    function(object, ...,  i = 0.03) {
+        x = object$x;
+        v = 1 / (1 + i);
+        # Anwartschaft auf Witwenrente und Alterspension
+        # 1) Barwerte:
+        aa = bwRente(1.0 - object$q, v);
+        ai = bwRente(1. - object$qi - object$r, v);
+        ap = bwRente(1. - object$qp, v);
+        aw = bwRente(1. - object$qw, v);
+        data.frame(x, aa, ai, ap, aw)
+    }
+)
+
+if (FALSE) {
+    probs = transitionProbabilities(AVOe2008P.female, YOB = 1977)
+    an = anwartschaften(probs, YOB = 1977); an
+}

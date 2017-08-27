@@ -20,13 +20,14 @@ transition probabilities. Possible states are:
 Correspondingly, the following transition probabilities can be given:
     * qxaa:  death probability of actives (active -> dead)
     * ix:    invalidity probability (active -> incapacity)
-    * qxi:   death probability of invaid (invalid -> dead)
+    * qix:   death probability of invalid (invalid -> dead)
     * rx:    reactivation probability (incapacity -> active)
     * apx:   retirement probability (active -> retirement), typically 1 for a fixed age
     * apx:   retirement probability of invalids (invalid -> retirement), typically 0 or 1 for a fixed age
-    * qxApm: death probability of retired (retired -> dead)
+    * qpx:   death probability of retired (retired -> dead)
     * hx:    probability of a widow at moment of death (dead -> widow), y(x) age differene
     * qxw:   death probability of widows/widowers
+    * qgx:   death probability of total group (irrespective of state)
 }
 \section{Slots}{
 
@@ -41,14 +42,16 @@ Correspondingly, the following transition probabilities can be given:
 
 \item{\code{apx}}{Retirement probability of actives (derived from mortalityTable)}
 
-\item{\code{apxi}}{Retirement probability of invalids (derived from mortalityTable)}
+\item{\code{apix}}{Retirement probability of invalids (derived from mortalityTable)}
 
-\item{\code{qxApm}}{Death probability of old age pensioners (derived from mortalityTable)}
+\item{\code{qpx}}{Death probability of old age pensioners (derived from mortalityTable)}
 
 \item{\code{hx}}{Probability of a widow at the moment of death (derived from mortalityTable)}
 
-\item{\code{qxw}}{Death probability of widow(er)s (derived from mortality Table)}
+\item{\code{qwy}}{Death probability of widow(er)s (derived from mortality Table)}
 
-\item{\code{xy}}{Age difference of the widow to the deceased}
+\item{\code{yx}}{Age difference of the widow to the deceased}
+
+\item{\code{qgx}}{Death probability of whole group (derived from mortalityTable), irrespective of state}
 }}
 

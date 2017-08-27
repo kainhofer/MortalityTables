@@ -5,7 +5,8 @@
 \title{List all available sets of life tables provided by the \link[MortalityTables]{MortalityTables-package} package
 An existing life table can then be loaded with \link{mortalityTables.load}.}
 \usage{
-mortalityTables.list(pattern = "*", package = "MortalityTables")
+mortalityTables.list(pattern = "*", package = "MortalityTables",
+  prefix = "MortalityTables")
 }
 \arguments{
 \item{pattern}{Restrict the results only to life table sets that match the pattern (default: "*" to show all sets)}

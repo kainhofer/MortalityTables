@@ -24,3 +24,28 @@ mortalityTable.period = setClass(
     ),
     contains = "mortalityTable"
 )
+
+#' Generate a mortality table with all probabilities set to zero.
+#'
+#' @param name The name of the table
+#' @param ages The ages of the table
+#'
+#' @export
+mortalityTable.zeroes = function(name = "Zero mortality table", ages = 0:99) {
+    mortalityTable.period(name = name, ages = ages, deathProbs = ages * 0)
+}
+
+#' Generate a (deterministic) mortality table with only one probability set to 1 (for the given age)
+#'
+#' @param name The name of the table
+#' @param ages The ages of the table
+#'
+#' @export
+mortalityTable.once = function(transitionAge, name = "Deterministic mortality table", ages = 0:99) {
+    mortalityTable.period(
+        name = name,
+        ages = ages,
+        deathProbs = sapply(ages, function(x) { if (x == transitionAge) 1 else 0})
+    )
+}
+

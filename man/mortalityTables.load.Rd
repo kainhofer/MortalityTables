@@ -4,7 +4,8 @@
 \alias{mortalityTables.load}
 \title{Load a named set of mortality tables provided by the \link{MortalityTables} package}
 \usage{
-mortalityTables.load(dataset, wildcard = FALSE, package = "MortalityTables")
+mortalityTables.load(dataset, wildcard = FALSE, package = "MortalityTables",
+  prefix = "MortalityTables")
 }
 \arguments{
 \item{dataset}{The set of life tables to be loaded. A list of all available
@@ -15,6 +16,8 @@ datasets matching the pattern will be loaded}
 
 \item{package}{The package that contains the dataset in its \code{extdata/}
 directory. Defaults to the "MortalityTables" package.}
+
+\item{prefix}{The prefix for the data sets (default is "MortalityTables")}
 }
 \description{
 Load a named set of mortality tables provided by the \link{MortalityTables} package
