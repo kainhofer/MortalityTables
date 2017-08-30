@@ -4,12 +4,12 @@
 \name{transitionProbabilities}
 \alias{transitionProbabilities}
 \alias{transitionProbabilities,pensionTable-method}
-\title{Return all transition probabilities of the pension table}
+\title{Return all transition probabilities of the pension table (generational probabilities)}
 \usage{
-transitionProbabilities(object, ..., YOB = 1982)
+transitionProbabilities(object, ...)
 
-\S4method{transitionProbabilities}{pensionTable}(object, ...,
-  as.data.frame = TRUE, YOB = 1982)
+\S4method{transitionProbabilities}{pensionTable}(object, YOB = 1982, ...,
+  as.data.frame = TRUE)
 }
 \arguments{
 \item{object}{A pension table object (instance of a \code{\linkS4class{pensionTable}} class)}
@@ -19,11 +19,11 @@ transitionProbabilities(object, ..., YOB = 1982)
 \item{YOB}{Year of birth}
 }
 \description{
-Return all transition probabilities of the pension table
+Return all transition probabilities of the pension table (generational probabilities)
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{pensionTable}: Return all transition probabilities of the pension table
+\item \code{pensionTable}: Return all transition probabilities of the pension table for the generation YOB
 }}
 
 \examples{
