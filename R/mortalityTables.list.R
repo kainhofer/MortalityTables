@@ -4,6 +4,7 @@
 #' @param pattern Restrict the results only to life table sets that match the pattern (default: "*" to show all sets)
 #' @param package The package that contains the desired dataset in its \code{extdata/}
 #'                directory. Defaults to the "MortalityTables" package.
+#' @param prefix The file prefix, defaults to MortalityTables. Can be overridden to list other types of files, like "PensionTables"
 #'
 #' @export
 mortalityTables.list = function(pattern = "*", package = "MortalityTables", prefix = "MortalityTables") {

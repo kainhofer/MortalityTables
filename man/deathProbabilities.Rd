@@ -36,6 +36,8 @@ deathProbabilities(object, ..., YOB = 1975)
 \item{...}{Other parameters (currently unused)}
 
 \item{YOB}{The birth year for which the death probabilities should be calculated}
+
+\item{ageDifferences}{A vector of age differences of all joint lives.}
 }
 \description{
 Return the (cohort) death probabilities of the life table given the birth year (if needed)

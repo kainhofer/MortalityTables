@@ -35,6 +35,6 @@ mortalityTable.ageShift = setClass(
 generateAgeShift = function(initial = 0, YOBs = c(1900, 2100), step = -1) {
     lns = diff(YOBs)
     shifts = unlist(mapply(rep, initial + step * 0:(length(lns)-1), lns, SIMPLIFY = TRUE))
-    data.frame(shifts = shifts, row.names = YOBs[1]:(tail(YOBs, 1)-1))
+    data.frame(shifts = shifts, row.names = YOBs[1]:(utils::tail(YOBs, 1)-1))
 }
 

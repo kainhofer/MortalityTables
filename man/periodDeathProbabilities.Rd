@@ -39,6 +39,8 @@ periodDeathProbabilities(object, ..., Period = 1975)
 \item{...}{Other parameters (currently unused)}
 
 \item{Period}{The observation year for which the period death probabilities should be determined}
+
+\item{ageDifferences}{A vector of age differences of all joint lives.}
 }
 \description{
 Return the (period) death probabilities of the life table for a given

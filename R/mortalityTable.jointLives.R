@@ -28,7 +28,7 @@ pad0 = function(v, l, value=0) {
     }
 }
 padLast = function(v, l) {
-    pad0(v, l, tail(v, n = 1))
+    pad0(v, l, utils::tail(v, n = 1))
 }
 
 #' @export
@@ -69,10 +69,9 @@ deathProbabilitiesIndividual = function(tables, YOB, ageDifferences) {
                     rep(0, -difference),
                     qx);
             } else {
-                qxtmp = tail(qx, -difference);
+                qxtmp = utils::tail(qx, -difference);
             }
             qxnew = padLast(qxtmp, qxlen)
-            str(qxnew);
             qxnew
         },
         tables, YOB, ageDifferences);
@@ -109,7 +108,7 @@ periodDeathProbabilitiesIndividual = function(tables, period, ageDifferences) {
                     rep(0, -difference),
                     qx);
             } else {
-                qxtmp = tail(qx, -difference);
+                qxtmp = utils::tail(qx, -difference);
             }
             qxnew = padLast(qxtmp, qxlen)
             qxnew
@@ -138,6 +137,7 @@ setMethod("baseYear", "mortalityTable.jointLives",
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
 #'                                life table given the birth year (if needed)
+#' @param ageDifferences A vector of age differences of all joint lives.
 setMethod("deathProbabilities", "mortalityTable.jointLives",
           function(object,  ..., ageDifferences = c(), YOB = 1975) {
               qxMatrix = deathProbabilitiesIndividual(c(object@table), YOB = YOB, ageDifferences = ageDifferences);
@@ -156,6 +156,7 @@ setMethod("getOmega", "mortalityTable.jointLives",
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
 #'             of the joint lives mortality table for a given observation year
+#' @param ageDifferences A vector of age differences of all joint lives.
 setMethod("periodDeathProbabilities", "mortalityTable.jointLives",
           function(object,  ..., ageDifferences = c(), Period = 1975) {
               qxMatrix = periodDeathProbabilitiesIndividual(c(object@table), period = Period, ageDifferences = ageDifferences);

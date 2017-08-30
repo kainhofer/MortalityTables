@@ -13,6 +13,8 @@ mortalityTables.list(pattern = "*", package = "MortalityTables",
 
 \item{package}{The package that contains the desired dataset in its \code{extdata/}
 directory. Defaults to the "MortalityTables" package.}
+
+\item{prefix}{The file prefix, defaults to MortalityTables. Can be overridden to list other types of files, like "PensionTables"}
 }
 \description{
 List all available sets of life tables provided by the \link[MortalityTables]{MortalityTables-package} package

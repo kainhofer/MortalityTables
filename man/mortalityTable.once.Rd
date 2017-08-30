@@ -8,6 +8,8 @@ mortalityTable.once(transitionAge, name = "Deterministic mortality table",
   ages = 0:99)
 }
 \arguments{
+\item{transitionAge}{The age where the deterministic transition occurs}
+
 \item{name}{The name of the table}
 
 \item{ages}{The ages of the table}
