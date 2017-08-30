@@ -36,7 +36,7 @@ Correspondingly, the following transition probabilities can be given:
 
 \item{\code{ix}}{Invalidity probability of actives (derived from mortalityTable)}
 
-\item{\code{qxi}}{Death probability table of invalids (derived from mortalityTable)}
+\item{\code{qix}}{Death probability table of invalids (derived from mortalityTable)}
 
 \item{\code{rx}}{Reactivation probability of invalids (derived from mortalityTable)}
 
