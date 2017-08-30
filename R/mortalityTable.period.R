@@ -49,3 +49,17 @@ mortalityTable.once = function(transitionAge, name = "Deterministic mortality ta
     )
 }
 
+#' Generate a (deterministic) mortality table with all probabilities starting at a given age set to 1
+#'
+#' @param transitionAge The age where the deterministic transition occurs
+#' @param name The name of the table
+#' @param ages The ages of the table
+#'
+#' @export
+mortalityTable.onceAndFuture = function(transitionAge, name = "Deterministic mortality table", ages = 0:99) {
+    mortalityTable.period(
+        name = name,
+        ages = ages,
+        deathProbs = sapply(ages, function(x) { if (x >= transitionAge) 1 else 0})
+    )
+}
