@@ -43,6 +43,7 @@ Collate:
     'lifeTable.R'
     'makeQxDataFrame.R'
     'mortalityComparisonTable.R'
+    'mortalityImprovement.R'
     'periodDeathProbabilities.R'
     'mortalityTable.jointLives.R'
     'mortalityTables.list.R'
