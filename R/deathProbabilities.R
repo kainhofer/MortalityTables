@@ -37,7 +37,7 @@ setMethod("deathProbabilities","mortalityTable.trendProjection",
           function (object,  ..., YOB = 1975) {
               qx=object@deathProbs * (1 + object@loading);
               if (is.null(object@trend2) || length(object@trend2) <= 1) {
-                  ages = 0:(length(qx)-1);
+                  ages = object@ages;
                   damping = sapply(
                       ages,
                       function (age) { object@dampingFunction(YOB + age - object@baseYear) }
