@@ -5,13 +5,15 @@
 \title{List all available sets of pension tables provided by the \link[MortalityTables]{MortalityTables-package} package
 An existing pension table can then be loaded with \link{pensionTables.load}.}
 \usage{
-pensionTables.list(pattern = "*", package = "MortalityTables")
+pensionTables.list(pattern = "*", package = c("MortalityTables",
+  "MortalityTablesPrivate"))
 }
 \arguments{
 \item{pattern}{Restrict the results only to pension table sets that match the pattern (default: "*" to show all sets)}
 
 \item{package}{The package that contains the desired dataset in its \code{extdata/}
-directory. Defaults to the "MortalityTables" package.}
+directory. Defaults to the "MortalityTables" package.
+Multiple packages can be given as a vector.}
 }
 \description{
 List all available sets of pension tables provided by the \link[MortalityTables]{MortalityTables-package} package

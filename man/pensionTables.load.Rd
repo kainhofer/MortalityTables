@@ -4,17 +4,17 @@
 \alias{pensionTables.load}
 \title{Load a named set of pension tables provided by the \link{MortalityTables} package}
 \usage{
-pensionTables.load(dataset, wildcard = FALSE, package = "MortalityTables")
+pensionTables.load(dataset, package = c("MortalityTables",
+  "MortalityTablesPrivate"))
 }
 \arguments{
 \item{dataset}{The set of lifpensione tables to be loaded. A list of all available
-data sets is provided by the function \code{\link{pensionTables.list}}.}
-
-\item{wildcard}{Whether the dataset name contains wildcard. If TRUE, all
-datasets matching the pattern will be loaded}
+data sets is provided by the function \code{\link{pensionTables.list}}.
+Wildcards (*) are allowed to match and load multiple datasets.}
 
 \item{package}{The package that contains the dataset in its \code{extdata/}
-directory. Defaults to the "MortalityTables" package.}
+directory. Defaults to the "MortalityTables" package.
+Multiple packages can be given as a vector.}
 }
 \description{
 Load a named set of pension tables provided by the \link{MortalityTables} package

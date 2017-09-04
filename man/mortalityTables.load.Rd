@@ -4,20 +4,19 @@
 \alias{mortalityTables.load}
 \title{Load a named set of mortality tables provided by the \link{MortalityTables} package}
 \usage{
-mortalityTables.load(dataset, wildcard = FALSE, package = "MortalityTables",
-  prefix = "MortalityTables")
+mortalityTables.load(dataset, package = c("MortalityTables",
+  "MortalityTablesPrivate"), prefix = "MortalityTables")
 }
 \arguments{
-\item{dataset}{The set of life tables to be loaded. A list of all available
-data sets is provided by the function \code{\link{mortalityTables.list}}.}
-
-\item{wildcard}{Whether the dataset name contains wildcard. If TRUE, all
-datasets matching the pattern will be loaded}
+\item{dataset}{The set(s) of life tables to be loaded. A list of all available
+data sets is provided by the function \code{\link{mortalityTables.list}}.
+Wildcards (*) are allowed to match and load multiple datasets.}
 
 \item{package}{The package that contains the dataset in its \code{extdata/}
-directory. Defaults to the "MortalityTables" package.}
+directory. Defaults to the "MortalityTables" package.
+Multiple packages can be given as a vector.}
 
-\item{prefix}{The prefix for the data sets (default is "MortalityTables")}
+\item{prefix}{The prefix for the data sets (default is "MortalityTables").}
 }
 \description{
 Load a named set of mortality tables provided by the \link{MortalityTables} package
