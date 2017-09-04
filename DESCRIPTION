@@ -52,6 +52,7 @@ Collate:
     'plot.mortalityTable.R'
     'plotMortalityTableComparisons.R'
     'plotMortalityTables.R'
+    'plotMortalityTrend.R'
     'setLoading.R'
     'setModification.R'
     'undampenTrend.R'
