@@ -152,8 +152,13 @@ setMethod("periodTransitionProbabilities", "pensionTable",
 
 
 if (FALSE) {
+    pensionTables.load("Austria_AVOe2008P")
     transitionProbabilities(AVOe2008P.male, YOB = 1977, as.data.frame = FALSE)
     epP = transitionProbabilities(EttlPagler.male, YOB = 1982)
 #    avoe08p =
         transitionProbabilities(AVOe2008P.male, YOB = 1977, as.data.frame = TRUE)
+avoe08p.period = periodTransitionProbabilities(AVOe2008P.male, Period = 2007, as.data.frame = TRUE)
+
+pensionTables.list(package = "MortalityTablesPrivate")
+pensionTables.load("Austria_AVOe1999P")
 }
