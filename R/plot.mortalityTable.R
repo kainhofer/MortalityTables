@@ -30,6 +30,9 @@
 #' @param reference The reference table that determines the 100\% values.
 #'                  If not given, the absolute mortality values are
 #'                  compared and plotted on a log-linear scale.
+#' @param trend If set to \code{TRUE}, the function \code{\link{plotMortalityTrend}}
+#'              is used to plot the trends of the given tables.
+#'
 #'
 #' @examples
 #' # Load the Austrian census data
@@ -55,9 +58,11 @@
 #'
 #' @import scales
 #' @export
-plot.mortalityTable = function(x, ..., reference=NULL) {
-    if (!missing(reference) && !is.null(reference)) {
-        plotMortalityTableComparisons(x, ..., reference=reference)
+plot.mortalityTable = function(x, ..., reference = NULL, trend = FALSE) {
+    if (!missing(trend) && isTRUE(trend)) {
+        plotMortalityTrend(x, ..., reference = reference)
+    } else if (!missing(reference) && !is.null(reference)) {
+        plotMortalityTableComparisons(x, ..., reference = reference)
     } else {
         plotMortalityTables(x, ...)
     }

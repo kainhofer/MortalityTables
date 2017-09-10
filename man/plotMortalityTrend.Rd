@@ -5,7 +5,7 @@
 \title{Plot the trends of multiple mortality tables (life tables) in one chart}
 \usage{
 plotMortalityTrend(data, ..., xlim = NULL, ylim = NULL, xlab = NULL,
-  ylab = NULL, title = "", legend.position = c(0.9, 0.1),
+  ylab = NULL, title = "", legend.position = c(0.9, 0.9),
   legend.key.width = unit(25, "mm"))
 }
 \arguments{

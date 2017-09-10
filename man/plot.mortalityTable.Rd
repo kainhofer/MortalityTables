@@ -4,7 +4,7 @@
 \alias{plot.mortalityTable}
 \title{Plot multiple mortality tables (life tables) in one plot}
 \usage{
-\method{plot}{mortalityTable}(x, ..., reference = NULL)
+\method{plot}{mortalityTable}(x, ..., reference = NULL, trend = FALSE)
 }
 \arguments{
 \item{x}{First life table to be plotted. Must be a \code{mortalityTable}
@@ -31,6 +31,9 @@ passed on to \code{\link{plotMortalityTables}} or
 \item{reference}{The reference table that determines the 100\% values.
 If not given, the absolute mortality values are
 compared and plotted on a log-linear scale.}
+
+\item{trend}{If set to \code{TRUE}, the function \code{\link{plotMortalityTrend}}
+is used to plot the trends of the given tables.}
 }
 \description{
 \code{plot.mortalityTable} displays multiple life tables (objects of child
