@@ -7,7 +7,7 @@ NULL
 #' @param ... Currently unused
 #'
 #' @examples
-#' mortalityTables.load("Austria_*", wildcard=TRUE)
+#' mortalityTables.load("Austria_*")
 #' ages(AVOe2005R.male)
 #' ages(AVOe1996R.male)
 #' ages(mort.AT.census.2011.male)

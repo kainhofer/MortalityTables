@@ -15,7 +15,7 @@ mortalityTables.list("Austria_*")
 mortalityTables.load("Germany_Annuities_DAV2004R")
 
 # Load all Austrian data sets
-mortalityTables.load("Austria_*", wildcard=TRUE)
+mortalityTables.load("Austria_*")
 
 ## ------------------------------------------------------------------------
 # Log-linear plot comparing some Austrian census tables
