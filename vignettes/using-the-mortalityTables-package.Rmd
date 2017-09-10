@@ -3,7 +3,7 @@ title: "Using the MortalityTables Package"
 author: "Reinhold Kainhofer, reinhold@kainhofer.com"
 date: "`r Sys.Date()`"
 output: 
-    rmarkdown::html_vignette:
+    rmarkdown::html_vignette: 
         toc: true
         toc_depth: 3
         fig_width: 7
@@ -14,13 +14,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
 ```{r echo = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
 The MortalityTables package provides the `mortalityTable` base class and
-some derived classes to handle different types of mortality tables (also 
+some derived classes to handle diffferent types of mortality tables (also 
 called life tables), mainly
 used for life insurance. Additionally it provides a plot function to compare
 multiple life tables either directly using the absolute mortalities in
@@ -62,6 +61,10 @@ Provided types of mortality tables are:
 * Cohort life table using age-specific improvement factors
     : Class `mortalityTable.improvementFactors`
     : Project base life table using age-specific improvement factors.
+* Pension tables
+    : Class `pensionTable`
+    : Transition probabilities for a four-state pension model (active, invalid, 
+      retirement and death, with a possible widow in the event of death).
 
 ## Loading the MortalityTables package
 ```{r message=FALSE}
@@ -88,7 +91,7 @@ mortalityTables.list("Austria_*")
 mortalityTables.load("Germany_Annuities_DAV2004R")
 
 # Load all Austrian data sets
-mortalityTables.load("Austria_*", wildcard=TRUE)
+mortalityTables.load("Austria_*")
 ```
 
 
@@ -100,27 +103,31 @@ for demonstration purposes.
 
 ### Plotting life tables
 
-The package provides two functions to plot lifetables:
+The package provides several functions to plot lifetables:
 
 * `plotMortalityTables(table1, table2, ...)`
     : A log-linear plot comparing all given life tables.
 * `plotMortalityTableComparisons(table1, table2, ..., reference=reftable)`
     : Plot the given life tables as percentages relative to the reference table
+* `plotMortalityTrend(table1, table2, ..., YOB, Period)`
+    : Plot the yearly mortality improvement factors (for either the given 
+      observation year `Period` or the birth-year `YOB`)
     
-Both functionalities are also combined into the S3 plot function for the 
+These functionalities are also combined into the S3 plot function for the 
 mortalityTable class, so you can usually just call plot on the mortality tables.
-If the `reference` argument is given, `plotMortalityTableComparisons` is used, 
+If the `trend = TRUE` argument is given, `plotMortalityTrend` is used,
+if the `reference` argument is given, `plotMortalityTableComparisons` is used, 
 otherwise `plotMortalityTables` is called.
 ```{r}
 # Log-linear plot comparing some Austrian census tables
 plot(mort.AT.census.1951.male, mort.AT.census.1991.male, 
      mort.AT.census.2001.male, mort.AT.census.2011.male, 
-     legend.position=c(1,0))
+     legend.position = c(1,0))
 
 # Relative death probabilities in percentage of the latest census
 plot(mort.AT.census.1951.male, mort.AT.census.1991.male, 
      mort.AT.census.2001.male, 
-     reference = mort.AT.census.2011.male, legend.position=c(1,0.75), ylim=c(0,4))
+     reference = mort.AT.census.2011.male, legend.position = c(1,0.75), ylim = c(0,4))
 ```
 
 For cohort life tables, the plot functions also take either the `YOB` or the 
@@ -129,10 +136,10 @@ birth year or the period death probabilities for the given observation year.
 
 ```{r}
 # Comparison of two Austrian annuity tables for birth year 1977
-plot(AVOe1996R.male, AVOe2005R.male, YOB=1977, title="Comparison for YOB=1977")
+plot(AVOe1996R.male, AVOe2005R.male, YOB = 1977, title = "Comparison for YOB=1977")
 
 # Comparison of two Austrian annuity tables for observation year 2020
-plot(AVOe1996R.male, AVOe2005R.male, Period=2020, title="Comparison for observation year 2020")
+plot(AVOe1996R.male, AVOe2005R.male, Period = 2020, title = "Comparison for observation year 2020")
 
 ```
 
@@ -147,10 +154,10 @@ To obtain death probabilities from all the different types of tables, there are 
 ```{r message=FALSE}
 mortalityTables.load("Austria_Annuities")
 # Get the cohort death probabilities for Austrian Annuitants born in 1977:
-qx.coh1977 = deathProbabilities(AVOe2005R.male, YOB=1977)
+qx.coh1977 = deathProbabilities(AVOe2005R.male, YOB = 1977)
 
 # Get the period death probabilities for Austrian Annuitants observed in the year 2020:
-qx.per2020 = periodDeathProbabilities(AVOe2005R.male, Period=2020)
+qx.per2020 = periodDeathProbabilities(AVOe2005R.male, Period = 2020)
 ```
 
 These functions return the death probabilities as a simple, numeric R vector. 
@@ -162,13 +169,13 @@ There are two similar functions that return the death probabilities as a period 
 
 ```{r}
 # Get the cohort death probabilities for Austrian Annuitants born in 1977 as a mortalityTable.period object:
-table.coh1977 = getCohortTable(AVOe2005R.male, YOB=1977)
+table.coh1977 = getCohortTable(AVOe2005R.male, YOB = 1977)
 
 # Get the period death probabilities for Austrian Annuitants observed in the year 2020:
-table.per2020 = getPeriodTable(AVOe2005R.male, Period=2020)
+table.per2020 = getPeriodTable(AVOe2005R.male, Period = 2020)
 
 # Compare those two in a plot:
-plot(table.coh1977, table.per2020, title="Comparison of cohort 1977 with Period 2020", legend.position=c(1,0))
+plot(table.coh1977, table.per2020, title = "Comparison of cohort 1977 with Period 2020", legend.position = c(1,0))
 
 ```
 
@@ -208,8 +215,8 @@ refer to different persons, being of the corresponding ages in the observation
 year. All that is needed to create a period life table are the death probabilities
 and the corresponding ages:
 ```{r}
-lt = mortalityTable.period(name="Sample period lifetable", ages=1:99, deathProbs=exp(-(99:1)/10))
-plot(lt, title="Simple log-linear period mortality table")
+lt = mortalityTable.period(name = "Sample period lifetable", ages = 1:99, deathProbs = exp(-(99:1)/10))
+plot(lt, title = "Simple log-linear period mortality table")
 deathProbabilities(lt)
 
 ```
@@ -265,10 +272,10 @@ atPlus2.damp = mortalityTable.trendProjection(
     # damping function: 2011: full effect, linear reduction until yearly trend=0 in 2111:
     # 2011: 100%, 2012: 99%, 2013: 98% => For 2013 we have a cumulative trend 
     # of 297% instead of 300% for three full yearly trends!
-    dampingFunction = function(n) { n - n*(n+1)/2/100 }
+    dampingFunction = function(n) { n - n * (n + 1) / 2 / 100 }
 )
 
-plot(mort.AT.census.2011.male, atPlus2, atPlus2.damp, YOB=2011, legend.position=c(0.8,0.75))
+plot(mort.AT.census.2011.male, atPlus2, atPlus2.damp, YOB = 2011, legend.position = c(0.8,0.75))
 ```
 
 The other approach is to assume that instead of the initial trend, after some 
@@ -292,12 +299,12 @@ atPlus2.damp2 = mortalityTable.trendProjection(
     # until 2021 trend 1, from 2031 trend 2, linearly beteen
     dampingFunction = function(year) { 
         if (year <= 2021) 1
-        else if (year>2031) 14.5/(year-2011)
-        else 1 - (year-2021)*(year-2021+1)/20/(year-2011)
+        else if (year > 2031) 14.5/(year - 2011)
+        else 1 - (year - 2021)*(year - 2021 + 1) / 20 / (year - 2011)
     }
 )
 
-plot(mort.AT.census.2011.male, atPlus2, atPlus2.damp, atPlus2.damp2, YOB=2011, legend.position=c(0.8,0.75))
+plot(mort.AT.census.2011.male, atPlus2, atPlus2.damp, atPlus2.damp2, YOB = 2011, legend.position = c(0.8,0.75))
 ```
 
 ### Cohort life tables with age-shift
@@ -327,7 +334,7 @@ while age-shifting moves the base curve to the right so that it coincides as
 much as possible with the exact (green) line.
 
 ```{r}
-baseTableShift = getCohortTable(atPlus2, YOB=2011);
+baseTableShift = getCohortTable(atPlus2, YOB = 2011);
 baseTableShift@name = "Base table of the shift (YOB 2011)"
 
 atShifted = mortalityTable.ageShift(
@@ -349,9 +356,9 @@ atShifted = mortalityTable.ageShift(
     )
 )
 
-ageShift(atShifted, YOB=2021)
+ageShift(atShifted, YOB = 2021)
 
-plot(baseTableShift, atPlus2, atShifted, YOB=2021, legend.position=c(0.8,0.75))
+plot(baseTableShift, atPlus2, atShifted, YOB = 2021, legend.position = c(0.8,0.75))
 ```
 
 As one can see, for ages above 40 years, the table with 2% yearly trend and the
@@ -369,11 +376,11 @@ really be used with extreme care!
 Life tables are simple pass-by-value S4 objects, so copying works by simple assignment. 
 
 ```{r}
-b=AVOe2005R.female 
+b = AVOe2005R.female 
 b@name = "Modified Copy"
 # only b is modified, not the original table
 b@modification = function(qx) pmax(qx, 0.01)  
-plot(AVOe2005R.female, b, YOB=2000)
+plot(AVOe2005R.female, b, YOB = 2000)
 ```
 
 ### Adding a security loading to the raw probabilities
@@ -388,7 +395,7 @@ adds the given security loading.
 AVOe2005R.female.sec = setLoading(AVOe2005R.female, loading = 0.1);
 # Make sure the modified table has a new name, otherwise plots might break
 AVOe2005R.female.sec@name = "Table with 10% loading"
-plot(AVOe2005R.female, AVOe2005R.female.sec, title="Original and modified table")
+plot(AVOe2005R.female, AVOe2005R.female.sec, title = "Original and modified table")
 ```
 
 ### Adding a modification to the raw probabilities
@@ -399,9 +406,43 @@ classes have a slot `modification` that takes a function that is passed the vect
 of death probabilities.
 
 ```{r}
-AVOe2005R.female.mod = setModification(AVOe2005R.female, modification=function (qx) pmax(0.03, qx));
+AVOe2005R.female.mod = setModification(AVOe2005R.female, modification = function(qx) pmax(0.03, qx));
 # Make sure the modified table has a new name, otherwise plots might break
 AVOe2005R.female.mod@name = "Modified table (lower bound of 3%)"
-plot(AVOe2005R.female, AVOe2005R.female.mod, title="Original and modified table")
+plot(AVOe2005R.female, AVOe2005R.female.mod, title = "Original and modified table")
 ```
+
+## Pension Tables
+Pension tables generalize mortality tables in that the state space is increased 
+from two states (alive / dead) to four states (active / invalidity or realy 
+retirement / old age retirement / dead). As a consequence, there is no longer 
+just one transition probability, but multiple.
+
+Possible states are:
+* active: healty, no pension, typically paying some kin of premium
+* incapacity: disablity pension (in most cases permanent), not working, early pension
+* retirement: old age pension, usually starting with a fixed age
+* dead
+  * Widow/widower pension (if a widow exists at the time of death)
+
+Correspondingly, the `pensionTable` class offers the following slots describing 
+transition probabilities for the corresponding state transitions (by a 
+`mortalityTable`-derived object):
+* `qxaa`:  death probability of actives (active -> dead)
+* `ix`:    invalidity probability (active -> incapacity)
+* `qix`:   death probability of invalid (invalid -> dead)
+* `rx`:    reactivation probability (incapacity -> active)
+* `apx`:   retirement probability (active -> retirement), typically 1 for a fixed age
+* `apx`:   retirement probability of invalids (invalid -> retirement), typically 0 or 1 for a fixed age
+* `qpx`:   death probability of retired (retired -> dead)
+* `hx`:    probability of a widow at moment of death (dead -> widow), y(x) age differene
+* `qxw`:   death probability of widows/widowers
+* `qgx`:   death probability of total group (irrespective of state)
+
+All functions that handle `mortalityTable` object can be used with these slots.
+
+Additionally, the following functions are provided to obtain the set of all 
+transition probabilities in one data frame:
+* `transitionProbabilities(pension_table, YOB)`
+* `periodTransitionProbabilities(pension_table, Period)`
 
