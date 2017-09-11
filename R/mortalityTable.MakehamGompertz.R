@@ -4,8 +4,8 @@ NULL
 #' Class mortalityTable.MakehamGompertz - Mortality table with Makeham-Gompertz's law
 #'
 #' A period life table following Makeham and Gompertz's law of a mortality rate
-#' $\mu$ increasing exponentially with age $x$ ($\mu_{x+t} = A + B c^{(x+t)}$).
-#' The only required slots are the parameters $A$, $B$ and $c$, all probabilities
+#' \eqn{\mu} increasing exponentially with age \eqn{x} (\eqn{\mu_{x+t} = A + B c^{(x+t)}}).
+#' The only required slots are the parameters \eqn{A}, \eqn{B} and \eqn{c}, all probabilities
 #' are calculated from them, for technical reasons a maximum age of 120 is
 #' technically assumed.  Optionally, a name and loading can be passed
 #' (inherited from \code{\link{mortalityTable}}).
