@@ -48,6 +48,11 @@ Provided types of mortality tables are:
 * Cohort life table using age-specific improvement factors
     : Class `mortalityTable.improvementFactors`
     : Project base life table using age-specific improvement factors.
+* Pension table
+    : Class `pensionTable`
+    : Four states: active, early retirement / invalidity, old-age pension, death (with optional widow)
+    : All slots describe the corresponding transition probabilities by a 
+    : `mortalityTable`-derived object.
 
 ## Loading the MortalityTables package
 ```
@@ -61,7 +66,7 @@ and actuarial associations around the world. You can use the function
 `mortalityTables.list` to list all available datasets (if no argument is given)
 or all datasets that match the given pattern (wildcard character is *). You can 
 then use `mortalityTables.load` to load either one single data set or all 
-datasets that match the pattern (if `wildcard=TRUE` is given).
+datasets that match the pattern.
 
 ```
 # list all available data sets
@@ -74,7 +79,7 @@ mortalityTables.list("Austria_*")
 mortalityTables.load("Germany_Annuities_DAV2004R")
 
 # Load all Austrian data sets
-mortalityTables.load("Austria_*", wildcard=TRUE)
+mortalityTables.load("Austria_*")
 ```
 
 ## Further information

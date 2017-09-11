@@ -29,7 +29,7 @@ Return all period transition probabilities of the pension table
 }}
 
 \examples{
-pensionTables.load("Austria_*", wildcard=TRUE)
+pensionTables.load("Austria_*")
 # periodTransitionProbabilities(EttlPagler.male, Period = 2017)
 
 }

@@ -13,7 +13,7 @@ NULL
 #'
 #' @examples
 #' mortalityTables.load("Austria_Annuities_AVOe2005R")
-#' # AVÖ 2005R base table with yearly improvements of 3% for age 0, linearly
+#' # AVOe 2005R base table with yearly improvements of 3% for age 0, linearly
 #' # decreasing to 0% for age 120.
 #' tb = mortalityTable.improvementFactors(
 #'     ages = ages(AVOe2005R.male),

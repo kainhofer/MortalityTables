@@ -89,9 +89,10 @@ pensionTableProbArrange = function(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, a
 #' @param object A pension table object (instance of a \code{\linkS4class{pensionTable}} class)
 #' @param ... Currently unused
 #' @param YOB Year of birth
+#' @param as.data.frame Whether the return value should be a data.frame or an array containing transition matrices
 #'
 #' @examples
-#' pensionTables.load("Austria_*", wildcard=TRUE)
+#' pensionTables.load("Austria_*")
 #' # transitionProbabilities(EttlPagler.male)
 #'
 #' @exportMethod transitionProbabilities
@@ -124,7 +125,7 @@ setMethod("transitionProbabilities", "pensionTable",
 #' @param as.data.frame Whether the return value should be a data.frame or an array containing transition matrices
 #'
 #' @examples
-#' pensionTables.load("Austria_*", wildcard=TRUE)
+#' pensionTables.load("Austria_*")
 #' # periodTransitionProbabilities(EttlPagler.male, Period = 2017)
 #'
 #' @exportMethod periodTransitionProbabilities
