@@ -7,6 +7,11 @@ NULL
 #' @param ... Other parameters (currently unused)
 #' @param YOB The birth year for which the death probabilities should be calculated
 #'
+#' @examples
+#' mortalityTables.load("Austria_Annuities")
+#' deathProbabilities(AVOe2005R.male, YOB = 1975)
+#' deathProbabilities(AVOe2005R.male, YOB = 2017)
+#'
 #' @exportMethod deathProbabilities
 setGeneric("deathProbabilities", function(object, ..., YOB = 1975) standardGeneric("deathProbabilities"));
 
@@ -73,4 +78,3 @@ setMethod("deathProbabilities","mortalityTable.mixed",
               mixedqx = (object@weight1 * qx1 + object@weight2 * qx2)/(object@weight1 + object@weight2) * (1 + object@loading);
               object@modification(mixedqx)
           })
-

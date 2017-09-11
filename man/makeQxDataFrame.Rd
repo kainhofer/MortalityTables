@@ -24,3 +24,8 @@ It is not required to call this function manually, \code{plotMortalityTables}
 will automatically do it if object derived from class \code{mortalityTable}
 are passed.
 }
+\examples{
+mortalityTables.load("Austria_Annuities")
+makeQxDataFrame(AVOe2005R.male, AVOe2005R.female, YOB = 1975)
+
+}

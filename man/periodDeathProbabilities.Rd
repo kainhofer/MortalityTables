@@ -67,3 +67,14 @@ of the life table for a given observation year
 of the joint lives mortality table for a given observation year
 }}
 
+\examples{
+mortalityTables.load("Germany_Census")
+table.JL = mortalityTable.jointLives(
+    name = "ADSt 24/26 auf verbundene Leben",
+    table = mort.DE.census.1924.26.male
+)
+periodDeathProbabilities(table.JL, Period = 2017, ageDifferences = c(1, 5, -5, 16))
+periodDeathProbabilities(table.JL, Period = 2017, ageDifferences = c(0))
+periodDeathProbabilities(table.JL, Period = 2017, ageDifferences = c(1, 5, 16))
+
+}

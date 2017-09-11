@@ -4,7 +4,7 @@
 \name{mortalityImprovement}
 \alias{mortalityImprovement}
 \alias{mortalityImprovement,mortalityTable-method}
-\title{Return the mortality trend / yearly log-mortality improvement of the given period or the given generation.}
+\title{Return the mortality trend (yearly log-death-probability improvement) of the given period or the given generation.}
 \usage{
 mortalityImprovement(object, ..., Period = NULL, YOB = 1975)
 
@@ -16,12 +16,13 @@ mortalityImprovement(object, ..., Period = NULL, YOB = 1975)
 
 \item{...}{Other parameters (currently unused)}
 
-\item{Period}{The observation year for which the mortality improvement should be calculated. If both YOB and Period are given, YOB is ignored.}
+\item{Period}{The observation year for which the mortality improvement should
+be calculated. If both YOB and Period are given, YOB is ignored.}
 
 \item{YOB}{The birth year for which the mortality improvement should be calculated}
 }
 \description{
-Return the mortality trend / yearly log-mortality improvement of the given period or the given generation.
+Return the mortality trend (yearly log-death-probability improvement) of the given period or the given generation.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -29,3 +30,10 @@ Return the mortality trend / yearly log-mortality improvement of the given perio
 life table given the birth or observation year
 }}
 
+\examples{
+mortalityTables.load("Austria_Annuities")
+# AVOe 2005R includes a trend decline by default, compare the exact table with the table without decline:
+mortalityImprovement(AVOe2005R.male, Period = 2017)
+mortalityImprovement(AVOe2005R.male.nodamping, Period = 2017)
+
+}

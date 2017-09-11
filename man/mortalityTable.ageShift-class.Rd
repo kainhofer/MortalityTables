@@ -14,3 +14,13 @@ A cohort life table, obtained by age-shifting from a given base table (death pro
 \item{\code{ageShifts}}{A \code{data.frame} with columns \code{YOB} and \code{shifts} giving the age shifts for each birth year}
 }}
 
+\examples{
+mortalityTables.load("Austria_Annuities_AVOe2005R")
+tb = mortalityTable.ageShift(
+    ages = ages(AVOe2005R.male),
+    deathProbs = deathProbabilities(AVOe2005R.male, YOB = 1992),
+    ageShifts = generateAgeShift(1, c(1962, 1985, 2000, 2015, 2040, 2070)))
+# The cohort tables for different birth years are just the base probabilities with modified ages
+plot(getCohortTable(tb, YOB = 1963), getCohortTable(tb, YOB = 2017))
+
+}

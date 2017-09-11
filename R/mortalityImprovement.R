@@ -1,12 +1,19 @@
 #' @include mortalityTable.R mortalityTable.period.R mortalityTable.ageShift.R mortalityTable.trendProjection.R mortalityTable.improvementFactors.R mortalityTable.mixed.R
 NULL
 
-#' Return the mortality trend / yearly log-mortality improvement of the given period or the given generation.
+#' Return the mortality trend (yearly log-death-probability improvement) of the given period or the given generation.
 #'
 #' @param object The life table object (class inherited from mortalityTable)
 #' @param ... Other parameters (currently unused)
 #' @param YOB The birth year for which the mortality improvement should be calculated
-#' @param Period The observation year for which the mortality improvement should be calculated. If both YOB and Period are given, YOB is ignored.
+#' @param Period The observation year for which the mortality improvement should
+#'               be calculated. If both YOB and Period are given, YOB is ignored.
+#'
+#' @examples
+#' mortalityTables.load("Austria_Annuities")
+#' # AVOe 2005R includes a trend decline by default, compare the exact table with the table without decline:
+#' mortalityImprovement(AVOe2005R.male, Period = 2017)
+#' mortalityImprovement(AVOe2005R.male.nodamping, Period = 2017)
 #'
 #' @exportMethod mortalityImprovement
 setGeneric("mortalityImprovement", function(object, ..., Period = NULL, YOB = 1975) standardGeneric("mortalityImprovement"));

@@ -7,6 +7,12 @@ NULL
 #' @param YOB The birth year for which the life table should be calculated
 #' @param ... Other parameters (currently unused)
 #'
+#' @examples
+#' mortalityTables.load("Austria_Annuities")
+#' tb75 = getCohortTable(AVOe2005R.male, YOB = 1975)
+#' # The tb75 is a fixed table with no trend any more
+#' plot(AVOe2005R.male, tb75, Period = 2017)
+#'
 #' @exportMethod getCohortTable
 setGeneric("getCohortTable", function(object, YOB, ...) standardGeneric("getCohortTable"));
 

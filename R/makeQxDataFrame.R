@@ -13,6 +13,10 @@
 #'        probabilities (i.e. the q_x for all ages are divided by the
 #'        corresponding probabilities of the reference table)
 #'
+#' @examples
+#' mortalityTables.load("Austria_Annuities")
+#' makeQxDataFrame(AVOe2005R.male, AVOe2005R.female, YOB = 1975)
+#'
 #' @export
 makeQxDataFrame = function(..., YOB = 1972, Period = NA, reference = NULL) {
     # If reference is given, normalize all probabilities by that table!

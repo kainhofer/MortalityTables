@@ -58,5 +58,3 @@ mortalityComparisonTable = function(table1, table2, years, ages, binsize = 5, ..
 
     averages
 }
-
-# mortalityComparisonTable(AVOe2008P.female.aa, AVOe2008P.male.aa, years = seq(1932, 2022, by = 10), ages = 15:119, binsize=10)

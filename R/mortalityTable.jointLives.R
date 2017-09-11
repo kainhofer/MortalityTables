@@ -9,6 +9,16 @@ setClassUnion("mortalityTable(s)", c("mortalityTable", "list"))
 #'
 #' @slot table The \code{mortalityTable} object for all lives (vector if different tables should be used for the different persons)
 #'
+#' @examples
+#' mortalityTables.load("Germany_Census")
+#' table.JL = mortalityTable.jointLives(
+#'     name = "ADSt 24/26 auf verbundene Leben",
+#'     table = mort.DE.census.1924.26.male
+#' )
+#' deathProbabilities(table.JL, YOB = 1977, ageDifferences = c(1, 5, -5, 16))
+#' deathProbabilities(table.JL, YOB = 1977, ageDifferences = c(0))
+#' deathProbabilities(table.JL, YOB = 1977, ageDifferences = c(1, 5, 16))
+#'
 #' @export mortalityTable.jointLives
 #' @exportClass mortalityTable.jointLives
 mortalityTable.jointLives = setClass(
@@ -31,7 +41,20 @@ padLast = function(v, l) {
     pad0(v, l, utils::tail(v, n = 1))
 }
 
-#' @export
+#' Return a matrix of the persons' individual death probabilities of a joint-life
+#' table (instance of \code{\link{mortalityTable.jointLives}})
+#'
+#' @param tables List of life table objects (object inherited from
+#'               \code{\link{mortalityTable}})
+#' @param YOB The birth year for the first person
+#' @param ageDifferences The age differences to the first person
+#'
+#' @examples
+#' mortalityTables.load("Germany_Census")
+#' deathProbabilitiesIndividual(list(mort.DE.census.1924.26.male), 1977, c(0, 0))
+#' deathProbabilitiesIndividual(list(mort.DE.census.1924.26.male), 1977, c(0, -5, 13))
+#'
+#' @export deathProbabilitiesIndividual
 deathProbabilitiesIndividual = function(tables, YOB, ageDifferences) {
     n = max(length(YOB), length(ageDifferences) + 1);
     if (length(YOB) == 1) {
@@ -78,6 +101,20 @@ deathProbabilitiesIndividual = function(tables, YOB, ageDifferences) {
     qxMatrix
 }
 
+#' Return a matrix of the persons' individual period death probabilities of a
+#' joint-life table (instance of \code{\link{mortalityTable.jointLives}})
+#'
+#' @param tables List of life table objects (object inherited from
+#'               \code{\link{mortalityTable}})
+#' @param period The observation period
+#' @param ageDifferences The age differences to the first person
+#'
+#' @examples
+#' mortalityTables.load("Germany_Census")
+#' periodDeathProbabilitiesIndividual(list(mort.DE.census.1924.26.male), 1977, c(0, 0))
+#' periodDeathProbabilitiesIndividual(list(mort.DE.census.1924.26.male), 1977, c(0, -5, 13))
+#'
+#' @export periodDeathProbabilitiesIndividual
 periodDeathProbabilitiesIndividual = function(tables, period, ageDifferences) {
     # prepend a 0, because the first entry has no offset
     ageDifferences = c(0, ageDifferences);
@@ -138,6 +175,17 @@ setMethod("baseYear", "mortalityTable.jointLives",
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
 #'                                life table given the birth year (if needed)
 #' @param ageDifferences A vector of age differences of all joint lives.
+#'
+#' @examples
+#' mortalityTables.load("Germany_Census")
+#' table.JL = mortalityTable.jointLives(
+#'     name = "ADSt 24/26 auf verbundene Leben",
+#'     table = mort.DE.census.1924.26.male
+#' )
+#' deathProbabilities(table.JL, YOB = 1977, ageDifferences = c(1, 5, -5, 16))
+#' deathProbabilities(table.JL, YOB = 1977, ageDifferences = c(0))
+#' deathProbabilities(table.JL, YOB = 1977, ageDifferences = c(1, 5, 16))
+#'
 setMethod("deathProbabilities", "mortalityTable.jointLives",
           function(object,  ..., ageDifferences = c(), YOB = 1975) {
               qxMatrix = deathProbabilitiesIndividual(c(object@table), YOB = YOB, ageDifferences = ageDifferences);
@@ -157,6 +205,18 @@ setMethod("getOmega", "mortalityTable.jointLives",
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
 #'             of the joint lives mortality table for a given observation year
 #' @param ageDifferences A vector of age differences of all joint lives.
+#'
+#' @examples
+#' mortalityTables.load("Germany_Census")
+#' table.JL = mortalityTable.jointLives(
+#'     name = "ADSt 24/26 auf verbundene Leben",
+#'     table = mort.DE.census.1924.26.male
+#' )
+#' periodDeathProbabilities(table.JL, Period = 2017, ageDifferences = c(1, 5, -5, 16))
+#' periodDeathProbabilities(table.JL, Period = 2017, ageDifferences = c(0))
+#' periodDeathProbabilities(table.JL, Period = 2017, ageDifferences = c(1, 5, 16))
+#'
+
 setMethod("periodDeathProbabilities", "mortalityTable.jointLives",
           function(object,  ..., ageDifferences = c(), Period = 1975) {
               qxMatrix = periodDeathProbabilitiesIndividual(c(object@table), period = Period, ageDifferences = ageDifferences);

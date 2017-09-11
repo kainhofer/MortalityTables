@@ -8,6 +8,15 @@ NULL
 #'
 #' @slot ageShifts  A \code{data.frame} with columns \code{YOB} and \code{shifts} giving the age shifts for each birth year
 #'
+#' @examples
+#' mortalityTables.load("Austria_Annuities_AVOe2005R")
+#' tb = mortalityTable.ageShift(
+#'     ages = ages(AVOe2005R.male),
+#'     deathProbs = deathProbabilities(AVOe2005R.male, YOB = 1992),
+#'     ageShifts = generateAgeShift(1, c(1962, 1985, 2000, 2015, 2040, 2070)))
+#' # The cohort tables for different birth years are just the base probabilities with modified ages
+#' plot(getCohortTable(tb, YOB = 1963), getCohortTable(tb, YOB = 2017))
+#'
 #' @export mortalityTable.ageShift
 #' @exportClass mortalityTable.ageShift
 mortalityTable.ageShift = setClass(
@@ -30,11 +39,13 @@ mortalityTable.ageShift = setClass(
 #' @param YOBs    Vector of birth years in which the age shift changes by \code{step}. The last entry gives the first birth year that does not have any shift defined any more.
 #' @param step    How much the age shift changes in each year given in the \code{YOBs} vector
 #'
-#' @examples generateAgeShift(1, YOBs = c(1922, 1944, 1958, 1973, 1989, 2006, 2023, 2041, 2056))
+#' @examples
+#' generateAgeShift(initial = 1, YOBs = c(1922, 1944, 1958, 1973, 1989, 2006, 2023, 2041, 2056))
+#'
 #' @export
 generateAgeShift = function(initial = 0, YOBs = c(1900, 2100), step = -1) {
     lns = diff(YOBs)
-    shifts = unlist(mapply(rep, initial + step * 0:(length(lns)-1), lns, SIMPLIFY = TRUE))
-    data.frame(shifts = shifts, row.names = YOBs[1]:(utils::tail(YOBs, 1)-1))
+    shifts = unlist(mapply(rep, initial + step * 0:(length(lns) - 1), lns, SIMPLIFY = TRUE))
+    data.frame(shifts = shifts, row.names = YOBs[1]:(utils::tail(YOBs, 1) - 1))
 }
 
