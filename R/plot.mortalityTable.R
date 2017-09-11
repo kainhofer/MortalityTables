@@ -60,7 +60,11 @@
 #' @export
 plot.mortalityTable = function(x, ..., reference = NULL, trend = FALSE) {
     if (!missing(trend) && isTRUE(trend)) {
-        plotMortalityTrend(x, ..., reference = reference)
+        if (!missing(reference) && !is.null(reference)) {
+            plotMortalityTrend(x, ..., reference = reference)
+        } else {
+            plotMortalityTrend(x, ...)
+        }
     } else if (!missing(reference) && !is.null(reference)) {
         plotMortalityTableComparisons(x, ..., reference = reference)
     } else {
