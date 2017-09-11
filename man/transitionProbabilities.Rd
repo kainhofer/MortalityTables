@@ -17,6 +17,8 @@ transitionProbabilities(object, ...)
 \item{...}{Currently unused}
 
 \item{YOB}{Year of birth}
+
+\item{as.data.frame}{Whether the return value should be a data.frame or an array containing transition matrices}
 }
 \description{
 Return all transition probabilities of the pension table (generational probabilities)
@@ -27,7 +29,7 @@ Return all transition probabilities of the pension table (generational probabili
 }}
 
 \examples{
-pensionTables.load("Austria_*", wildcard=TRUE)
+pensionTables.load("Austria_*")
 # transitionProbabilities(EttlPagler.male)
 
 }

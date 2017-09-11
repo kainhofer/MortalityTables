@@ -11,7 +11,8 @@ NULL
 #'
 #' @examples
 #' mortalityTables.load("Austria_Annuities")
-#' # AVOe 2005R includes a trend decline by default, compare the exact table with the table without decline:
+#' # AVOe 2005R includes a trend decline by default, compare the exact table
+#' # with the table without decline:
 #' mortalityImprovement(AVOe2005R.male, Period = 2017)
 #' mortalityImprovement(AVOe2005R.male.nodamping, Period = 2017)
 #'

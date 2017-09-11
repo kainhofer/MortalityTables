@@ -78,7 +78,7 @@ and actuarial associations around the world. You can use the function
 `mortalityTables.list` to list all available datasets (if no argument is given)
 or all datasets that match the given pattern (wildcard character is *). You can 
 then use `mortalityTables.load` to load either one single data set or all 
-datasets that match the pattern (if `wildcard=TRUE` is given).
+datasets that match the pattern.
 
 ```{r}
 # list all available data sets
