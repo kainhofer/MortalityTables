@@ -5,8 +5,6 @@
 \alias{ages}
 \alias{ages,mortalityTable.period-method}
 \alias{ages,mortalityTable.mixed-method}
-\alias{ages,mortalityTable.joined-method}
-\alias{ages,mortalityTable.observed-method}
 \alias{ages,mortalityTable.jointLives-method}
 \title{Return the defined ages of the life table}
 \usage{
@@ -15,10 +13,6 @@ ages(object, ...)
 \S4method{ages}{mortalityTable.period}(object, ...)
 
 \S4method{ages}{mortalityTable.mixed}(object, ...)
-
-\S4method{ages}{mortalityTable.joined}(object, ...)
-
-\S4method{ages}{mortalityTable.observed}(object, ...)
 
 \S4method{ages}{mortalityTable.jointLives}(object, ...)
 }
@@ -35,10 +29,6 @@ Return the defined ages of the life table
 \item \code{mortalityTable.period}: Return the defined ages of the period life table
 
 \item \code{mortalityTable.mixed}: Return the defined ages of the mixed life table
-
-\item \code{mortalityTable.joined}: Return the defined ages of the joined life table
-
-\item \code{mortalityTable.observed}: Return the defined ages of the observed life table
 
 \item \code{mortalityTable.jointLives}: Return the defined ages of the joint lives mortality table (returns the ages of the first table used for joint lives)
 }}

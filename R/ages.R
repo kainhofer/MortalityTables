@@ -18,25 +18,25 @@ setGeneric("ages", function(object, ...) standardGeneric("ages"));
 
 #' @describeIn ages Return the defined ages of the period life table
 setMethod("ages", "mortalityTable.period",
-          function (object, ...) {
+          function(object, ...) {
               object@ages;
           })
 
 #' @describeIn ages Return the defined ages of the mixed life table
 setMethod("ages", "mortalityTable.mixed",
-          function (object, ...) {
+          function(object, ...) {
               ages(object@table1);
           })
 
-#' @describeIn ages Return the defined ages of the joined life table
-setMethod("ages", "mortalityTable.joined",
-          function (object, ...) {
-              ages(object@table1);
-          })
+# #' @describeIn ages Return the defined ages of the joined life table
+# setMethod("ages", "mortalityTable.joined",
+#           function (object, ...) {
+#               ages(object@table1);
+#           })
 
-#' @describeIn ages Return the defined ages of the observed life table
-setMethod("ages", "mortalityTable.observed",
-          function (object, ...) {
-              object@ages;
-          })
+# #' @describeIn ages Return the defined ages of the observed life table
+# setMethod("ages", "mortalityTable.observed",
+#           function(object, ...) {
+#               object@ages;
+#           })
 
