@@ -3,10 +3,13 @@
 \docType{methods}
 \name{ageShift}
 \alias{ageShift}
+\alias{ageShift,mortalityTable-method}
 \alias{ageShift,mortalityTable.ageShift-method}
 \title{Return the age shift of the age-shifted life table given the birth year}
 \usage{
 ageShift(object, YOB = 1975, ...)
+
+\S4method{ageShift}{mortalityTable}(object, YOB = 1975, ...)
 
 \S4method{ageShift}{mortalityTable.ageShift}(object, YOB = 1975, ...)
 }
@@ -22,6 +25,9 @@ Return the age shift of the age-shifted life table given the birth year
 }
 \section{Methods (by class)}{
 \itemize{
+\item \code{mortalityTable}: Age shifts apply only to mortalityTagle.ageShift, so
+all other tables return NA.
+
 \item \code{mortalityTable.ageShift}: Return the age shift of the age-shifted life table
 given the birth year
 }}
@@ -31,5 +37,7 @@ mortalityTables.load("Austria_Annuities")
 ageShift(AVOe2005R.male.av, YOB=1910)
 ageShift(AVOe2005R.male.av, YOB=1955)
 ageShift(AVOe2005R.male.av, YOB=2010)
+# A table with trend does NOT have any age shift, so NA is returned:
+ageShift(AVOe2005R.male, YOB=1910)
 
 }
