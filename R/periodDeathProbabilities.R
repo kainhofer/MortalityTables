@@ -33,7 +33,7 @@ setMethod("periodDeathProbabilities", "mortalityTable.ageShift",
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
 #'             of the life table for a given observation year
 setMethod("periodDeathProbabilities", "mortalityTable.trendProjection",
-          function (object,  ..., Period = 1975) {
+          function(object,  ..., Period = 1975) {
               qx = object@deathProbs * (1 + object@loading);
               if (is.null(object@trend2) || length(object@trend2) <= 1) {
                   # ages = 0:(length(qx)-1);
@@ -52,7 +52,7 @@ setMethod("periodDeathProbabilities", "mortalityTable.trendProjection",
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
 #'             of the life table for a given observation year
 setMethod("periodDeathProbabilities", "mortalityTable.improvementFactors",
-          function (object, ..., Period = 1975) {
+          function(object, ..., Period = 1975) {
               qx = object@deathProbs * (1 + object@loading);
               impr = calculateImprovements(object, ..., Period = Period)
               object@modification(qx * impr)
@@ -61,7 +61,7 @@ setMethod("periodDeathProbabilities", "mortalityTable.improvementFactors",
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
 #'             of the life table for a given observation year
 setMethod("periodDeathProbabilities", "mortalityTable.mixed",
-          function (object,  ..., Period = 1975) {
+          function(object,  ..., Period = 1975) {
               qx1 = periodDeathProbabilities(object@table1, ..., Period = Period);
               qx2 = periodDeathProbabilities(object@table2, ..., Period = Period);
               mixedqx = (object@weight1 * qx1 + object@weight2 * qx2) / (object@weight1 + object@weight2) * (1 + object@loading);
