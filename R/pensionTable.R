@@ -106,8 +106,8 @@ setMethod("transitionProbabilities", "pensionTable",
           function(object, YOB = 1982, ..., as.data.frame = TRUE) {
               na.zero = function(x) { x[is.na(x)] = 0; x }
               x   = ages(object@qx);
-              q   = na.zero(deathProbabilities(object@qx, ..., YOB = YOB));
-              i   = na.zero(deathProbabilities(object@ix, ..., YOB = YOB));
+              q   = deathProbabilities(object@qx, ..., YOB = YOB);
+              i   = deathProbabilities(object@ix, ..., YOB = YOB);
               qi  = deathProbabilities(object@qix, ..., YOB = YOB);
               r   = deathProbabilities(object@rx, ..., YOB = YOB);
               ap  = deathProbabilities(object@apx, ..., YOB = YOB);
