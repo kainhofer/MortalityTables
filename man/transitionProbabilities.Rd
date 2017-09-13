@@ -9,7 +9,8 @@
 transitionProbabilities(object, ...)
 
 \S4method{transitionProbabilities}{pensionTable}(object, YOB = 1982, ...,
-  as.data.frame = TRUE)
+  Period = NULL, retirement = NULL,
+  invalids.retire = object@invalids.retire, as.data.frame = TRUE)
 }
 \arguments{
 \item{object}{A pension table object (instance of a \code{\linkS4class{pensionTable}} class)}
@@ -18,7 +19,26 @@ transitionProbabilities(object, ...)
 
 \item{YOB}{Year of birth}
 
-\item{as.data.frame}{Whether the return value should be a data.frame or an array containing transition matrices}
+\item{Period}{Observation year to calculate period transition probabilities.
+If given, this arguments overrides the \code{YOB} parameter
+and this function returns period transition probabilities.
+If this argument is not given or is null, then this function
+returns generational transition probabilities.}
+
+\item{retirement}{Override the retirement transition probabilities of the
+pension table. Possible values are:\itemize{
+  \item Single age (describing a deterministric retirement at the given age)
+  \item mortalityTable object: transition probabilities for retirement
+}}
+
+\item{invalids.retire}{Override the \code{\linkS4class{pensionTable}}'s
+\code{invalids.retire} flag, which indicates whether
+invalids retire like actives (i.e. same death
+probabilities after retirement) or stay invalid until
+death.}
+
+\item{as.data.frame}{Whether the return value should be a data.frame or an
+array containing transition matrices}
 }
 \description{
 Return all transition probabilities of the pension table (generational probabilities)
@@ -29,7 +49,9 @@ Return all transition probabilities of the pension table (generational probabili
 }}
 
 \examples{
-pensionTables.load("Austria_*")
-# transitionProbabilities(EttlPagler.male)
+pensionTables.load("USA_PensionPlans")
+transitionProbabilities(RP2014.male, YOB = 1962)
+transitionProbabilities(RP2014.male, Period = 1955)
+transitionProbabilities(RP2014.male, Period = 2025)
 
 }

@@ -51,8 +51,12 @@ RP2014.readImprovements = function(file) {
     rbind(young, data[-1,])
 }
 
-RP2014.improvement.male = RP2014.readImprovements("USA_PensionPlans_MP2014_Male.csv");
-RP2014.improvement.female = RP2014.readImprovements("USA_PensionPlans_MP2014_Female.csv");
+RP2014.ages = RP2014.data[["age"]]
+# The improvements include all ages from 0, while the qx start at 18 => cut off young ages in the improvements
+RP2014.improvement.male.full = RP2014.readImprovements("USA_PensionPlans_MP2014_Male.csv");
+RP2014.improvement.male = RP2014.improvement.male.full[as.character(RP2014.ages),]
+RP2014.improvement.female.full = RP2014.readImprovements("USA_PensionPlans_MP2014_Female.csv");
+RP2014.improvement.female = RP2014.improvement.female.full[as.character(RP2014.ages),]
 
 
 nameRP14 = function(name = "", desc = "") {
@@ -70,6 +74,7 @@ tableRP14 = function(name, data = data, agevar = "age", probvar, improvement = N
             deathProbs = data[[probvar]], improvement = improvement, ...)
     }
 }
+
 
 RP2014.zeroes = mortalityTable.zeroes(name = "No transition", ages = RP2014.data[["age"]])
 
@@ -89,11 +94,11 @@ RP2014.male = pensionTable(
     qix = tableRP14(nameRP14(name, "qix, disabled males"), RP2014.data, "age", "qix", improvement = RP2014.improvement.male),
     rx =  RP2014.zeroes,
     apx = RP2014.zeroes,
-    apix = RP2014.zeroes,
     qpx = tableRP14(nameRP14(name, "qpx, retired males"), RP2014.data, "age", "qpx", improvement = RP2014.improvement.male),
     hx =  RP2014.zeroes,
     qwy = RP2014.zeroes,
-    yx =  RP2014.zeroes
+    yx =  RP2014.zeroes,
+    invalids.retire = FALSE
 )
 RP2014.female = pensionTable(
     name = nameRP14(desc = "female"),
@@ -105,11 +110,11 @@ RP2014.female = pensionTable(
     qix = tableRP14(nameRP14(name, "qiy, disabled females"), RP2014.data, "age", "qiy", improvement = RP2014.improvement.female),
     rx =  RP2014.zeroes,
     apx = RP2014.zeroes,
-    apix = RP2014.zeroes,
     qpx = tableRP14(nameRP14(name, "qpy, retired females"), RP2014.data, "age", "qpy", improvement = RP2014.improvement.female),
     hx =  RP2014.zeroes,
     qwy = RP2014.zeroes,
-    yx =  RP2014.zeroes
+    yx =  RP2014.zeroes,
+    invalids.retire = FALSE
 )
 
 
@@ -128,11 +133,11 @@ RP2014.male.whitecollar = pensionTable(
     qix = tableRP14(nameRP14(name, "qix, disabled males"), RP2014.data, "age", "qix", improvement = RP2014.improvement.male),
     rx =  RP2014.zeroes,
     apx = RP2014.zeroes,
-    apix = RP2014.zeroes,
     qpx = tableRP14(nameRP14(name, "qpx, retired males"), RP2014.data, "age", "qpx_white", improvement = RP2014.improvement.male),
     hx =  RP2014.zeroes,
     qwy = RP2014.zeroes,
-    yx =  RP2014.zeroes
+    yx =  RP2014.zeroes,
+    invalids.retire = FALSE
 )
 RP2014.female.whitecollar = pensionTable(
     name = nameRP14(desc = "female"),
@@ -144,11 +149,11 @@ RP2014.female.whitecollar = pensionTable(
     qix = tableRP14(nameRP14(name, "qiy, disabled females"), RP2014.data, "age", "qiy", improvement = RP2014.improvement.female),
     rx =  RP2014.zeroes,
     apx = RP2014.zeroes,
-    apix = RP2014.zeroes,
     qpx = tableRP14(nameRP14(name, "qpy, retired females"), RP2014.data, "age", "qpy_white", improvement = RP2014.improvement.female),
     hx =  RP2014.zeroes,
     qwy = RP2014.zeroes,
-    yx =  RP2014.zeroes
+    yx =  RP2014.zeroes,
+    invalids.retire = FALSE
 )
 
 
@@ -167,11 +172,11 @@ RP2014.male.bluecollar = pensionTable(
     qix = tableRP14(nameRP14(name, "qix, disabled males"), RP2014.data, "age", "qix", improvement = RP2014.improvement.male),
     rx =  RP2014.zeroes,
     apx = RP2014.zeroes,
-    apix = RP2014.zeroes,
     qpx = tableRP14(nameRP14(name, "qpx, retired males"), RP2014.data, "age", "qpx_blue", improvement = RP2014.improvement.male),
     hx =  RP2014.zeroes,
     qwy = RP2014.zeroes,
-    yx =  RP2014.zeroes
+    yx =  RP2014.zeroes,
+    invalids.retire = FALSE
 )
 RP2014.female.bluecollar = pensionTable(
     name = nameRP14(desc = "female"),
@@ -183,11 +188,11 @@ RP2014.female.bluecollar = pensionTable(
     qix = tableRP14(nameRP14(name, "qiy, disabled females"), RP2014.data, "age", "qix", improvement = RP2014.improvement.female),
     rx =  RP2014.zeroes,
     apx = RP2014.zeroes,
-    apix = RP2014.zeroes,
     qpx = tableRP14(nameRP14(name, "qpy, retired females"), RP2014.data, "age", "qpy_blue", improvement = RP2014.improvement.female),
     hx =  RP2014.zeroes,
     qwy = RP2014.zeroes,
-    yx =  RP2014.zeroes
+    yx =  RP2014.zeroes,
+    invalids.retire = FALSE
 )
 
 

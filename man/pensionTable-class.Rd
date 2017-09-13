@@ -24,11 +24,14 @@ Correspondingly, the following transition probabilities can be given:\describe{
     \item{qix}{death probability of invalid (invalid -> dead)}
     \item{rx}{reactivation probability (incapacity -> active)}
     \item{apx}{retirement probability (active -> retirement), typically 1 for a fixed age}
-    \item{apx}{retirement probability of invalids (invalid -> retirement), typically 0 or 1 for a fixed age}
     \item{qpx}{death probability of retired (retired -> dead)}
     \item{hx}{probability of a widow at moment of death (dead -> widow), y(x) age difference}
     \item{qxw}{death probability of widows/widowers}
     \item{qgx}{death probability of total group (irrespective of state)}
+    \item{invalids.retire}{Flag to indicate whether invalid persons retire
+          like active (one death probability for all retirees) or whether
+          they stay invalid until death with death probabilities specific to
+          invalids.}
 }
 }
 \section{Slots}{
@@ -44,8 +47,6 @@ Correspondingly, the following transition probabilities can be given:\describe{
 
 \item{\code{apx}}{Retirement probability of actives (derived from mortalityTable)}
 
-\item{\code{apix}}{Retirement probability of invalids (derived from mortalityTable)}
-
 \item{\code{qpx}}{Death probability of old age pensioners (derived from mortalityTable)}
 
 \item{\code{hx}}{Probability of a widow at the moment of death (derived from mortalityTable)}
@@ -55,5 +56,7 @@ Correspondingly, the following transition probabilities can be given:\describe{
 \item{\code{yx}}{Age difference of the widow to the deceased}
 
 \item{\code{qgx}}{Death probability of whole group (derived from mortalityTable), irrespective of state}
+
+\item{\code{invalids.retire}}{Whether invalids retire like actives or stay invalid until death}
 }}
 

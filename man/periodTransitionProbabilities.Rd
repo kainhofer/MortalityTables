@@ -9,7 +9,8 @@
 periodTransitionProbabilities(object, ...)
 
 \S4method{periodTransitionProbabilities}{pensionTable}(object, Period = 2017,
-  ..., as.data.frame = TRUE)
+  ..., retirement = NULL, invalids.retire = object@invalids.retire,
+  as.data.frame = TRUE)
 }
 \arguments{
 \item{object}{A pension table object (instance of a \code{\linkS4class{pensionTable}} class)}
@@ -17,6 +18,17 @@ periodTransitionProbabilities(object, ...)
 \item{...}{Currently unused}
 
 \item{Period}{Observation year}
+
+\item{retirement}{Override the retirement transition probabilities of the pension table. Possible values are:\itemize{
+\item Single age (describing a deterministric retirement at the given age)
+\item mortalityTable object: transition probabilities for retirement
+}}
+
+\item{invalids.retire}{Override the \code{\linkS4class{pensionTable}}'s
+\code{invalids.retire} flag, which indicates whether
+invalids retire like actives (i.e. same death
+probabilities after retirement) or stay invalid until
+death.}
 
 \item{as.data.frame}{Whether the return value should be a data.frame or an array containing transition matrices}
 }
@@ -29,7 +41,11 @@ Return all period transition probabilities of the pension table
 }}
 
 \examples{
-pensionTables.load("Austria_*")
-# periodTransitionProbabilities(EttlPagler.male, Period = 2017)
+pensionTables.load("USA_PensionPlans")
+# transitionProbabilities internally calls periodTransitionProbabilities
+# if a Period is given:
+transitionProbabilities(RP2014.male, Period = 1955)
+periodTransitionProbabilities(RP2014.male, Period = 1955)
+periodTransitionProbabilities(RP2014.male, Period = 2025)
 
 }
