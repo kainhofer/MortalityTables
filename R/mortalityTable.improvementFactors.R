@@ -47,7 +47,7 @@ mortalityTable.improvementFactors = setClass(
 
 
 #' Calculate the improvement factors for the given birth-year and the
-#' \code{\linkS4class{mortalityTable.improvementsFactors}} object
+#' \code{\linkS4class{mortalityTable.improvementFactors}} object
 #'
 #' @param object A pension table object (instance of a \code{\linkS4class{mortalityTable.improvementFactors}} class)
 #' @param ... Currently unused
@@ -56,21 +56,21 @@ mortalityTable.improvementFactors = setClass(
 #'
 #' @examples
 #' pensionTables.load("USA_PensionPlan_RP2014")
-#' calculateImprovements(RP2014.male, YOB = 2017)
+#' calculateImprovements(RP2014.male@qx, YOB = 2017)
 #'
 #' @exportMethod calculateImprovements
 setGeneric("calculateImprovements", function(object, ...) standardGeneric("calculateImprovements"));
 
 #' @describeIn calculateImprovements Calculate the total mortality improvement
 #' factors relative to the base year for the given birth-year and the
-#' \code{\linkS4class{mortalityTable.improvementsFactors}} object
+#' \code{\linkS4class{mortalityTable.improvementFactors}} object
 setMethod("calculateImprovements", "mortalityTable.improvementFactors",
     function(object, ..., Period = NULL, YOB = 1982) {
         if (is.array(object@improvement)) {
             # All years outside the observation interval use the improvements
             # at the boundaries
-            minObservation = strtoi(head(colnames(object@improvement), 1))
-            maxObservation = strtoi(tail(colnames(object@improvement), 1))
+            minObservation = strtoi(utils::head(colnames(object@improvement), 1))
+            maxObservation = strtoi(utils::tail(colnames(object@improvement), 1))
 
             if (!missing(Period) && !is.null(Period)) {
                 # Period improvements:

@@ -5,7 +5,7 @@
 \alias{calculateImprovements}
 \alias{calculateImprovements,mortalityTable.improvementFactors-method}
 \title{Calculate the improvement factors for the given birth-year and the
-\code{\linkS4class{mortalityTable.improvementsFactors}} object}
+\code{\linkS4class{mortalityTable.improvementFactors}} object}
 \usage{
 calculateImprovements(object, ...)
 
@@ -23,17 +23,17 @@ calculateImprovements(object, ...)
 }
 \description{
 Calculate the improvement factors for the given birth-year and the
-\code{\linkS4class{mortalityTable.improvementsFactors}} object
+\code{\linkS4class{mortalityTable.improvementFactors}} object
 }
 \section{Methods (by class)}{
 \itemize{
 \item \code{mortalityTable.improvementFactors}: Calculate the total mortality improvement
 factors relative to the base year for the given birth-year and the
-\code{\linkS4class{mortalityTable.improvementsFactors}} object
+\code{\linkS4class{mortalityTable.improvementFactors}} object
 }}
 
 \examples{
 pensionTables.load("USA_PensionPlan_RP2014")
-calculateImprovements(RP2014.male, YOB = 2017)
+calculateImprovements(RP2014.male@qx, YOB = 2017)
 
 }
