@@ -10,24 +10,26 @@ Class \code{pensionTable} is the (virtual) base class for all pensions
 tables. It contains the name and some general values applying to all
 types of tables. In particular, it holds individual tables for each of the
 transition probabilities. Possible states are:
-    * active: healty, no pension, typically paying some kin of premium
-    * incapacity: disablity pension, in most cases permanent, not working, early pension
-    * retirement: old age pension, usually starting with a fixed age
-    * dead
-      * Widow/widower pension
+\itemize{
+    \item active: healty, no pension, typically paying some kin of premium
+    \item incapacity: disablity pension, in most cases permanent, not working, early pension
+    \item retirement: old age pension, usually starting with a fixed age
+    \item dead \itemize{
+      \item Widow/widower pension
+    }
 }
-\details{
-Correspondingly, the following transition probabilities can be given:
-    * qxaa:  death probability of actives (active -> dead)
-    * ix:    invalidity probability (active -> incapacity)
-    * qix:   death probability of invalid (invalid -> dead)
-    * rx:    reactivation probability (incapacity -> active)
-    * apx:   retirement probability (active -> retirement), typically 1 for a fixed age
-    * apx:   retirement probability of invalids (invalid -> retirement), typically 0 or 1 for a fixed age
-    * qpx:   death probability of retired (retired -> dead)
-    * hx:    probability of a widow at moment of death (dead -> widow), y(x) age differene
-    * qxw:   death probability of widows/widowers
-    * qgx:   death probability of total group (irrespective of state)
+Correspondingly, the following transition probabilities can be given:\describe{
+    \item{qxaa}{death probability of actives (active -> dead)}
+    \item{ix}{invalidity probability (active -> incapacity)}
+    \item{qix}{death probability of invalid (invalid -> dead)}
+    \item{rx}{reactivation probability (incapacity -> active)}
+    \item{apx}{retirement probability (active -> retirement), typically 1 for a fixed age}
+    \item{apx}{retirement probability of invalids (invalid -> retirement), typically 0 or 1 for a fixed age}
+    \item{qpx}{death probability of retired (retired -> dead)}
+    \item{hx}{probability of a widow at moment of death (dead -> widow), y(x) age difference}
+    \item{qxw}{death probability of widows/widowers}
+    \item{qgx}{death probability of total group (irrespective of state)}
+}
 }
 \section{Slots}{
 
