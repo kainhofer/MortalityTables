@@ -54,8 +54,8 @@ setMethod("periodDeathProbabilities", "mortalityTable.trendProjection",
 setMethod("periodDeathProbabilities", "mortalityTable.improvementFactors",
           function (object, ..., Period = 1975) {
               qx = object@deathProbs * (1 + object@loading);
-              finalqx = (1 - object@improvement) ^ (Period - object@baseYear) * qx;
-              object@modification(finalqx)
+              impr = calculateImprovements(object, ..., Period = Period)
+              object@modification(qx * impr)
           })
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities

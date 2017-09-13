@@ -65,8 +65,8 @@ setMethod("deathProbabilities","mortalityTable.trendProjection",
 setMethod("deathProbabilities","mortalityTable.improvementFactors",
           function(object,  ..., YOB = 1975) {
               qx = object@deathProbs * (1 + object@loading);
-              finalqx = (1 - object@improvement)^(YOB + 0:(length(qx) - 1) - object@baseYear) * qx;
-              object@modification(finalqx)
+              impr = calculateImprovements(object, ..., YOB = YOB)
+              object@modification(impr * qx)
           })
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
