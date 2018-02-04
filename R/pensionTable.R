@@ -71,8 +71,8 @@ pensionTableProbArrange = function(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, a
     if (as.data.frame) {
         data.frame(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg)
     } else {
-        states = c("a", "i", "p", "d")
-        transProb = array(0, dim = c(4,4, length(x)), dimnames = list(states, states, x))
+        states = c("a", "i", "p", "d", "g")
+        transProb = array(0, dim = c(5,5, length(x)), dimnames = list(states, states, x))
 
         transProb["a", "a", ] = (1 - i - q) * (1 - ap);
         transProb["a", "i", ] = i;
@@ -88,6 +88,9 @@ pensionTableProbArrange = function(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, a
         transProb["p", "d", ] = qp;
 
         transProb["d", "d", ] = 1;
+
+        transProb["g", "d", ] = qg;
+        transProb["g", "g", ] = 1 - qg;
 
         list(transitionProbabilities = transProb, widows = data.frame(x, h, qw, yx))
     }
