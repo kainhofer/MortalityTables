@@ -19,12 +19,14 @@
 #'
 #' @export
 makeQxDataFrame = function(..., YOB = 1972, Period = NA, reference = NULL) {
-    # If reference is given, normalize all probabilities by that table!
-    data = list(...);
+    # Allow lists of tables to be passed, too. unlist should always return
+    # a list of tables, if if nested lists or only tables are passed as arguments!
+    data = unlist(list(...));
     names(data) = lapply(data, function(t) t@name);
     reference_ages = NULL;
 
     if (missing(Period)) {
+        # If reference is given, normalize all probabilities by that table!
         if (!missing(reference)) {
             reference_ages = ages(reference);
             reference = deathProbabilities(reference, YOB = YOB);
