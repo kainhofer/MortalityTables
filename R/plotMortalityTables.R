@@ -14,7 +14,7 @@
 #'
 #' @import scales
 #' @export
-plotMortalityTables = function(data, ..., xlim=NULL, ylim=NULL, xlab=NULL, ylab=NULL, title = "", legend.position=c(0.9,0.1), legend.key.width = unit(25, "mm")) {
+plotMortalityTables = function(data, ..., legend.title = "Sterbetafel", xlim=NULL, ylim=NULL, xlab=NULL, ylab=NULL, title = "", legend.position=c(0.9,0.1), legend.key.width = unit(25, "mm")) {
   if (!is.data.frame(data)) {
     data = makeQxDataFrame(data, ...);
   }
@@ -33,7 +33,7 @@ plotMortalityTables = function(data, ..., xlim=NULL, ylim=NULL, xlab=NULL, ylab=
       legend.key.width = legend.key.width,
       legend.background = element_rect(colour="gray50", linetype="solid")
     ) +
-    geom_line() +
+    geom_line(na.rm = TRUE) +
     scale_y_log10(
       name = ylab,
       breaks = scales::trans_breaks('log10', function(x) 10^x),
@@ -50,7 +50,7 @@ plotMortalityTables = function(data, ..., xlim=NULL, ylim=NULL, xlab=NULL, ylab=
     ) +
     coord_cartesian(xlim=xlim, ylim=ylim) +
     annotation_logticks(sides="lr") +
-    xlab("Alter") + labs(colour="Sterbetafel");
+    xlab("Alter") + labs(colour=legend.title, shape=legend.title);
   if (title != "") {
     pl = pl + ggtitle(title);
   }
