@@ -22,6 +22,8 @@ makeQxDataFrame = function(..., YOB = 1972, Period = NA, reference = NULL) {
     # Allow lists of tables to be passed, too. unlist should always return
     # a list of tables, if if nested lists or only tables are passed as arguments!
     data = unlist(list(...));
+    if (is.null(data)) return(data.frame(x = double(), y = double(), group = character()))
+
     names(data) = lapply(data, function(t) t@name);
     reference_ages = NULL;
 
