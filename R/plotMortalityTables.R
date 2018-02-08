@@ -21,7 +21,7 @@ plotMortalityTables = function(data, ..., legend.title = "Sterbetafel", xlim=NUL
     if (missing(xlab)) xlab="Alter";
     if (missing(ylab)) ylab=expression(paste("Sterbewahrscheinlichkeit ", q[x]));
 
-  pl = ggplot(data, aes(x = x, y = y, colour = data$group)) +
+  pl = ggplot(data, aes(x = x, y = y, colour = group, shape = group)) +
     theme_bw() +
     theme(
       plot.title = element_text(size=18, face="bold"),
