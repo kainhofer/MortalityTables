@@ -14,20 +14,28 @@
 #'
 #' @import scales
 #' @export
-plotMortalityTables = function(data, ..., legend.title = "Sterbetafel", xlim=NULL, ylim=NULL, xlab=NULL, ylab=NULL, title = "", legend.position=c(0.9,0.1), legend.key.width = unit(25, "mm")) {
-  if (!is.data.frame(data)) {
-    data = makeQxDataFrame(data, ...);
-  }
-    if (missing(xlab)) xlab="Alter";
-    if (missing(ylab)) ylab=expression(paste("Sterbewahrscheinlichkeit ", q[x]));
+plotMortalityTables = function(
+    data, ...,
+    legend.title = "Sterbetafel",
+    xlim=NULL, ylim=NULL,
+    xlab=NULL, ylab=NULL,
+    title = "",
+    legend.position = c(0.9,0.1), legend.justification = c(1, 0),
+    legend.key.width = unit(25, "mm")
+) {
+    if (!is.data.frame(data)) {
+        data = makeQxDataFrame(data, ...);
+    }
+    if (missing(xlab)) xlab = "Alter";
+    if (missing(ylab)) ylab = expression(paste("Sterbewahrscheinlichkeit ", q[x]));
 
-  pl = ggplot(data, aes(x = x, y = y, colour = group, shape = group)) +
+  pl = ggplot(data %>% filter(y>0), aes(x = x, y = y, colour = group, shape = group)) +
     theme_bw() +
     theme(
-      plot.title = element_text(size=18, face="bold"),
-      legend.title = element_text(size=14, face="bold.italic"),
+      plot.title = element_text(size = 18, face = "bold"),
+      legend.title = element_text(size = 14, face = "bold.italic"),
       # legend in bottom right corner of the plot
-      legend.justification=c(1,0), legend.position=legend.position,
+      legend.justification = legend.justification, legend.position = legend.position,
       # No box around legend entries
       legend.key = element_blank(),
       legend.key.width = legend.key.width,
@@ -43,7 +51,7 @@ plotMortalityTables = function(data, ..., legend.title = "Sterbetafel", xlim=NUL
     scale_x_continuous(
       name = xlab,
       #breaks = function (limits) scales::trans_breaks('', function(x) 10^x),
-      breaks = function (limits) seq(max(min(limits),0),max(limits),5),
+      # breaks = function (limits) seq(max(min(limits),0),max(limits),5),
       minor_breaks = function (limits) seq(max(round(min(limits)),0),round(max(limits)),1)
       #labels = scales::trans_format('log10', scales::math_format(10^.x))
 
