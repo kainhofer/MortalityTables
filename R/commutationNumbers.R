@@ -31,6 +31,7 @@ setMethod("commutationNumbers", "mortalityTable",
 setMethod("commutationNumbers", "numeric",
           function(object, ages, i = 0.03) {
               v = 1/(1 + i)
+              qx = object
               lx = cumprod(c(100000, 1 - object[-length(object)]))
               dx = -diff(c(lx, 0))
               Dx = v^ages * lx
@@ -52,7 +53,7 @@ setMethod("commutationNumbers", "pensionTable",
               probs = transitionProbabilities(object, ...)
               ages = probs$x
               list(
-                  q  = commutationNumbers(probs$q,  ages = ages, i = i),
+                  q  = commutationNumbers(probs$q + probs$i,  ages = ages, i = i),
                   qi = commutationNumbers(probs$qi, ages = ages, i = i),
                   qp = commutationNumbers(probs$qp, ages = ages, i = i),
                   qw = commutationNumbers(probs$qw, ages = ages, i = i),
