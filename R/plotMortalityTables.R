@@ -29,7 +29,7 @@ plotMortalityTables = function(
     if (missing(xlab)) xlab = "Alter";
     if (missing(ylab)) ylab = expression(paste("Sterbewahrscheinlichkeit ", q[x]));
 
-  pl = ggplot(data %>% filter(y>0), aes(x = x, y = y, colour = group, shape = group)) +
+  pl = ggplot(subset(data, y > 0), aes(x = x, y = y, colour = group, shape = group)) +
     theme_bw() +
     theme(
       plot.title = element_text(size = 18, face = "bold"),
@@ -39,7 +39,7 @@ plotMortalityTables = function(
       # No box around legend entries
       legend.key = element_blank(),
       legend.key.width = legend.key.width,
-      legend.background = element_rect(colour="gray50", linetype="solid")
+      legend.background = element_rect(colour = "gray50", linetype = "solid")
     ) +
     geom_line(na.rm = TRUE) +
     scale_y_log10(
@@ -52,13 +52,13 @@ plotMortalityTables = function(
       name = xlab,
       #breaks = function (limits) scales::trans_breaks('', function(x) 10^x),
       # breaks = function (limits) seq(max(min(limits),0),max(limits),5),
-      minor_breaks = function (limits) seq(max(round(min(limits)),0),round(max(limits)),1)
+      minor_breaks = function(limits) seq(max(round(min(limits)), 0), round(max(limits)), 1)
       #labels = scales::trans_format('log10', scales::math_format(10^.x))
 
     ) +
-    coord_cartesian(xlim=xlim, ylim=ylim) +
-    annotation_logticks(sides="lr") +
-    xlab("Alter") + labs(colour=legend.title, shape=legend.title);
+    coord_cartesian(xlim = xlim, ylim = ylim) +
+    annotation_logticks(sides = "lr") +
+    xlab("Alter") + labs(colour = legend.title, shape = legend.title);
   if (title != "") {
     pl = pl + ggtitle(title);
   }

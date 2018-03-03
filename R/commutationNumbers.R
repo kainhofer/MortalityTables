@@ -20,7 +20,7 @@ setMethod("commutationNumbers", "mortalityTable",
           function(object, ..., i = 0.03) {
               ages = ages(object, ...)
               qx = deathProbabilities(object, ...)
-              commutationNumbers(qx, ages, i)
+              commutationNumbers(qx, ages = ages, i = i)
           })
 
 
@@ -30,7 +30,7 @@ setMethod("commutationNumbers", "mortalityTable",
 #'             Return value is a list of data frames
 setMethod("commutationNumbers", "numeric",
           function(object, ages, i = 0.03) {
-              v = 1/(1 + i)
+              v = 1 / (1 + i)
               qx = object
               lx = cumprod(c(100000, 1 - object[-length(object)]))
               dx = -diff(c(lx, 0))
@@ -53,7 +53,7 @@ setMethod("commutationNumbers", "pensionTable",
               probs = transitionProbabilities(object, ...)
               ages = probs$x
               list(
-                  q  = commutationNumbers(probs$q + probs$i,  ages = ages, i = i),
+                  q  = commutationNumbers(probs$q + probs$i, ages = ages, i = i),
                   qi = commutationNumbers(probs$qi, ages = ages, i = i),
                   qp = commutationNumbers(probs$qp, ages = ages, i = i),
                   qw = commutationNumbers(probs$qw, ages = ages, i = i),
