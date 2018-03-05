@@ -52,9 +52,12 @@ setMethod("commutationNumbers", "pensionTable",
           function(object, ..., i = 0.03) {
               probs = transitionProbabilities(object, ...)
               ages = probs$x
+              # Exit probabilities of actives are: - not dead or invalid & no transition to pension
+              act.exit = (1 - probs$q - probs$i) * (1 - probs$ap)
+              inv.exit = (1 - probs$qi) * (1 - probs$api)
               list(
-                  q  = commutationNumbers(probs$q + probs$i, ages = ages, i = i),
-                  qi = commutationNumbers(probs$qi, ages = ages, i = i),
+                  q  = commutationNumbers(1 - act.exit, ages = ages, i = i),
+                  qi = commutationNumbers(1 - inv.exit, ages = ages, i = i),
                   qp = commutationNumbers(probs$qp, ages = ages, i = i),
                   qw = commutationNumbers(probs$qw, ages = ages, i = i),
                   qg = commutationNumbers(probs$qg, ages = ages, i = i)

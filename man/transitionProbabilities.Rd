@@ -9,7 +9,7 @@
 transitionProbabilities(object, ...)
 
 \S4method{transitionProbabilities}{pensionTable}(object, YOB = 1982, ...,
-  Period = NULL, retirement = NULL,
+  OverallMortality = FALSE, Period = NULL, retirement = NULL,
   invalids.retire = object@invalids.retire, as.data.frame = TRUE)
 }
 \arguments{

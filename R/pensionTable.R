@@ -71,8 +71,8 @@ pensionTableProbArrange = function(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, a
     if (as.data.frame) {
         data.frame(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg)
     } else {
-        states = c("a", "i", "p", "d", "g")
-        transProb = array(0, dim = c(5,5, length(x)), dimnames = list(states, states, x))
+        states = c("a", "i", "p", "d")
+        transProb = array(0, dim = c(length(states), length(states), length(x)), dimnames = list(states, states, x))
 
         transProb["a", "a", ] = (1 - i - q) * (1 - ap);
         transProb["a", "i", ] = i;
@@ -88,9 +88,6 @@ pensionTableProbArrange = function(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, a
         transProb["p", "d", ] = qp;
 
         transProb["d", "d", ] = 1;
-
-        transProb["g", "d", ] = qg;
-        transProb["g", "g", ] = 1 - qg;
 
         list(transitionProbabilities = transProb, widows = data.frame(x, h, qw, yx))
     }
@@ -130,7 +127,7 @@ setGeneric("transitionProbabilities", function(object, ...) standardGeneric("tra
 
 #' @describeIn transitionProbabilities Return all transition probabilities of the pension table for the generation YOB
 setMethod("transitionProbabilities", "pensionTable",
-          function(object, YOB = 1982, ..., Period = NULL, retirement = NULL,
+          function(object, YOB = 1982, ..., OverallMortality = FALSE, Period = NULL, retirement = NULL,
                    invalids.retire = object@invalids.retire, as.data.frame = TRUE) {
               if (!missing(Period) && !is.null(Period)) {
                   return(periodTransitionProbabilities(
@@ -183,7 +180,12 @@ setMethod("transitionProbabilities", "pensionTable",
               qw  = deathProbabilities(object@qwy, ..., YOB = YOB);
               yx  = deathProbabilities(object@yx, ..., YOB = YOB);
               qg  = deathProbabilities(object@qgx, ..., YOB = YOB);
-              pensionTableProbArrange(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, as.data.frame = as.data.frame)
+              if (!OverallMortality) {
+                  pensionTableProbArrange(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, as.data.frame = as.data.frame)
+              } else {
+                  # Gesamttafel, i.e. actives, invalids and pensioners have the same mortality qg
+                  pensionTableProbArrange(x, qg, i, qg, r, ap, api, qg, h, qg, yx, qg, as.data.frame = as.data.frame)
+              }
           })
 
 #' Return all period transition probabilities of the pension table
@@ -216,9 +218,8 @@ setGeneric("periodTransitionProbabilities", function(object, ...) standardGeneri
 
 #' @describeIn periodTransitionProbabilities Return all transition probabilities of the pension table for the period Period
 setMethod("periodTransitionProbabilities", "pensionTable",
-          function(object, Period = 2017, ..., retirement = NULL, invalids.retire = object@invalids.retire, as.data.frame = TRUE) {
+          function(object, Period = 2017, ..., OverallMortality = FALSE, retirement = NULL, invalids.retire = object@invalids.retire, as.data.frame = TRUE) {
               x   = ages(object@qx);
-browser()
               q   = periodDeathProbabilities(object@qx, ..., Period = Period);
               i   = periodDeathProbabilities(object@ix, ..., Period = Period);
               qi  = periodDeathProbabilities(object@qix, ..., Period = Period);
@@ -251,7 +252,11 @@ browser()
               qw  = periodDeathProbabilities(object@qwy, ..., Period = Period);
               yx  = periodDeathProbabilities(object@yx, ..., Period = Period);
               qg  = periodDeathProbabilities(object@qgx, ..., Period = Period);
-              pensionTableProbArrange(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, as.data.frame = as.data.frame)
+              if (!OverallMortality) {
+                  pensionTableProbArrange(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, as.data.frame = as.data.frame)
+              } else  {
+                  pensionTableProbArrange(x, qg, i, qg, r, ap, api, qg, h, qg, yx, qg, as.data.frame = as.data.frame)
+              }
           })
 
 

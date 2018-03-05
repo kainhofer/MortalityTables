@@ -9,8 +9,8 @@
 periodTransitionProbabilities(object, ...)
 
 \S4method{periodTransitionProbabilities}{pensionTable}(object, Period = 2017,
-  ..., retirement = NULL, invalids.retire = object@invalids.retire,
-  as.data.frame = TRUE)
+  ..., OverallMortality = FALSE, retirement = NULL,
+  invalids.retire = object@invalids.retire, as.data.frame = TRUE)
 }
 \arguments{
 \item{object}{A pension table object (instance of a \code{\linkS4class{pensionTable}} class)}
