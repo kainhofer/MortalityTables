@@ -76,7 +76,7 @@ pensionTableProbArrange = function(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, a
 
         transProb["a", "a", ] = (1 - i - q) * (1 - ap);
         transProb["a", "i", ] = i;
-        transProb["a", "p", ] = (1 - q - i ) * ap;
+        transProb["a", "p", ] = (1 - i - q) * ap;
         transProb["a", "d", ] = q;
 
         transProb["i", "a", ] = r;
@@ -184,7 +184,7 @@ setMethod("transitionProbabilities", "pensionTable",
                   pensionTableProbArrange(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, as.data.frame = as.data.frame)
               } else {
                   # Gesamttafel, i.e. actives, invalids and pensioners have the same mortality qg
-                  pensionTableProbArrange(x, qg, i, qg, r, ap, api, qg, h, qg, yx, qg, as.data.frame = as.data.frame)
+                  pensionTableProbArrange(x, qg, i, qg, r, ap, api, qg, h, qw, yx, qg, as.data.frame = as.data.frame)
               }
           })
 
@@ -255,7 +255,7 @@ setMethod("periodTransitionProbabilities", "pensionTable",
               if (!OverallMortality) {
                   pensionTableProbArrange(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, as.data.frame = as.data.frame)
               } else  {
-                  pensionTableProbArrange(x, qg, i, qg, r, ap, api, qg, h, qg, yx, qg, as.data.frame = as.data.frame)
+                  pensionTableProbArrange(x, qg, i, qg, r, ap, api, qg, h, qw, yx, qg, as.data.frame = as.data.frame)
               }
           })
 
