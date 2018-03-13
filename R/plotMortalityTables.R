@@ -10,12 +10,15 @@
 #' @param ylab Y-axis label (default: "Sterbewahrscheinlichkeit q_x relativ zu ....")
 #' @param title The plot title
 #' @param legend.position The position of the legend (default is \code{c(0.9,0.1)})
+#' @param legend.justification The justification of the legend (default is \code{c(1,)})
 #' @param legend.key.width The keywith of the lines in the  legend (default is \code{unit(25,"mm")})
+#' @param ages Plot only the given ages
 #'
 #' @import scales
 #' @export
 plotMortalityTables = function(
     data, ...,
+    ages = NULL,
     legend.title = "Sterbetafel",
     xlim=NULL, ylim=NULL,
     xlab=NULL, ylab=NULL,
@@ -29,7 +32,11 @@ plotMortalityTables = function(
     if (missing(xlab)) xlab = "Alter";
     if (missing(ylab)) ylab = expression(paste("Sterbewahrscheinlichkeit ", q[x]));
 
-  pl = ggplot(subset(data, y > 0), aes(x = x, y = y, colour = group, shape = group)) +
+    data = subset(data, y > 0)
+    if (!is.null(ages)) {
+        data = data[data$x %in% ages,]
+    }
+    pl = ggplot(subset(data, y > 0), aes(x = x, y = y, colour = group, shape = group)) +
     theme_bw() +
     theme(
       plot.title = element_text(size = 18, face = "bold"),
