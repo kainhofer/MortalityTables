@@ -9,6 +9,8 @@ NULL
 #'
 #' @slot ages       The ages corresponding to the entries of the deathProbs
 #' @slot deathProbs The one-year death probabilities for the ages
+#' @slot exposures  (Optional) exposured used to determine death probabilities
+#'                  (can be used as weights for smoothing, for variances, etc.)
 #'
 #' @export mortalityTable.period
 #' @exportClass mortalityTable.period
@@ -16,11 +18,13 @@ mortalityTable.period = setClass(
     "mortalityTable.period",
     slots = list(
         ages = "numeric",
-        deathProbs = "numeric"
+        deathProbs = "numeric",
+        exposures = "numeric"
     ),
     prototype = list(
         ages = eval(0:120),
-        deathProbs = rep(1,120)
+        deathProbs = rep(1,120),
+        exposures = NULL
     ),
     contains = "mortalityTable"
 )

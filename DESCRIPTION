@@ -60,4 +60,5 @@ Collate:
     'setLoading.R'
     'setModification.R'
     'undampenTrend.R'
+    'whittaker.mortalityTable.R'
 VignetteBuilder: knitr

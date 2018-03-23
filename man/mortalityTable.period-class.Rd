@@ -16,5 +16,8 @@ information about the period.
 \item{\code{ages}}{The ages corresponding to the entries of the deathProbs}
 
 \item{\code{deathProbs}}{The one-year death probabilities for the ages}
+
+\item{\code{exposures}}{(Optional) exposured used to determine death probabilities
+(can be used as weights for smoothing, for variances, etc.)}
 }}
 
