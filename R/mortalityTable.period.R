@@ -1,6 +1,9 @@
 #' @include mortalityTable.R
 NULL
 
+setClassUnion("numericOrNULL", c("numeric", "NULL"))
+
+
 #' Class mortalityTable.period - Period life tables
 #'
 #' A period life table, giving death probabilities for each age, up to
@@ -19,7 +22,7 @@ mortalityTable.period = setClass(
     slots = list(
         ages = "numeric",
         deathProbs = "numeric",
-        exposures = "numeric"
+        exposures = "numericOrNULL"
     ),
     prototype = list(
         ages = eval(0:120),
