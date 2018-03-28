@@ -12,23 +12,25 @@
 \alias{deathProbabilities,mortalityTable.jointLives-method}
 \title{Return the (cohort) death probabilities of the life table given the birth year (if needed)}
 \usage{
-deathProbabilities(object, ..., YOB = 1975)
+deathProbabilities(object, ..., ages = NULL, YOB = 1975)
 
-\S4method{deathProbabilities}{mortalityTable.period}(object, ..., YOB = 1975)
+\S4method{deathProbabilities}{mortalityTable.period}(object, ..., ages = NULL,
+  YOB = 1975)
 
 \S4method{deathProbabilities}{mortalityTable.ageShift}(object, ...,
-  YOB = 1975)
+  ages = NULL, YOB = 1975)
 
 \S4method{deathProbabilities}{mortalityTable.trendProjection}(object, ...,
-  YOB = 1975)
+  ages = NULL, YOB = 1975)
 
 \S4method{deathProbabilities}{mortalityTable.improvementFactors}(object, ...,
+  ages = NULL, YOB = 1975)
+
+\S4method{deathProbabilities}{mortalityTable.mixed}(object, ..., ages = NULL,
   YOB = 1975)
 
-\S4method{deathProbabilities}{mortalityTable.mixed}(object, ..., YOB = 1975)
-
 \S4method{deathProbabilities}{mortalityTable.jointLives}(object, ...,
-  ageDifferences = c(), YOB = 1975)
+  ageDifferences = c(), ages = NULL, YOB = 1975)
 }
 \arguments{
 \item{object}{The life table object (class inherited from mortalityTable)}

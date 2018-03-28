@@ -187,12 +187,12 @@ setMethod("baseYear", "mortalityTable.jointLives",
 #' deathProbabilities(table.JL, YOB = 1977, ageDifferences = c(1, 5, 16))
 #'
 setMethod("deathProbabilities", "mortalityTable.jointLives",
-          function(object,  ..., ageDifferences = c(), YOB = 1975) {
+          function(object,  ..., ageDifferences = c(), ages = NULL, YOB = 1975) {
               qxMatrix = deathProbabilitiesIndividual(c(object@table), YOB = YOB, ageDifferences = ageDifferences);
               # First death probabilities are characterized as p_x1x2x3.. = \prod p_xi, i.e.
               # q_x1x2x3... = 1 - \prod (1 - p_xi)
               qx = 1 - apply(1 - qxMatrix, 1, prod)
-              object@modification(qx * (1 + object@loading));
+              object@modification(qx * (1 + object@loading))
           })
 
 #' @describeIn getOmega Return the maximum age of the joint lives mortality table (returns the maximum age of the first table used for joint lives, as the ages of the joint lives are now known to the function)
@@ -218,7 +218,7 @@ setMethod("getOmega", "mortalityTable.jointLives",
 #'
 
 setMethod("periodDeathProbabilities", "mortalityTable.jointLives",
-          function(object,  ..., ageDifferences = c(), Period = 1975) {
+          function(object,  ..., ageDifferences = c(), ages = NULL, Period = 1975) {
               qxMatrix = periodDeathProbabilitiesIndividual(c(object@table), period = Period, ageDifferences = ageDifferences);
               # First death probabilities are characterized as p_x1x2x3.. = \prod p_xi, i.e.
               # q_x1x2x3... = 1 - \prod (1 - p_xi)

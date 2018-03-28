@@ -13,25 +13,25 @@
 \title{Return the (period) death probabilities of the life table for a given
 observation year}
 \usage{
-periodDeathProbabilities(object, ..., Period = 1975)
+periodDeathProbabilities(object, ..., ages = NULL, Period = 1975)
 
 \S4method{periodDeathProbabilities}{mortalityTable.period}(object, ...,
-  Period = 1975)
+  ages = NULL, Period = 1975)
 
 \S4method{periodDeathProbabilities}{mortalityTable.ageShift}(object, ...,
-  Period = 1975)
+  ages = NULL, Period = 1975)
 
 \S4method{periodDeathProbabilities}{mortalityTable.trendProjection}(object, ...,
-  Period = 1975)
+  ages = NULL, Period = 1975)
 
 \S4method{periodDeathProbabilities}{mortalityTable.improvementFactors}(object,
-  ..., Period = 1975)
+  ..., ages = NULL, Period = 1975)
 
 \S4method{periodDeathProbabilities}{mortalityTable.mixed}(object, ...,
-  Period = 1975)
+  ages = NULL, Period = 1975)
 
 \S4method{periodDeathProbabilities}{mortalityTable.jointLives}(object, ...,
-  ageDifferences = c(), Period = 1975)
+  ageDifferences = c(), ages = NULL, Period = 1975)
 }
 \arguments{
 \item{object}{The life table object (class inherited from mortalityTable)}

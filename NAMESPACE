@@ -2,6 +2,7 @@
 
 S3method(plot,mortalityTable)
 export(deathProbabilitiesIndividual)
+export(fillAges)
 export(generateAgeShift)
 export(makeQxDataFrame)
 export(mortalityComparisonTable)

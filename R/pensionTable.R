@@ -1,4 +1,4 @@
-#' @include mortalityTable.R
+#' @include mortalityTable.R fillAges.R
 NULL
 
 
@@ -127,7 +127,7 @@ setGeneric("transitionProbabilities", function(object, ...) standardGeneric("tra
 
 #' @describeIn transitionProbabilities Return all transition probabilities of the pension table for the generation YOB
 setMethod("transitionProbabilities", "pensionTable",
-          function(object, YOB = 1982, ..., OverallMortality = FALSE, Period = NULL, retirement = NULL,
+          function(object, YOB = 1982, ..., ages = NULL, OverallMortality = FALSE, Period = NULL, retirement = NULL,
                    invalids.retire = object@invalids.retire, as.data.frame = TRUE) {
               if (!missing(Period) && !is.null(Period)) {
                   return(periodTransitionProbabilities(
@@ -135,11 +135,12 @@ setMethod("transitionProbabilities", "pensionTable",
                       invalids.retire = invalids.retire,
                       as.data.frame = as.data.frame))
               }
-              x   = ages(object@qx);
-              q   = deathProbabilities(object@qx, ..., YOB = YOB);
-              i   = deathProbabilities(object@ix, ..., YOB = YOB);
-              qi  = deathProbabilities(object@qix, ..., YOB = YOB);
-              r   = deathProbabilities(object@rx, ..., YOB = YOB);
+              x   = ifelse(is.null(ages), ages(object@qx), ages);
+              # TODO: Make sure all sub-tables have the same age range!
+              q   = deathProbabilities(object@qx, ..., ages = ages, YOB = YOB);
+              i   = deathProbabilities(object@ix, ..., ages = ages, YOB = YOB);
+              qi  = deathProbabilities(object@qix, ..., ages = ages, YOB = YOB);
+              r   = deathProbabilities(object@rx, ..., ages = ages, YOB = YOB);
               apTab = object@apx
               if (!missing(retirement) && !is.null(retirement)) {
                   if (inherits(retirement, "mortalityTable")) {
@@ -157,7 +158,7 @@ setMethod("transitionProbabilities", "pensionTable",
                       apTab = mortalityTable.zeroes(ages = x)
                   }
               }
-              ap  = deathProbabilities(apTab, ..., YOB = YOB);
+              ap  = deathProbabilities(apTab, ..., ages = ages, YOB = YOB);
 
               if (!missing(retirement) && !is.null(retirement)) {
                   if (inherits(retirement, "mortalityTable")) {
@@ -173,13 +174,13 @@ setMethod("transitionProbabilities", "pensionTable",
               if (invalids.retire) {
                   api = ap
               } else {
-                  api = deathProbabilities(mortalityTable.zeroes(ages = x), ..., YOB = YOB)
+                  api = deathProbabilities(mortalityTable.zeroes(ages = x), ..., ages = ages, YOB = YOB)
               }
-              qp  = deathProbabilities(object@qpx, ..., YOB = YOB);
-              h   = deathProbabilities(object@hx, ..., YOB = YOB);
-              qw  = deathProbabilities(object@qwy, ..., YOB = YOB);
-              yx  = deathProbabilities(object@yx, ..., YOB = YOB);
-              qg  = deathProbabilities(object@qgx, ..., YOB = YOB);
+              qp  = deathProbabilities(object@qpx, ..., ages = ages, YOB = YOB);
+              h   = deathProbabilities(object@hx, ..., ages = ages, YOB = YOB);
+              qw  = deathProbabilities(object@qwy, ..., ages = ages, YOB = YOB);
+              yx  = deathProbabilities(object@yx, ..., ages = ages, YOB = YOB);
+              qg  = deathProbabilities(object@qgx, ..., ages = ages, YOB = YOB);
               if (!OverallMortality) {
                   pensionTableProbArrange(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, as.data.frame = as.data.frame)
               } else {
@@ -219,11 +220,11 @@ setGeneric("periodTransitionProbabilities", function(object, ...) standardGeneri
 #' @describeIn periodTransitionProbabilities Return all transition probabilities of the pension table for the period Period
 setMethod("periodTransitionProbabilities", "pensionTable",
           function(object, Period = 2017, ..., OverallMortality = FALSE, retirement = NULL, invalids.retire = object@invalids.retire, as.data.frame = TRUE) {
-              x   = ages(object@qx);
-              q   = periodDeathProbabilities(object@qx, ..., Period = Period);
-              i   = periodDeathProbabilities(object@ix, ..., Period = Period);
-              qi  = periodDeathProbabilities(object@qix, ..., Period = Period);
-              r   = periodDeathProbabilities(object@rx, ..., Period = Period);
+              x   = ifelse(is.null(ages), ages(object@qx), ages);
+              q   = periodDeathProbabilities(object@qx, ..., ages = ages, Period = Period);
+              i   = periodDeathProbabilities(object@ix, ..., ages = ages, Period = Period);
+              qi  = periodDeathProbabilities(object@qix, ..., ages = ages, Period = Period);
+              r   = periodDeathProbabilities(object@rx, ..., ages = ages, Period = Period);
               apTab = object@apx
               if (!missing(retirement) && !is.null(retirement)) {
                   if (inherits(retirement, "mortalityTable")) {
@@ -241,17 +242,17 @@ setMethod("periodTransitionProbabilities", "pensionTable",
                       apTab = mortalityTable.zeroes(ages = x)
                   }
               }
-              ap = deathProbabilities(apTab, ..., Period = Period)
+              ap = deathProbabilities(apTab, ..., ages = ages, Period = Period)
               if (invalids.retire) {
                   api = ap
               } else {
-                  api = deathProbabilities(mortalityTable.zeroes(ages = x), ..., Period = Period)
+                  api = deathProbabilities(mortalityTable.zeroes(ages = x), ..., ages = ages, Period = Period)
               }
-              qp  = periodDeathProbabilities(object@qpx, ..., Period = Period);
-              h   = periodDeathProbabilities(object@hx, ..., Period = Period);
-              qw  = periodDeathProbabilities(object@qwy, ..., Period = Period);
-              yx  = periodDeathProbabilities(object@yx, ..., Period = Period);
-              qg  = periodDeathProbabilities(object@qgx, ..., Period = Period);
+              qp  = periodDeathProbabilities(object@qpx, ..., ages = ages, Period = Period);
+              h   = periodDeathProbabilities(object@hx, ..., ages = ages, Period = Period);
+              qw  = periodDeathProbabilities(object@qwy, ..., ages = ages, Period = Period);
+              yx  = periodDeathProbabilities(object@yx, ..., ages = ages, Period = Period);
+              qg  = periodDeathProbabilities(object@qgx, ..., ages = ages, Period = Period);
               if (!OverallMortality) {
                   pensionTableProbArrange(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, as.data.frame = as.data.frame)
               } else  {

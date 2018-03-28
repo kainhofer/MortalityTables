@@ -1,4 +1,4 @@
-#' @include mortalityTable.R mortalityTable.period.R mortalityTable.ageShift.R mortalityTable.trendProjection.R mortalityTable.improvementFactors.R mortalityTable.mixed.R
+#' @include mortalityTable.R mortalityTable.period.R mortalityTable.ageShift.R mortalityTable.trendProjection.R mortalityTable.improvementFactors.R mortalityTable.mixed.R fillAges.R
 NULL
 
 #' Return the (cohort) death probabilities of the life table given the birth year (if needed)
@@ -13,19 +13,23 @@ NULL
 #' deathProbabilities(AVOe2005R.male, YOB = 2017)
 #'
 #' @exportMethod deathProbabilities
-setGeneric("deathProbabilities", function(object, ..., YOB = 1975) standardGeneric("deathProbabilities"));
+setGeneric("deathProbabilities", function(object, ..., ages = NULL, YOB = 1975) standardGeneric("deathProbabilities"));
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
 #'                                life table given the birth year (if needed)
 setMethod("deathProbabilities", "mortalityTable.period",
-          function(object, ..., YOB = 1975) {
-              object@modification(object@deathProbs * (1 + object@loading));
+          function(object, ..., ages = NULL, YOB = 1975) {
+              fillAges(
+                  object@modification(object@deathProbs * (1 + object@loading)),
+                  haveAges = ages(object),
+                  needAges = ages
+              );
           })
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
 #'                                life table given the birth year (if needed)
 setMethod("deathProbabilities","mortalityTable.ageShift",
-          function(object,  ..., YOB = 1975) {
+          function(object,  ..., ages = NULL, YOB = 1975) {
               qx = object@deathProbs * (1 + object@loading);
               shift = ageShift(object, YOB);
               if (shift > 0) {
@@ -33,18 +37,18 @@ setMethod("deathProbabilities","mortalityTable.ageShift",
               } else if (shift < 0) {
                   qx = c(rep(0, -shift), qx[1:(length(qx) - (-shift))])
               }
-              object@modification(qx)
+              fillAges(object@modification(qx), haveAges = ages(object), needAges = ages)
           })
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
 #'                                life table given the birth year (if needed)
 setMethod("deathProbabilities","mortalityTable.trendProjection",
-          function(object,  ..., YOB = 1975) {
+          function(object,  ..., ages = NULL, YOB = 1975) {
               qx = object@deathProbs * (1 + object@loading);
               if (is.null(object@trend2) || length(object@trend2) <= 1) {
-                  ages = object@ages;
+                  haveAges = object@ages;
                   damping = sapply(
-                      ages,
+                      haveAges,
                       function(age) { object@dampingFunction(YOB + age - object@baseYear) }
                   );
                   finalqx = exp(-object@trend * damping) * qx;
@@ -57,24 +61,28 @@ setMethod("deathProbabilities","mortalityTable.trendProjection",
                       -(object@trend * (1 - weights) + object@trend2 * weights) *
                           (YOB + 0:(length(qx) - 1) - object@baseYear))
               }
-              object@modification(finalqx)
+              fillAges(object@modification(finalqx), givenAges = haveAges, neededAges = ages)
           })
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
 #'                                life table given the birth year (if needed)
 setMethod("deathProbabilities","mortalityTable.improvementFactors",
-          function(object,  ..., YOB = 1975) {
+          function(object,  ..., ages = NULL, YOB = 1975) {
               qx = object@deathProbs * (1 + object@loading);
               impr = calculateImprovements(object, ..., YOB = YOB)
-              object@modification(impr * qx)
+              fillAges(
+                  object@modification(impr * qx),
+                  haveAges = ages(object),
+                  needAges = ages)
           })
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
 #'                                life table given the birth year (if needed)
 setMethod("deathProbabilities","mortalityTable.mixed",
-          function(object,  ..., YOB = 1975) {
-              qx1 = deathProbabilities(object@table1, ..., YOB);
-              qx2 = deathProbabilities(object@table2, ..., YOB);
+          function(object,  ..., ages = NULL, YOB = 1975) {
+              qx1 = deathProbabilities(object@table1, ..., ages = ages, YOB = YOB);
+              qx2 = deathProbabilities(object@table2, ..., ages = ages, YOB = YOB);
               mixedqx = (object@weight1 * qx1 + object@weight2 * qx2)/(object@weight1 + object@weight2) * (1 + object@loading);
+              # We already have the correct ages from the deathProbabilities call above
               object@modification(mixedqx)
           })

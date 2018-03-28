@@ -34,6 +34,7 @@ Collate:
     'ages.R'
     'baseTable.R'
     'baseYear.R'
+    'fillAges.R'
     'pensionTable.R'
     'commutationNumbers.R'
     'mortalityTable.improvementFactors.R'
