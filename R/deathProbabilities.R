@@ -21,8 +21,8 @@ setMethod("deathProbabilities", "mortalityTable.period",
           function(object, ..., ages = NULL, YOB = 1975) {
               fillAges(
                   object@modification(object@deathProbs * (1 + object@loading)),
-                  haveAges = ages(object),
-                  needAges = ages
+                  givenAges = ages(object),
+                  neededAges = ages
               );
           })
 
@@ -37,7 +37,7 @@ setMethod("deathProbabilities","mortalityTable.ageShift",
               } else if (shift < 0) {
                   qx = c(rep(0, -shift), qx[1:(length(qx) - (-shift))])
               }
-              fillAges(object@modification(qx), haveAges = ages(object), needAges = ages)
+              fillAges(object@modification(qx), givenAges = ages(object), neededAges = ages)
           })
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
@@ -46,9 +46,9 @@ setMethod("deathProbabilities","mortalityTable.trendProjection",
           function(object,  ..., ages = NULL, YOB = 1975) {
               qx = object@deathProbs * (1 + object@loading);
               if (is.null(object@trend2) || length(object@trend2) <= 1) {
-                  haveAges = object@ages;
+                  givenAges = object@ages;
                   damping = sapply(
-                      haveAges,
+                      givenAges,
                       function(age) { object@dampingFunction(YOB + age - object@baseYear) }
                   );
                   finalqx = exp(-object@trend * damping) * qx;
@@ -61,7 +61,7 @@ setMethod("deathProbabilities","mortalityTable.trendProjection",
                       -(object@trend * (1 - weights) + object@trend2 * weights) *
                           (YOB + 0:(length(qx) - 1) - object@baseYear))
               }
-              fillAges(object@modification(finalqx), givenAges = haveAges, neededAges = ages)
+              fillAges(object@modification(finalqx), givenAges = givenAges, neededAges = ages)
           })
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the
@@ -72,8 +72,8 @@ setMethod("deathProbabilities","mortalityTable.improvementFactors",
               impr = calculateImprovements(object, ..., YOB = YOB)
               fillAges(
                   object@modification(impr * qx),
-                  haveAges = ages(object),
-                  needAges = ages)
+                  givenAges = ages(object),
+                  neededAges = ages)
           })
 
 #' @describeIn deathProbabilities Return the (cohort) death probabilities of the

@@ -15,7 +15,10 @@ setGeneric("periodDeathProbabilities", function(object, ..., ages = NULL, Period
 #'             of the life table for a given observation year
 setMethod("periodDeathProbabilities", "mortalityTable.period",
           function(object, ..., ages = NULL, Period = 1975) {
-              object@modification(object@deathProbs * (1 + object@loading));
+              fillAges(
+                  object@modification(object@deathProbs * (1 + object@loading)),
+                  givenAges = ages(object),
+                  neededAges = ages)
           })
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
@@ -29,8 +32,8 @@ setMethod("periodDeathProbabilities", "mortalityTable.ageShift",
               # if (shift.index) {}
               fillAges(
                   object@modification(qx),
-                  haveAges = ages(object),
-                  needAges = ages)
+                  givenAges = ages(object),
+                  neededAges = ages)
           })
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
@@ -51,8 +54,8 @@ setMethod("periodDeathProbabilities", "mortalityTable.trendProjection",
               }
               fillAges(
                   object@modification(finalqx),
-                  haveAges = ages(object),
-                  needAges = ages)
+                  givenAges = ages(object),
+                  neededAges = ages)
           })
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities
@@ -63,8 +66,8 @@ setMethod("periodDeathProbabilities", "mortalityTable.improvementFactors",
               impr = calculateImprovements(object, ..., Period = Period)
               fillAges(
                   object@modification(qx * impr),
-                  haveAges = ages(object),
-                  needAges = ages)
+                  givenAges = ages(object),
+                  neededAges = ages)
           })
 
 #' @describeIn periodDeathProbabilities Return the (period) death probabilities

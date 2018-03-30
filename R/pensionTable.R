@@ -131,11 +131,11 @@ setMethod("transitionProbabilities", "pensionTable",
                    invalids.retire = object@invalids.retire, as.data.frame = TRUE) {
               if (!missing(Period) && !is.null(Period)) {
                   return(periodTransitionProbabilities(
-                      object, ..., Period = Period, retirement = retirement,
+                      object, ..., ages = ages, Period = Period, retirement = retirement,
                       invalids.retire = invalids.retire,
                       as.data.frame = as.data.frame))
               }
-              x   = ifelse(is.null(ages), ages(object@qx), ages);
+              x   = if (is.null(ages)) ages(object@qx) else  ages;
               # TODO: Make sure all sub-tables have the same age range!
               q   = deathProbabilities(object@qx, ..., ages = ages, YOB = YOB);
               i   = deathProbabilities(object@ix, ..., ages = ages, YOB = YOB);
@@ -219,8 +219,8 @@ setGeneric("periodTransitionProbabilities", function(object, ...) standardGeneri
 
 #' @describeIn periodTransitionProbabilities Return all transition probabilities of the pension table for the period Period
 setMethod("periodTransitionProbabilities", "pensionTable",
-          function(object, Period = 2017, ..., OverallMortality = FALSE, retirement = NULL, invalids.retire = object@invalids.retire, as.data.frame = TRUE) {
-              x   = ifelse(is.null(ages), ages(object@qx), ages);
+          function(object, Period = 2017, ..., ages = NULL, OverallMortality = FALSE, retirement = NULL, invalids.retire = object@invalids.retire, as.data.frame = TRUE) {
+              x   = if (is.null(ages)) ages(object@qx) else  ages;
               q   = periodDeathProbabilities(object@qx, ..., ages = ages, Period = Period);
               i   = periodDeathProbabilities(object@ix, ..., ages = ages, Period = Period);
               qi  = periodDeathProbabilities(object@qix, ..., ages = ages, Period = Period);
@@ -272,3 +272,4 @@ avoe08p.period = periodTransitionProbabilities(AVOe2008P.male, Period = 2007, as
 pensionTables.list(package = "MortalityTablesPrivate")
 pensionTables.load("Austria_AVOe1999P")
 }
+

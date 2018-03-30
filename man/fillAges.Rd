@@ -4,14 +4,15 @@
 \alias{fillAges}
 \title{Fill the given probabilities with NA to match the desired age range.}
 \usage{
-fillAges(probs = c(), haveAges = c(), neededAges = NULL)
+fillAges(probs = c(), givenAges = c(), neededAges = NULL,
+  fill = NA_real_)
 }
 \arguments{
 \item{probs}{Numeric vector}
 
-\item{haveAges}{ages assigned to the given vector}
-
 \item{neededAges}{desired age range for output}
+
+\item{haveAges}{ages assigned to the given vector}
 }
 \description{
 Fill the given probabilities with NA to match the desired age range.

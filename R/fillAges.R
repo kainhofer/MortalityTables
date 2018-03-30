@@ -6,12 +6,13 @@
 #' @param neededAges desired age range for output
 #'
 #' @export  fillAges
-fillAges = function(probs = c(), haveAges = c(), neededAges = NULL) {
+fillAges = function(probs = c(), givenAges = c(), neededAges = NULL, fill = NA_real_) {
     if (!is.null(neededAges)) {
         # initialize result with NA, then fill in all known ages from probs
-        result = rep(NA_real_, length(neededAges))
-        providedAges = intersect(neededAges, haveAges)
-        result[match(providedAges, neededAges)] = probs[match(providedAges, haveAges)]
+        result = rep(fill, length(neededAges))
+        providedAges = intersect(neededAges, givenAges)
+        result[match(providedAges, neededAges)] = probs[match(providedAges, givenAges)]
+        result
     } else {
         probs
     }
