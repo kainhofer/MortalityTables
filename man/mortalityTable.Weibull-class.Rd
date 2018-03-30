@@ -7,7 +7,7 @@
 \title{Class mortalityTable.Weibull - Mortality table with Weibull's law}
 \description{
 A period life table following Weibulls's law of a mortality rate
-\eqn{\mu} increasing as a power of \eqn{t}: \deqn{\mu_{x+t} = k * (x+t)^n$}
+\eqn{\mu} increasing as a power of \eqn{t}: \deqn{\mu_{x+t} = k * (x+t)^n}
 The only required slots are the parameters \eqn{k>0} and \eqn{n>0}, all probabilities
 are calculated from them, for technical reasons a maximum age of 150 is
 technically assumed.  Optionally, a name and loading can be passed
