@@ -6,7 +6,13 @@ NULL
 #'
 #' @param object The life table object (class inherited from mortalityTable)
 #' @param ... Other parameters (currently unused)
+#' @param ages Desired age range (if NULL, the probabilities of the age range provided by the table will be returned), missing ages will be filled with NA
 #' @param Period  The observation year for which the period death probabilities should be determined
+#'
+#' @examples
+#' mortalityTables.load("Austria_Annuities")
+#' periodDeathProbabilities(AVOe2005R.male, Period = 1975)
+#' periodDeathProbabilities(AVOe2005R.male, Period = 2017)
 #'
 #' @exportMethod periodDeathProbabilities
 setGeneric("periodDeathProbabilities", function(object, ..., ages = NULL, Period = 1975) standardGeneric("periodDeathProbabilities"));

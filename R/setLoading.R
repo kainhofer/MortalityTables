@@ -6,6 +6,11 @@ NULL
 #' @param object A life table object (instance of a \code{mortalityTable} class)
 #' @param loading The additional (security) loading to be added to the table.
 #'
+#' @examples
+#' mortalityTables.load("Austria_Census")
+#' # Austrian census mortality 2011 reduced by 30%
+#' setLoading(mort.AT.census.2011.male, loading = -0.3)
+#'
 #' @exportMethod setLoading
 setGeneric("setLoading", function(object, loading = 0) standardGeneric("setLoading"));
 

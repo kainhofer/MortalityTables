@@ -37,6 +37,8 @@ deathProbabilities(object, ..., ages = NULL, YOB = 1975)
 
 \item{...}{Other parameters (currently unused)}
 
+\item{ages}{Desired age range (if NULL, the probabilities of the age range provided by the table will be returned), missing ages will be filled with NA}
+
 \item{YOB}{The birth year for which the death probabilities should be calculated}
 
 \item{ageDifferences}{A vector of age differences of all joint lives.}

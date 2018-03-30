@@ -20,6 +20,10 @@ transitionProbabilities(object, ...)
 
 \item{YOB}{Year of birth}
 
+\item{ages}{Desired age range (if NULL, the probabilities of the age range provided by the table will be returned), missing ages will be filled with NA}
+
+\item{OverallMortality}{Whether the overall mortality should be returned for actives, or the active mortality}
+
 \item{Period}{Observation year to calculate period transition probabilities.
 If given, this arguments overrides the \code{YOB} parameter
 and this function returns period transition probabilities.

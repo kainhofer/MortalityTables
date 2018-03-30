@@ -19,3 +19,9 @@ Multiple packages can be given as a vector.}
 List all available sets of pension tables provided by the \link[MortalityTables]{MortalityTables-package} package
 An existing pension table can then be loaded with \link{pensionTables.load}.
 }
+\examples{
+pensionTables.list()
+pensionTables.list("USA_*")
+pensionTables.list(package = c("MyCustomPackage"))
+
+}

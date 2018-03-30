@@ -19,6 +19,10 @@ periodTransitionProbabilities(object, ...)
 
 \item{Period}{Observation year}
 
+\item{ages}{Desired age range (if NULL, the probabilities of the age range provided by the table will be returned), missing ages will be filled with NA}
+
+\item{OverallMortality}{Whether the overall mortality should be returned for actives, or the active mortality}
+
 \item{retirement}{Override the retirement transition probabilities of the pension table. Possible values are:\itemize{
 \item Single age (describing a deterministric retirement at the given age)
 \item mortalityTable object: transition probabilities for retirement

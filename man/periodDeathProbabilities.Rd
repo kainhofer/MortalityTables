@@ -38,6 +38,8 @@ periodDeathProbabilities(object, ..., ages = NULL, Period = 1975)
 
 \item{...}{Other parameters (currently unused)}
 
+\item{ages}{Desired age range (if NULL, the probabilities of the age range provided by the table will be returned), missing ages will be filled with NA}
+
 \item{Period}{The observation year for which the period death probabilities should be determined}
 
 \item{ageDifferences}{A vector of age differences of all joint lives.}
@@ -68,6 +70,10 @@ of the joint lives mortality table for a given observation year
 }}
 
 \examples{
+mortalityTables.load("Austria_Annuities")
+periodDeathProbabilities(AVOe2005R.male, Period = 1975)
+periodDeathProbabilities(AVOe2005R.male, Period = 2017)
+
 mortalityTables.load("Germany_Census")
 table.JL = mortalityTable.jointLives(
     name = "ADSt 24/26 auf verbundene Leben",

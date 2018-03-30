@@ -98,6 +98,7 @@ pensionTableProbArrange = function(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, a
 #' @param object A pension table object (instance of a \code{\linkS4class{pensionTable}} class)
 #' @param ... Currently unused
 #' @param YOB Year of birth
+#' @param ages Desired age range (if NULL, the probabilities of the age range provided by the table will be returned), missing ages will be filled with NA
 #' @param Period Observation year to calculate period transition probabilities.
 #'               If given, this arguments overrides the \code{YOB} parameter
 #'               and this function returns period transition probabilities.
@@ -115,6 +116,7 @@ pensionTableProbArrange = function(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, a
 #'                        invalids retire like actives (i.e. same death
 #'                        probabilities after retirement) or stay invalid until
 #'                        death.
+#' @param OverallMortality Whether the overall mortality should be returned for actives, or the active mortality
 #'
 #' @examples
 #' pensionTables.load("USA_PensionPlans")
@@ -136,7 +138,6 @@ setMethod("transitionProbabilities", "pensionTable",
                       as.data.frame = as.data.frame))
               }
               x   = if (is.null(ages)) ages(object@qx) else  ages;
-              # TODO: Make sure all sub-tables have the same age range!
               q   = deathProbabilities(object@qx, ..., ages = ages, YOB = YOB);
               i   = deathProbabilities(object@ix, ..., ages = ages, YOB = YOB);
               qi  = deathProbabilities(object@qix, ..., ages = ages, YOB = YOB);
@@ -194,6 +195,7 @@ setMethod("transitionProbabilities", "pensionTable",
 #' @param object A pension table object (instance of a \code{\linkS4class{pensionTable}} class)
 #' @param Period Observation year
 #' @param ... Currently unused
+#' @param ages Desired age range (if NULL, the probabilities of the age range provided by the table will be returned), missing ages will be filled with NA
 #' @param retirement Override the retirement transition probabilities of the pension table. Possible values are:\itemize{
 #'                   \item Single age (describing a deterministric retirement at the given age)
 #'                   \item mortalityTable object: transition probabilities for retirement
@@ -204,6 +206,7 @@ setMethod("transitionProbabilities", "pensionTable",
 #'                        probabilities after retirement) or stay invalid until
 #'                        death.
 #' @param as.data.frame Whether the return value should be a data.frame or an array containing transition matrices
+#' @param OverallMortality Whether the overall mortality should be returned for actives, or the active mortality
 #'
 #' @examples
 #' pensionTables.load("USA_PensionPlans")

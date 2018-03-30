@@ -10,10 +10,17 @@ fillAges(probs = c(), givenAges = c(), neededAges = NULL,
 \arguments{
 \item{probs}{Numeric vector}
 
+\item{givenAges}{ages assigned to the given vector}
+
 \item{neededAges}{desired age range for output}
 
-\item{haveAges}{ages assigned to the given vector}
+\item{fill}{If set, missing values will be replaced with this value. Default is to fill with NA.}
 }
 \description{
 Fill the given probabilities with NA to match the desired age range.
+}
+\examples{
+# Ages 20-70 have linearly increasing death probabilities. Fill with 0 for the whole age range 0-120
+fillAges(probs = c(0:50/50), givenAges = 20:70, neededAges = 0:120, fill = 0)
+
 }

@@ -14,7 +14,25 @@
 #' @param legend.position The position of the legend (default is \code{c(0.9,0.1)})
 #' @param legend.key.width The keywith of the lines in the  legend (default is \code{unit(25,"mm")})
 #'
-#' @import scales
+#' @examples
+#' # Load the Austrian aunnity data
+#' mortalityTables.load("Austria_Annuities")
+#'
+#' # Compare the trends of these tables
+#' plotMortalityTrend(AVOe2005R.male, AVOe2005R.female, AVOe1996R.male, AVOe1996R.female,
+#'     Period = 2002, title = "Trends of Austrian Annuity Tables")
+#' # For tables with a non-constant trend, the Period and YOB can be used to compare
+#' # the age-specific trends that apply to the death probabilities during a given
+#' # period or for a given birth year
+#' plotMortalityTrend(AVOe2005R.male, AVOe2005R.female, AVOe1996R.male, AVOe1996R.female,
+#'     YOB = 1950, title = "Trends of Austrian Annuity Tables for cohort YOB=1950")
+#' plotMortalityTrend(AVOe2005R.male, AVOe2005R.female, AVOe1996R.male, AVOe1996R.female,
+#'     YOB = 2000, title = "Trends of Austrian Annuity Tables for cohort YOB=2000")
+#' plotMortalityTrend(AVOe2005R.male, AVOe2005R.female, AVOe1996R.male, AVOe1996R.female,
+#'    Period = 1999, title = "Trends of Austrian Annuity Tables for Period 2002")
+#' plotMortalityTrend(AVOe2005R.male, AVOe2005R.female, AVOe1996R.male, AVOe1996R.female,
+#'    Period = 2030, title = "Trends of Austrian Annuity Tables for Period 2030")
+#'#' @import scales
 #' @export
 plotMortalityTrend = function(data, ..., xlim=NULL, ylim=NULL, xlab=NULL, ylab=NULL, title = "", legend.position=c(0.9,0.9), legend.key.width = unit(25, "mm")) {
     if (!is.data.frame(data)) {

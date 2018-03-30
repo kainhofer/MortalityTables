@@ -5,6 +5,7 @@ NULL
 #'
 #' @param object The life table object (class inherited from mortalityTable)
 #' @param ... Other parameters to be passed to the deathProbabilities call (e.g. YOB)
+#' @param ages Vector of ages for which the probabilities should be extracted and commutation numbers calculates
 #' @param i Interest rate used for the calculation of the commutation numbers
 #'
 #' @examples
@@ -12,14 +13,14 @@ NULL
 #' commutationNumbers(AVOe2005R.male, i = 0.03, YOB = 1975)
 #'
 #' @exportMethod commutationNumbers
-setGeneric("commutationNumbers", function(object, ..., i = 0.03) standardGeneric("commutationNumbers"));
+setGeneric("commutationNumbers", function(object, ..., ages = NULL, i = 0.03) standardGeneric("commutationNumbers"));
 
 #' @describeIn commutationNumbers Calculate the commutation numbers for the given
 #'             parameters, using the mortality table and an interest rate
 setMethod("commutationNumbers", "mortalityTable",
-          function(object, ..., i = 0.03) {
-              ages = ages(object, ...)
-              qx = deathProbabilities(object, ...)
+          function(object, ..., ages = NULL, i = 0.03) {
+              ages = if(is.null(ages)) ages(object, ...) else ages
+              qx = deathProbabilities(object, ..., ages = ages)
               commutationNumbers(qx, ages = ages, i = i)
           })
 
@@ -49,8 +50,8 @@ setMethod("commutationNumbers", "numeric",
 #'             parameters, using the pension table and an interest rate
 #'             Return value is a list of data frames
 setMethod("commutationNumbers", "pensionTable",
-          function(object, ..., i = 0.03) {
-              probs = transitionProbabilities(object, ...)
+          function(object, ..., ages = NULL, i = 0.03) {
+              probs = transitionProbabilities(object, ..., ages = ages)
               ages = probs$x
               # Exit probabilities of actives are: - not dead or invalid & no transition to pension
               act.exit = (1 - probs$q - probs$i) * (1 - probs$ap)

@@ -8,18 +8,22 @@
 \alias{commutationNumbers,pensionTable-method}
 \title{Calculate the commutation numbers for the given parameters, using the mortality table and an interest rate}
 \usage{
-commutationNumbers(object, ..., i = 0.03)
+commutationNumbers(object, ..., ages = NULL, i = 0.03)
 
-\S4method{commutationNumbers}{mortalityTable}(object, ..., i = 0.03)
+\S4method{commutationNumbers}{mortalityTable}(object, ..., ages = NULL,
+  i = 0.03)
 
 \S4method{commutationNumbers}{numeric}(object, ages, i = 0.03)
 
-\S4method{commutationNumbers}{pensionTable}(object, ..., i = 0.03)
+\S4method{commutationNumbers}{pensionTable}(object, ..., ages = NULL,
+  i = 0.03)
 }
 \arguments{
 \item{object}{The life table object (class inherited from mortalityTable)}
 
 \item{...}{Other parameters to be passed to the deathProbabilities call (e.g. YOB)}
+
+\item{ages}{Vector of ages for which the probabilities should be extracted and commutation numbers calculates}
 
 \item{i}{Interest rate used for the calculation of the commutation numbers}
 }

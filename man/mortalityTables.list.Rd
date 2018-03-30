@@ -21,3 +21,10 @@ Multiple packages can be given as a vector.}
 List all available sets of life tables provided by the \link[MortalityTables]{MortalityTables-package} package
 An existing life table can then be loaded with \link{mortalityTables.load}.
 }
+\examples{
+mortalityTables.list()
+mortalityTables.list("Austria_*")
+mortalityTables.list("*Annuities")
+mortalityTables.list(package = c("MyCustomPackage"))
+
+}

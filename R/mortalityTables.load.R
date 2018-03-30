@@ -8,6 +8,13 @@
 #'                Multiple packages can be given as a vector.
 #' @param prefix The prefix for the data sets (default is "MortalityTables").
 #'
+#' @examples
+#' mortalityTables.list()
+#' mortalityTables.load("Austria_Annuities_*")
+#' mortalityTables.load("Austria_Annuities_AVOe2005R")
+#' mortalityTables.load("*Annuities")
+#' mortalityTables.load("MyCustomTable", package = c("MyCustomPackage"))
+#'
 #' @export
 mortalityTables.load = function(dataset, package = c("MortalityTables", "MortalityTablesPrivate"), prefix = "MortalityTables") {
     sets = mortalityTables.list(dataset, package = package, prefix = prefix);
@@ -40,6 +47,10 @@ mortalityTables.load = function(dataset, package = c("MortalityTables", "Mortali
 #' @param package The package that contains the dataset in its \code{extdata/}
 #'                directory. Defaults to the "MortalityTables" package.
 #'                Multiple packages can be given as a vector.
+#'
+#' pensionTables.list()
+#' pensionTables.load("*")
+#' pensionTables.load("USA_PensionPlan_RP2014")
 #'
 #' @export
 pensionTables.load = function(dataset, package = c("MortalityTables", "MortalityTablesPrivate")) {

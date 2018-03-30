@@ -23,3 +23,9 @@ Return a copy of the table with an additional loading added
 \item \code{mortalityTable}: Return the life table with the given loading set
 }}
 
+\examples{
+mortalityTables.load("Austria_Census")
+# Austrian census mortality 2011 reduced by 30\%
+setLoading(mort.AT.census.2011.male, loading = -0.3)
+
+}

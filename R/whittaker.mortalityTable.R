@@ -3,7 +3,13 @@
 #' \code{whittaker.mortalityTable} uses the Whittaker-Henderson graduation method
 #' to smooth a table of raw observed death probabilities, optionally using the
 #' exposures stored in the table as weights (if no exposures are given, equal
-#' weights are applied). All ages with a death probability of \code{NA} will be
+#' weights are applied). The weights (either explicitly given, implicitly taken
+#' from the exposures or implicit equal weights) will be normalized to sum 1.
+#' The parameter lambda indicates the importance of smootheness. A lower value of lambda
+#' will put more emphasis on reproducing the observation as good as possible at the cost of
+#' less smoothness. In turn, a higher value of lambda will force the smoothed result to be
+#' as smooth as possible with possibly larger deviation from the input data.
+#' All ages with a death probability of \code{NA} will be
 #' interpolated in the Whittaker-Henderson method (see e.g. Lowrie)
 #'
 #' @param table Mortality table to be graduated. Must be an instance of a
@@ -13,22 +19,48 @@
 #' @param name.postfix Postfix appended to the name of the graduated table
 #' @param weights Vector of weights used for graduation. Entries with weight 0
 #'                will be interpolated. If not given, the exposures of the table
-#'                or equal weights are used.
-#'
+#'                or equal weights are used. Weight 0 for a certain age indicates
+#'                that the observation will not be used for smoothing at all,
+#'                and will rather be interpolated from the smoothing of all other values.
 #' @param ... additional arguments (currently unused)
-#' @param reference The reference table that determines the 100\% values.
-#'                  If not given, the absolute mortality values are
-#'                  compared and plotted on a log-linear scale.
-#' @param trend If set to \code{TRUE}, the function \code{\link{plotMortalityTrend}}
-#'              is used to plot the trends of the given tables.
 #'
 #' @references
 #' Walter B. Lowrie: An Extension of the Whittaker-Henderson Method of Graduation, Transactions of Society of Actuaries, 1982, Vol. 34, pp. 329--372
 #'
 #' @examples
-#' # TODO
+#' # A sample observation table with exposures and raw probabilities
+#' obsTable = mortalityTable.period(
+#'     name = "trivial observed table",
+#'     ages = 0:15,
+#'     deathProbs = c(
+#'         0.0072, 0.00212, 0.00081, 0.0005, 0.0013,
+#'         0.001, 0.00122, 0.00142, 0.007, 0.0043,
+#'         0.0058, 0.0067, 0.0082, 0.0091, 0.0075, 0.01),
+#'     exposures = c(
+#'         150, 222, 350, 362, 542,
+#'         682, 1022, 1053, 1103, 1037,
+#'         968, 736, 822, 701, 653, 438))
 #'
-#' @seealso \code{\link{whittaker}}
+#' # Effect of the different parameters
+#' obsTable.smooth = whittaker.mortalityTable(obsTable,
+#'     lambda = 1/10, d = 2, name.postfix = " smoothed (d=2, lambda=1/10)")
+#' obsTable.smooth1 = whittaker.mortalityTable(obsTable,
+#'     lambda = 1, d = 2, name.postfix = " smoothed (d=2, lambda=1)")
+#' obsTable.smooth2 = whittaker.mortalityTable(obsTable,
+#'     lambda = 1/10, d = 3, name.postfix = " smoothed (d=3, lambda=1/10)")
+#' plot(obsTable, obsTable.smooth, obsTable.smooth1, obsTable.smooth2,
+#'     title = "Observed death probabilities")
+#'
+#' # Missing values are interpolated from the Whittaker Henderson
+#' obsTable.missing = obsTable
+#' obsTable.missing@deathProbs[c(6,10,11,12)] = NA_real_
+#' obsTable.interpolated = whittaker.mortalityTable(obsTable,
+#'     lambda = 1/10, d = 2, name.postfix = " missing values interpolated")
+#' plot(obsTable.missing, obsTable.interpolated,
+#'     title = "Missing values are automatically interpolated") + geom_point(size = 3)
+#'
+#'
+#' @seealso \code{\link[pracma]{whittaker}}
 #'
 #' @import scales
 #' @export
@@ -41,7 +73,6 @@ whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ",
         table@name = paste0(table@name, name.postfix)
     }
 
-# browser()
     probs = table@deathProbs
     orig.probs = probs
     ages = table@ages
@@ -82,7 +113,7 @@ whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ",
 
 whittaker.interpolate = function(y, lambda = 1600, d = 2, weights = rep(1, length(y))) {
     m <- length(y)
-    E <- eye(m)
+    E <- diag(1, m, m)
     weights = weights * is.finite(y) # non-finite or missing values in y get zero weight
     y[!is.finite(y)] = 0
     W <- diag(weights)

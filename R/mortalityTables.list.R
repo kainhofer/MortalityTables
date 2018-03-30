@@ -7,6 +7,12 @@
 #'                Multiple packages can be given as a vector.
 #' @param prefix The file prefix, defaults to MortalityTables. Can be overridden to list other types of files, like "PensionTables"
 #'
+#' @examples
+#' mortalityTables.list()
+#' mortalityTables.list("Austria_*")
+#' mortalityTables.list("*Annuities")
+#' mortalityTables.list(package = c("MyCustomPackage"))
+#'
 #' @export
 mortalityTables.list = function(pattern = "*", package = c("MortalityTables", "MortalityTablesPrivate"), prefix = "MortalityTables") {
     ret = c()
@@ -26,6 +32,11 @@ mortalityTables.list = function(pattern = "*", package = c("MortalityTables", "M
 #' @param package The package that contains the desired dataset in its \code{extdata/}
 #'                directory. Defaults to the "MortalityTables" package.
 #'                Multiple packages can be given as a vector.
+#'
+#' @examples
+#' pensionTables.list()
+#' pensionTables.list("USA_*")
+#' pensionTables.list(package = c("MyCustomPackage"))
 #'
 #' @export
 pensionTables.list = function(pattern = "*", package = c("MortalityTables", "MortalityTablesPrivate")) {

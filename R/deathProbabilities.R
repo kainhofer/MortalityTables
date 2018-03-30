@@ -5,6 +5,7 @@ NULL
 #'
 #' @param object The life table object (class inherited from mortalityTable)
 #' @param ... Other parameters (currently unused)
+#' @param ages Desired age range (if NULL, the probabilities of the age range provided by the table will be returned), missing ages will be filled with NA
 #' @param YOB The birth year for which the death probabilities should be calculated
 #'
 #' @examples
