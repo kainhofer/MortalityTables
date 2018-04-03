@@ -1,3 +1,35 @@
+
+if(is.na(match("data:MortalityTables", search()))) {
+    mortalityTables.environment = attach(what = NULL, name = "data:MortalityTables")
+} else {
+    mortalityTables.environment = as.environment("data:MortalityTables")
+}
+print(search())
+# mortalityTables.environment = NULL
+
+# mortalityTables.environment = mortalityTables.environment
+# new.env()
+# attr(mortalityTables.environment, "name") = "data:MortalityTables"
+
+.onLoad = function(libname, pkgname) {
+    print(search())
+    str(mortalityTables.environment)
+    #    assign("mortalityTables.environment1", mortalityTables.environment, envir = as.environment("data:MortalityTables"))
+    assign("mortalityTables.environment.onload", mortalityTables.environment, envir = mortalityTables.environment)
+    str(mortalityTables.environment)
+    print(search())
+}
+
+.onAttach = function(libname, pkgname) {
+    print(search())
+    str(mortalityTables.environment)
+    # attach(mortalityTables.environment, name = "data:MortalityTables")
+    #    assign("mortalityTables.environment1", mortalityTables.environment, envir = as.environment("package:MortalityTables"))
+    assign("mortalityTables.environment.onAttach",mortalityTables.environment, envir = mortalityTables.environment)
+    str(mortalityTables.environment)
+    print(search())
+}
+
 #' Load a named set of mortality tables provided by the \link{MortalityTables} package
 #'
 #' @param dataset The set(s) of life tables to be loaded. A list of all available
@@ -28,6 +60,7 @@ mortalityTables.load = function(dataset, package = c("MortalityTables", "Mortali
         for (p in c(package)) {
             filename = system.file("extdata", paste(prefix, "_", sname, ".R", sep = ""), package = p);
             if (filename != "") {
+                # sys.source(filename, envir = mortalityTables.environment)
                 sys.source(filename, envir = globalenv())
                 loaded = TRUE
             }
@@ -36,6 +69,7 @@ mortalityTables.load = function(dataset, package = c("MortalityTables", "Mortali
             warning(sprintf("Unable to locate dataset '%s' provided by the %s package!", sname, package));
         }
     }
+    assign(x = "loaded", value = dataset, envir = mortalityTables.environment)
 }
 
 
