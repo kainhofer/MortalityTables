@@ -34,9 +34,21 @@
 #'    Period = 2030, title = "Trends of Austrian Annuity Tables for Period 2030")
 #'#' @import scales
 #' @export
-plotMortalityTrend = function(data, ..., xlim=NULL, ylim=NULL, xlab=NULL, ylab=NULL, title = "", legend.position=c(0.9,0.9), legend.key.width = unit(25, "mm")) {
+plotMortalityTrend = function(
+    data, ...,
+    ages = NULL,
+    xlim=NULL, ylim=NULL,
+    xlab=NULL, ylab=NULL,
+    title = "",
+    legend.position=c(0.9, 0.9), legend.justification = c(1, 1),
+    legend.key.width = unit(25, "mm")
+) {
+
     if (!is.data.frame(data)) {
         data = makeMortalityTrendDataFrame(data, ...);
+    }
+    if (!is.null(ages)) {
+        data = data[data$x %in% ages,]
     }
     if (missing(xlab)) xlab = "Alter";
     if (missing(ylab)) ylab = expression(paste("Sterblichkeitstrend ", lambda[x]));
@@ -47,7 +59,7 @@ plotMortalityTrend = function(data, ..., xlim=NULL, ylim=NULL, xlab=NULL, ylab=N
       plot.title = element_text(size = 18, face = "bold"),
       legend.title = element_text(size = 14, face = "bold.italic"),
       # legend in bottom right corner of the plot
-      legend.justification = c(1,1), legend.position = legend.position,
+      legend.justification = legend.justification, legend.position = legend.position,
       # No box around legend entries
       legend.key = element_blank(),
       legend.key.width = legend.key.width,
@@ -78,7 +90,7 @@ plotMortalityTrend = function(data, ..., xlim=NULL, ylim=NULL, xlab=NULL, ylab=N
 
 makeMortalityTrendDataFrame = function(..., YOB = 1972, Period = NULL) {
     # If reference is given, normalize all probabilities by that table!
-    data = list(...);
+    data = unlist(list(...));
     names(data) = lapply(data, function(t) t@name);
 
     if (missing(Period) || is.null(Period)) {
