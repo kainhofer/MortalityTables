@@ -22,6 +22,8 @@
 #'                or equal weights are used. Weight 0 for a certain age indicates
 #'                that the observation will not be used for smoothing at all,
 #'                and will rather be interpolated from the smoothing of all other values.
+#' @param log Whether the smoothing should be applied to the logarithms of the
+#'            table values or the values itself
 #' @param ... additional arguments (currently unused)
 #'
 #' @references
@@ -64,7 +66,7 @@
 #'
 #' @import scales
 #' @export
-whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ", smoothed", ..., weights = NULL) {
+whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ", smoothed", ..., weights = NULL, log = TRUE) {
     if (!is(table, "mortalityTable")) {
         stop("Table object must be an instance of mortalityTable in whittaker.mortalityTable.")
     }
@@ -84,9 +86,12 @@ whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ",
             weights = table@exposures
         }
     }
-    # Missing values are always interpolated, i.e. assigned weight 0; Similarly,
-    # ignore zero probabilities (cause problems with log)
-    weights = weights * (!is.na(probs) & (probs > 0))
+    # Missing values are always interpolated, i.e. assigned weight 0;
+    weights = weights * !is.na(probs)
+    # Similarly, for log-smoothing ignore zero probabilities (cause problems with log)
+    if (log) {
+        weights = weights * (probs > 0)
+    }
     weights[is.na(weights)] = 0
     if (sum(probs > 0, na.rm = TRUE) < d) {
         warning("Table '", table@name, "' does not have at least ", d, " finite, non-zero probabilities. Unable to graduate. The original probabilities will be retained.")
@@ -99,7 +104,11 @@ whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ",
     # We cannot pass NA to whittaker, as this will result in all-NA graduated values.
     # However, if prob==NA, then weight was already set to 0, anyway
     probs[is.na(probs)] = 0
-    probs.smooth = exp(whittaker.interpolate(log(probs), lambda = lambda, d = d, weights = weights))
+    if (log) {
+        probs.smooth = exp(whittaker.interpolate(log(probs), lambda = lambda, d = d, weights = weights))
+    } else {
+        probs.smooth = whittaker.interpolate(probs, lambda = lambda, d = d, weights = weights)
+    }
 
     # Do not extrapolate probabilities, so set all ages below the first and
     # above the last raw probability to NA

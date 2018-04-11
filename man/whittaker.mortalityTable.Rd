@@ -5,7 +5,7 @@
 \title{Smooth a life table using the Whittaker-Henderson method, intepolation possibly missing values}
 \usage{
 whittaker.mortalityTable(table, lambda = 10, d = 2,
-  name.postfix = ", smoothed", ..., weights = NULL)
+  name.postfix = ", smoothed", ..., weights = NULL, log = TRUE)
 }
 \arguments{
 \item{table}{Mortality table to be graduated. Must be an instance of a
@@ -24,6 +24,9 @@ will be interpolated. If not given, the exposures of the table
 or equal weights are used. Weight 0 for a certain age indicates
 that the observation will not be used for smoothing at all,
 and will rather be interpolated from the smoothing of all other values.}
+
+\item{log}{Whether the smoothing should be applied to the logarithms of the
+table values or the values itself}
 }
 \description{
 \code{whittaker.mortalityTable} uses the Whittaker-Henderson graduation method
