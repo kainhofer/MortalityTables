@@ -1,6 +1,6 @@
 Package: MortalityTables
 Type: Package
-Version: 1.1dev
+Version: 1.1
 Date: 2018-04-11
 Title: A Framework for Various Types of Mortality / Life Tables
 Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinhold@kainhofer.com"))
