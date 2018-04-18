@@ -19,6 +19,9 @@
 #'        to give the user a way to modify the final probabilities
 #' @slot loading  Additional security loading on the resulting table (single numeric
 #'        value, e.g. 0.05 adds 5\% security margin to the probabilities)
+#' @slot data Placeholder list to make it possible to store any kind of data
+#'        associated with the object inside the object (e.g. the underlying
+#'        data used to derive the death probabilities, parameters for adjustment, etc.)
 #'
 #' @export mortalityTable
 #' @exportClass mortalityTable
@@ -28,13 +31,15 @@ mortalityTable = setClass(
         name = "character",
         baseYear = "numeric",
         loading = "numeric",
-        modification = "function"
+        modification = "function",
+        data = "list"
     ),
     prototype = list(
         name = "Actuarial Mortality Table",
         baseYear = 0,
         loading = 0,
-        modification = identity
+        modification = identity,
+        data = list()
     ),
     contains = "VIRTUAL"
 )

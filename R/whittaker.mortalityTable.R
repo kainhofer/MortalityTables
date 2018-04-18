@@ -80,7 +80,7 @@ whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ",
     ages = table@ages
 
     if (missing(weights) || is.null(weights)) {
-        if (is.na(table@exposures) || is.null(table@exposures)) {
+        if (is.null(table@exposures) || is.na(table@exposures)) {
             weights = rep(1, length(ages))
         } else {
             weights = table@exposures
@@ -114,6 +114,8 @@ whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ",
     # above the last raw probability to NA
     probsToClear = (cumsum(!is.na(orig.probs)) == 0) | (rev(cumsum(rev(!is.na(orig.probs)))) == 0)
     probs.smooth[probsToClear] = NA_real_
+    table@data$rawProbs = orig.probs
+    table@data$whittaker = list(weights = weights)
     table@deathProbs = probs.smooth
 
     table
