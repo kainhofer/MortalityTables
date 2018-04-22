@@ -13,6 +13,7 @@
 #' @param title The plot title
 #' @param legend.position The position of the legend (default is \code{c(0.9,0.1)})
 #' @param legend.key.width The keywith of the lines in the  legend (default is \code{unit(25,"mm")})
+#' @param legend.title Title of the legend (\code{NULL} to hide)
 #'
 #' @examples
 #' # Load the Austrian aunnity data
@@ -40,7 +41,7 @@ plotMortalityTrend = function(
     xlim=NULL, ylim=NULL,
     xlab=NULL, ylab=NULL,
     title = "",
-    legend.position=c(0.9, 0.9), legend.justification = c(1, 1),
+    legend.position=c(0.9, 0.9), legend.justification = c(1, 1), legend.title = "Sterbetafel",
     legend.key.width = unit(25, "mm")
 ) {
 
@@ -81,7 +82,7 @@ plotMortalityTrend = function(
     ) +
     coord_cartesian(xlim = xlim, ylim = ylim) +
     annotation_logticks(sides = "lr") +
-    xlab("Alter") + labs(colour = "Sterbetafel");
+    xlab("Alter") + labs(colour = legend.title);
   if (title != "") {
     pl = pl + ggtitle(title);
   }

@@ -12,7 +12,7 @@
 #' @param legend.position The position of the legend (default is \code{c(0.9,0.1)})
 #' @param legend.justification The justification of the legend (default is \code{c(1,)})
 #' @param legend.key.width The keywith of the lines in the  legend (default is \code{unit(25,"mm")})
-#' @param legend.title Title of the legend
+#' @param legend.title Title of the legend (\code{NULL} to hide)
 #' @param ages Plot only the given ages
 #'
 #' @examples
