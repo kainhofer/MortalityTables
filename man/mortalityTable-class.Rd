@@ -23,5 +23,9 @@ to give the user a way to modify the final probabilities}
 
 \item{\code{loading}}{Additional security loading on the resulting table (single numeric
 value, e.g. 0.05 adds 5\% security margin to the probabilities)}
+
+\item{\code{data}}{Placeholder list to make it possible to store any kind of data
+associated with the object inside the object (e.g. the underlying
+data used to derive the death probabilities, parameters for adjustment, etc.)}
 }}
 

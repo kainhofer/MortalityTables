@@ -16,7 +16,7 @@ plotMortalityTables(data, ..., ages = NULL, legend.title = "Sterbetafel",
 
 \item{ages}{Plot only the given ages}
 
-\item{legend.title}{Title of the legend}
+\item{legend.title}{Title of the legend (\code{NULL} to hide)}
 
 \item{xlim}{X-axis limitatation (as a two-element vector)}
 
