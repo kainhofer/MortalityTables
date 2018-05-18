@@ -24,42 +24,45 @@ makeQxDataFrame = function(..., YOB = 1972, Period = NA, reference = NULL) {
     data = unlist(list(...));
     if (is.null(data)) return(data.frame(x = double(), y = double(), group = character()))
 
-    names(data) = lapply(data, function(t) t@name);
     reference_ages = NULL;
 
     if (missing(Period)) {
         # If reference is given, normalize all probabilities by that table!
-        if (!missing(reference)) {
+        if (!missing(reference) && !is.null(reference)) {
             reference_ages = ages(reference);
             reference = deathProbabilities(reference, YOB = YOB);
         }
         data = lapply(data, function(t) {
             normalize_deathProbabilities(
-                cbind(x = ages(t), y = `names<-`(deathProbabilities(t, YOB = YOB), NULL)),
+                if (is.data.frame(t@data$dim) || is.list(t@data$dim)) {
+                       cbind(x = ages(t), y = `names<-`(deathProbabilities(t, YOB = YOB), NULL), group = t@name, as.data.frame(t@data$dim))
+                } else {
+                       cbind(x = ages(t), y = `names<-`(deathProbabilities(t, YOB = YOB), NULL), group = t@name)
+                },
                 reference = reference,
                 referenceAges = reference_ages)
         });
     } else {
-        if (!missing(reference)) {
+        if (!missing(reference) && !is.null(reference)) {
             reference_ages = ages(reference);
             reference = periodDeathProbabilities(reference, Period = Period);
         }
         data = lapply(data, function(t) {
             normalize_deathProbabilities(
-                cbind(x = ages(t), y = periodDeathProbabilities(t, Period = Period)),
+                ifelse(is.data.frame(t@data$dim) || is.list(t@data$dim),
+                       cbind(x = ages(t), y = `names<-`(periodDeathProbabilities(t, Period = Period), NULL), group = t@name, as.data.frame(t@data$dim)),
+                       cbind(x = ages(t), y = `names<-`(periodDeathProbabilities(t, Period = Period), NULL), group = t@name)
+                ),
                 reference = reference,
                 referenceAges = reference_ages)
         });
     }
 
-    list.names = names(data)
-    lns <- sapply(data, nrow)
     data <- as.data.frame(do.call("rbind", data))
-    data$group <- rep(list.names, lns)
     data
 }
 
-normalize_deathProbabilities = function (data, reference = NULL, referenceAges = NULL) {
+normalize_deathProbabilities = function(data, reference = NULL, referenceAges = NULL) {
     if (missing(reference) || missing(referenceAges) || is.null(reference) || is.null(referenceAges)) {
         return(data);
     }
@@ -71,7 +74,7 @@ normalize_deathProbabilities = function (data, reference = NULL, referenceAges =
     # Find which ages in data do NOT exist in the reference ages (and are thus NOT normalized at all)
     # Print a warning!
     missingrefs = setdiff(data[,"x"], referenceAges)
-    if (length(missingrefs)>0) {
+    if (length(missingrefs) > 0) {
         warning("Reference mortality table does not contain ages ",
                 missingrefs,
                 " required for normalization. These ages will not be normalized!")
