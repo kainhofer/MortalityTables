@@ -20,7 +20,7 @@
 #' @export
 makeQxDataFrame = function(..., YOB = 1972, Period = NA, reference = NULL) {
     # Allow lists of tables to be passed, too. unlist should always return
-    # a list of tables, if if nested lists or only tables are passed as arguments!
+    # a list of tables, even if nested lists or only tables are passed as arguments!
     data = unlist(list(...));
     if (is.null(data)) return(data.frame(x = double(), y = double(), group = character()))
 
@@ -35,7 +35,7 @@ makeQxDataFrame = function(..., YOB = 1972, Period = NA, reference = NULL) {
         }
         data = lapply(data, function(t) {
             normalize_deathProbabilities(
-                cbind(x = ages(t), y = deathProbabilities(t, YOB = YOB)),
+                cbind(x = ages(t), y = `names<-`(deathProbabilities(t, YOB = YOB), NULL)),
                 reference = reference,
                 referenceAges = reference_ages)
         });
