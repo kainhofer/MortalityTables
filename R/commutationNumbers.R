@@ -19,7 +19,7 @@ setGeneric("commutationNumbers", function(object, ..., ages = NULL, i = 0.03) st
 #'             parameters, using the mortality table and an interest rate
 setMethod("commutationNumbers", "mortalityTable",
           function(object, ..., ages = NULL, i = 0.03) {
-              ages = if(is.null(ages)) ages(object, ...) else ages
+              ages = if (is.null(ages)) ages(object, ...) else ages
               qx = deathProbabilities(object, ..., ages = ages)
               commutationNumbers(qx, ages = ages, i = i)
           })
@@ -68,10 +68,3 @@ setMethod("commutationNumbers", "pensionTable",
 
 # commutationNumbers(deathProbabilities(AVOe2008P.male@qpx, YOB = 1982), ages(AVOe2008P.male@qpx), i = 0.06)
 # commutationNumbers(AVOe2008P.male@qpx, i = 0.06, YOB = 1982) %>% View
-
-# AVOe2008P.male.Comm = commutationNumbers(AVOe2008P.male, i = 0.06, YOB = 1982)
-# AVOe2008P.male.Comm[["q"]] %>% View
-# AVOe2008P.male.Comm[["qi"]] %>% View
-# AVOe2008P.male.Comm[["qp"]] %>% View
-# AVOe2008P.male.Comm[["qw"]] %>% View
-# AVOe2008P.male.Comm[["qg"]] %>% View
