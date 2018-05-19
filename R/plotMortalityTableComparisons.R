@@ -56,7 +56,7 @@ plotMortalityTableComparisons = function(
                           env=list(refname=reference@name));
     }
 
-    pl = ggplot(data, aes(x = x, y = y, colour = data$group)) +
+    pl = ggplot(data, aes(x = x, y = y, color = group)) +
         theme_bw() +
         theme(
             plot.title = element_text(size=18, face="bold"),
