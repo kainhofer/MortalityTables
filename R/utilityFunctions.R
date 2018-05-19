@@ -183,6 +183,9 @@ mT.extrapolateProbsExp = function(table, age, up = TRUE) {
 mT.fitExtrapolationLaw = function(table, method = "LF2", law = "HP",
                                   fit = 75:99, extrapolate = 80:120,
                                   fadeIn = 80:90, fadeOut = NULL) {
+    if (!is(table, "mortalityTable"))
+        stop("First argument must be a mortalityTable.")
+
     ages = ages(table)
     if (!is.null(table@exposures) && !is.na(table@exposures)) {
         Ex = table@exposures
@@ -212,6 +215,19 @@ mT.fitExtrapolationLaw = function(table, method = "LF2", law = "HP",
                   fit = fitted)))
     table@deathProbs = fitted$probs
 
+    table
+}
+
+#' @export
+mT.setDimInfo = function(table, ..., append = TRUE) {
+    if (!is(table, "mortalityTable"))
+        stop("First argument must be a mortalityTable.")
+
+    if (append) {
+        table@data$dim[names(list(...))] = list(...)
+    } else {
+        table@data$dim = list(...)
+    }
     table
 }
 
