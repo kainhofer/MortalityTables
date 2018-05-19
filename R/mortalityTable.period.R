@@ -92,3 +92,8 @@ mortalityTable.onceAndFuture = function(transitionAge, name = "Deterministic mor
     )
 }
 
+
+#' Empty mortality table indicating NA
+#'
+#' @export
+mortalityTable.NA = mortalityTable.period(name = NA_character_, ages = NA_integer_, deathProbs = NA_real_)
