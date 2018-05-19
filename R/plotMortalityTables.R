@@ -58,7 +58,7 @@ plotMortalityTables = function(
     if (!is.null(ages)) {
         data = data[data$x %in% ages,]
     }
-    pl = ggplot(subset(data, y > 0), aes(x = x, y = y, colour = group, shape = group)) +
+    pl = ggplot(subset(data, y > 0), aes(x = x, y = y, colour = group)) +
     theme_bw() +
     theme(
       plot.title = element_text(size = 18, face = "bold"),
