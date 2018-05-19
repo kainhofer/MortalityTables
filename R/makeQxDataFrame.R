@@ -25,6 +25,7 @@ makeQxDataFrame = function(..., YOB = 1972, Period = NA, reference = NULL) {
     if (is.null(data)) return(data.frame(x = double(), y = double(), group = character()))
 
     reference_ages = NULL;
+    # browser()
 
     if (missing(Period)) {
         # If reference is given, normalize all probabilities by that table!
@@ -35,9 +36,9 @@ makeQxDataFrame = function(..., YOB = 1972, Period = NA, reference = NULL) {
         data = lapply(data, function(t) {
             normalize_deathProbabilities(
                 if (is.data.frame(t@data$dim) || is.list(t@data$dim)) {
-                       cbind(x = ages(t), y = `names<-`(deathProbabilities(t, YOB = YOB), NULL), group = t@name, as.data.frame(t@data$dim))
+                       data.frame(x = ages(t), y = `names<-`(deathProbabilities(t, YOB = YOB), NULL), group = t@name, as.data.frame(t@data$dim))
                 } else {
-                       cbind(x = ages(t), y = `names<-`(deathProbabilities(t, YOB = YOB), NULL), group = t@name)
+                       data.frame(x = ages(t), y = `names<-`(deathProbabilities(t, YOB = YOB), NULL), group = t@name)
                 },
                 reference = reference,
                 referenceAges = reference_ages)
@@ -49,16 +50,19 @@ makeQxDataFrame = function(..., YOB = 1972, Period = NA, reference = NULL) {
         }
         data = lapply(data, function(t) {
             normalize_deathProbabilities(
-                ifelse(is.data.frame(t@data$dim) || is.list(t@data$dim),
-                       cbind(x = ages(t), y = `names<-`(periodDeathProbabilities(t, Period = Period), NULL), group = t@name, as.data.frame(t@data$dim)),
-                       cbind(x = ages(t), y = `names<-`(periodDeathProbabilities(t, Period = Period), NULL), group = t@name)
-                ),
+                if (is.data.frame(t@data$dim) || is.list(t@data$dim)) {
+                    data.frame(x = ages(t), y = `names<-`(periodDeathProbabilities(t, Period = Period), NULL), group = t@name, as.data.frame(t@data$dim))
+                } else {
+                    data.frame(x = ages(t), y = `names<-`(periodDeathProbabilities(t, Period = Period), NULL), group = t@name)
+                },
                 reference = reference,
                 referenceAges = reference_ages)
         });
     }
 
-    data <- as.data.frame(do.call("rbind", data))
+    names(data) = NULL
+
+    data <- as.data.frame(do.call("rbind.expand", data))
     data
 }
 
@@ -85,3 +89,17 @@ normalize_deathProbabilities = function(data, reference = NULL, referenceAges = 
     data
 }
 
+
+rbind.expand = function(df1, df2, ..., fill = NA) {
+    # browser()
+    if (missing(df2) || is.null(df2))
+        return(df1)
+
+    df2.clmiss = setdiff(colnames(df1), colnames(df2))
+    df1.clmiss = setdiff(colnames(df2), colnames(df1))
+
+    df1[df1.clmiss] = fill
+    df2[df2.clmiss] = fill
+
+    rbind.expand(rbind(df1, df2), ..., fill = fill)
+}
