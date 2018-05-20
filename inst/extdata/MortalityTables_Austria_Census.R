@@ -14,7 +14,7 @@ censtable = function(data, name, qslot, baseYear=1900, sex = "m") {
   ix = complete.cases(qx);
   mortalityTable.period(name = name, ages = data$x[ix], deathProbs = qx[ix,], baseYear = baseYear,
       data = list(
-          dim = list(sex = s, collar = "Gesamtbevölkerung", type = "Volkssterbetafel Österreich", data = "official", year = baseYear)
+          dim = list(sex = sex, collar = "Gesamtbevölkerung", type = "Volkssterbetafel Österreich", data = "official", year = baseYear)
       )
   )
 }
@@ -49,7 +49,7 @@ mort.AT.census.2011.female = censtable(a.vz.dataF, name="ÖVSt 2010/2012 F", bas
 
 mort.AT.census.2001.unisex = mortalityTable.mixed(table1=mort.AT.census.2001.male, table2=mort.AT.census.2001.female,
     data = list(
-        dim = list(sex = "u", collar = "Gesamtbevölkerung", type = "Volkssterbetafel Österreich", data = "official", year = 2001)    
+        dim = list(sex = "u", collar = "Gesamtbevölkerung", type = "Volkssterbetafel Österreich", data = "official", year = 2001)
     )
 )
 

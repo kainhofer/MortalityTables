@@ -14,7 +14,7 @@ censtable = function(data, name, qslot, baseYear = 1900, sex = "m") {
     ix = complete.cases(qx);
     mortalityTable.period(name = name, ages = data$Alter[ix], deathProbs = qx[ix,], baseYear = baseYear,
       data = list(
-          dim = list(sex = s, collar = "Gesamtbevölkerung", type = "Volkssterbetafel Deutschland", data = "official", year = baseYear)
+          dim = list(sex = sex, collar = "Gesamtbevölkerung", type = "Volkssterbetafel Deutschland", data = "official", year = baseYear)
       )
   )
 }
