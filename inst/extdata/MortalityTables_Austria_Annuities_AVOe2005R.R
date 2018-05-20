@@ -10,13 +10,13 @@ AVOe2005R.exakt.data = utils::read.csv(
     system.file(
         "extdata",
         "Austria_Annuities_AVOe2005R.csv",
-        package="MortalityTables"),
+        package = "MortalityTables"),
     skip = 2);
 
 AVOe2005R.trend.damping = function(t) {
     100*atan(t/100)
 }
-AVOe2005R_gen = function(nm, probs, trend) {
+AVOe2005R_gen = function(nm, probs, trend, sex = "m", data = "loaded") {
     with(
         AVOe2005R.exakt.data,
         mortalityTable.trendProjection(
@@ -25,28 +25,31 @@ AVOe2005R_gen = function(nm, probs, trend) {
             baseYear = 2001,
             deathProbs = AVOe2005R.exakt.data[[probs]],
             trend = AVOe2005R.exakt.data[[trend]],
-            dampingFunction = AVOe2005R.trend.damping
+            dampingFunction = AVOe2005R.trend.damping,
+            data = list(
+                dim = list(sex = sex, collar = "Rententafel", type = "Rententafel Österreich", data = data, year = "AVÖ 2005-R")
+            )
         )
     )
 }
 
-AVOe2005R.male            = AVOe2005R_gen("AVÖ 2005R male (exact), loaded",   "qx2001", "trendM");
-AVOe2005R.female          = AVOe2005R_gen("AVÖ 2005R female (exact), loaded", "qy2001", "trendF");
-AVOe2005R.unisex          = AVOe2005R_gen("AVÖ 2005R unisex (exact), loaded", "qu2001", "trendU");
-AVOe2005R.male.unloaded   = AVOe2005R_gen("AVÖ 2005R male (exact), unloaded",   "qx2001.2Ord", "trendM.2Ord");
-AVOe2005R.female.unloaded = AVOe2005R_gen("AVÖ 2005R female (exact), unloaded", "qy2001.2Ord", "trendF.2Ord");
-AVOe2005R.male.group      = AVOe2005R_gen("AVÖ 2005R male group (exact), loaded",   "qx2001G", "trendM");
-AVOe2005R.female.group    = AVOe2005R_gen("AVÖ 2005R female group (exact), loaded", "qy2001G", "trendF");
-AVOe2005R.unisex.group    = AVOe2005R_gen("AVÖ 2005R unisex group (exact), loaded", "qu2001G", "trendU");
+AVOe2005R.male            = AVOe2005R_gen("AVÖ 2005R male (exact), loaded",   "qx2001", "trendM", sex = "m", data = "loaded");
+AVOe2005R.female          = AVOe2005R_gen("AVÖ 2005R female (exact), loaded", "qy2001", "trendF", sex = "w", data = "loaded");
+AVOe2005R.unisex          = AVOe2005R_gen("AVÖ 2005R unisex (exact), loaded", "qu2001", "trendU", sex = "u", data = "loaded");
+AVOe2005R.male.unloaded   = AVOe2005R_gen("AVÖ 2005R male (exact), unloaded",   "qx2001.2Ord", "trendM.2Ord", sex = "m", data = "unloaded");
+AVOe2005R.female.unloaded = AVOe2005R_gen("AVÖ 2005R female (exact), unloaded", "qy2001.2Ord", "trendF.2Ord", sex = "w", data = "unloaded");
+AVOe2005R.male.group      = AVOe2005R_gen("AVÖ 2005R male group (exact), loaded",   "qx2001G", "trendM", sex = "m", data = "loaded, group");
+AVOe2005R.female.group    = AVOe2005R_gen("AVÖ 2005R female group (exact), loaded", "qy2001G", "trendF", sex = "w", data = "loaded, group");
+AVOe2005R.unisex.group    = AVOe2005R_gen("AVÖ 2005R unisex group (exact), loaded", "qu2001G", "trendU", sex = "u", data = "loaded, group");
 
-AVOe2005R.male.nodamping            = undampenTrend(AVOe2005R.male);
-AVOe2005R.female.nodamping          = undampenTrend(AVOe2005R.female);
-AVOe2005R.unisex.nodamping          = undampenTrend(AVOe2005R.unisex);
-AVOe2005R.male.nodamping.unloaded   = undampenTrend(AVOe2005R.male.unloaded);
-AVOe2005R.female.nodamping.unloaded = undampenTrend(AVOe2005R.female.unloaded);
-AVOe2005R.male.nodamping.group      = undampenTrend(AVOe2005R.male.group);
-AVOe2005R.female.nodamping.group    = undampenTrend(AVOe2005R.female.group);
-AVOe2005R.unisex.nodamping.group    = undampenTrend(AVOe2005R.unisex.group);
+AVOe2005R.male.nodamping            = mT.setDimInfo(undampenTrend(AVOe2005R.male), data = "loaded, no trend damping")
+AVOe2005R.female.nodamping          = mT.setDimInfo(undampenTrend(AVOe2005R.female), data = "loaded, no trend damping");
+AVOe2005R.unisex.nodamping          = mT.setDimInfo(undampenTrend(AVOe2005R.unisex), data = "loaded, no trend damping");
+AVOe2005R.male.nodamping.unloaded   = mT.setDimInfo(undampenTrend(AVOe2005R.male.unloaded), data = "unloaded, no trend damping");
+AVOe2005R.female.nodamping.unloaded = mT.setDimInfo(undampenTrend(AVOe2005R.female.unloaded), data = "unloaded, no trend damping");
+AVOe2005R.male.nodamping.group      = mT.setDimInfo(undampenTrend(AVOe2005R.male.group), data = "loaded, group, no trend damping");
+AVOe2005R.female.nodamping.group    = mT.setDimInfo(undampenTrend(AVOe2005R.female.group), data = "loaded, group, no trend damping");
+AVOe2005R.unisex.nodamping.group    = mT.setDimInfo(undampenTrend(AVOe2005R.unisex.group), data = "loaded, group, no trend damping");
 
 
 ###############################################################################
@@ -58,43 +61,46 @@ AVOe2005R.av.base = utils::read.csv(
     system.file(
         "extdata",
         "Austria_Annuities_AVOe2005R_AVBasis.csv",
-        package="MortalityTables"),
-    skip=2);
+        package = "MortalityTables"),
+    skip = 2);
 AVOe2005R.av.verschiebung = utils::read.csv(
     system.file(
         "extdata",
         "Austria_Annuities_AVOe2005R_AVShifts.csv",
-        package="MortalityTables"),
-    row.names=1,
-    skip=2);
+        package = "MortalityTables"),
+    row.names = 1,
+    skip = 2);
 
-AVOe2005R_gen.av = function(nm, probs, shft) {
+AVOe2005R_gen.av = function(nm, probs, shft, sex = "m", data = "age-shift, loaded") {
     mortalityTable.ageShift(
         name = nm,
         ages = AVOe2005R.av.base$age,
         deathProbs = AVOe2005R.av.base[[probs]],
-        ageShifts = na.omit(AVOe2005R.av.verschiebung[shft])
+        ageShifts = na.omit(AVOe2005R.av.verschiebung[shft]),
+        data = list(
+            dim = list(sex = sex, collar = "Rententafel", type = "Rententafel Österreich", data = data, year = "AVÖ 2005-R")
+        )
     )
 }
 
 AVOe2005R.male.av = AVOe2005R_gen.av(
     "AVÖ 2005R male (age-shifted), loaded",
-    "qx1965", "shiftM");
+    "qx1965", "shiftM", sex = "m", data = "age-shift, loaded");
 AVOe2005R.female.av = AVOe2005R_gen.av(
     "AVÖ 2005R female (age-shifted), loaded",
-    "qy1965", "shiftF");
+    "qy1965", "shiftF", sex = "w", data = "age-shift, loaded");
 AVOe2005R.unisex.av = AVOe2005R_gen.av(
     "AVÖ 2005R unisex (age-shifted), loaded",
-    "qu1972", "shiftU");
+    "qu1972", "shiftU", sex = "u", data = "age-shift, loaded");
 AVOe2005R.male.group.av = AVOe2005R_gen.av(
     "AVÖ 2005R male group (age-shifted), loaded",
-    "qx1965G", "shiftMG");
+    "qx1965G", "shiftMG", sex = "m", data = "age-shift, loaded, group");
 AVOe2005R.female.group.av = AVOe2005R_gen.av(
     "AVÖ 2005R female group (age-shifted), loaded",
-    "qy1965G", "shiftFG");
+    "qy1965G", "shiftFG", sex = "w", data = "age-shift, loaded, group");
 AVOe2005R.unisex.group.av = AVOe2005R_gen.av(
     "AVÖ 2005R unisex group (age-shifted), loaded",
-    "qu1972G", "shiftUG")
+    "qu1972G", "shiftUG", sex = "u", data = "age-shift, loaded, group")
 
 
 

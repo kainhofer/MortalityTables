@@ -15,7 +15,11 @@ ADSt2426.2Lives.data = utils::read.csv(
 ADSt2426.2Lives = mortalityTable.period(
     name       = "ADSt 1924/26 Männer, 2 Leben",
     ages       = ADSt2426.2Lives.data$xx,
-    deathProbs = ADSt2426.2Lives.data$qxx)
+    deathProbs = ADSt2426.2Lives.data$qxx,
+    data = list(
+        dim = list(sex = "m", collar = "2-Leben", type = "Sterbetafel Deutschland", data = "verbundene Leben", year = "1924/26")
+    )
+)
 
 rm(ADSt2426.2Lives.data)
 

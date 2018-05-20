@@ -33,7 +33,7 @@ Provided types of mortality tables are:
 * Base class
     : Class `mortalityTable`
 * Period life table
-    : Class `mortalityTable.period (ages, deathProbs, ..., baseYear=2000)`
+    : Class `mortalityTable.period(ages, deathProbs, ..., baseYear=2000)`
     : Death probabilities observed / predicted for one observation year;
       No dependency on the bith year is assumed.
 * Cohort life table using age-specific trends

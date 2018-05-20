@@ -31,8 +31,11 @@ AVOe1996R.male = mortalityTable.trendProjection(
     deathProbs = AVOe1996R.exakt.data$qx1991 * AVOe1996R.exakt.data$factorM,
     trend = AVOe1996R.exakt.data$trendM.long,
     trend2 = AVOe1996R.exakt.data$trendM.short,
-    dampingFunction = AVOe1996R.trend.switching
-);
+    dampingFunction = AVOe1996R.trend.switching,
+    data = list(
+        dim = list(sex = "m", collar = "Rententafel", type = "Rententafel Österreich", data = "official", year = "AVÖ 1996-R")
+    )
+)
 
 AVOe1996R.female = mortalityTable.trendProjection(
     name = "AVÖ 1996R female",
@@ -40,8 +43,11 @@ AVOe1996R.female = mortalityTable.trendProjection(
     deathProbs = AVOe1996R.exakt.data$qy1991 * AVOe1996R.exakt.data$factorF,
     trend = AVOe1996R.exakt.data$trendF.long,
     trend2 = AVOe1996R.exakt.data$trendF.short,
-    dampingFunction = AVOe1996R.trend.switching
-);
+    dampingFunction = AVOe1996R.trend.switching,
+    data = list(
+        dim = list(sex = "w", collar = "Rententafel", type = "Rententafel Österreich", data = "official", year = "AVÖ 1996-R")
+    )
+)
 
 AVOe1996R.male.group = mortalityTable.trendProjection(
     name = "AVÖ 1996R male, group",
@@ -49,7 +55,10 @@ AVOe1996R.male.group = mortalityTable.trendProjection(
     deathProbs = AVOe1996R.exakt.data$qx1991 * AVOe1996R.exakt.data$factorMG,
     trend = AVOe1996R.exakt.data$trendM.long,
     trend2 = AVOe1996R.exakt.data$trendM.short,
-    dampingFunction = AVOe1996R.trend.switching
+    dampingFunction = AVOe1996R.trend.switching,
+    data = list(
+        dim = list(sex = "m", collar = "Gruppenrententafel", type = "Rententafel Österreich", data = "official", year = "AVÖ 1996-R")
+    )
 );
 
 AVOe1996R.female.group = mortalityTable.trendProjection(
@@ -58,20 +67,29 @@ AVOe1996R.female.group = mortalityTable.trendProjection(
     deathProbs = AVOe1996R.exakt.data$qy1991 * AVOe1996R.exakt.data$factorFG,
     trend = AVOe1996R.exakt.data$trendF.long,
     trend2 = AVOe1996R.exakt.data$trendF.short,
-    dampingFunction = AVOe1996R.trend.switching
+    dampingFunction = AVOe1996R.trend.switching,
+    data = list(
+        dim = list(sex = "w", collar = "Gruppenrententafel", type = "Rententafel Österreich", data = "official", year = "AVÖ 1996-R")
+    )
 );
 
 AVOe1996R.male.av325 = mortalityTable.ageShift(
     name = "AVÖ 1996R M mit Altersverschiebung (3,25%)",
     ages = ages(AVOe1996R.male),
     deathProbs = deathProbabilities(AVOe1996R.male, YOB = 1950),
-    ageShifts = generateAgeShift(initial = 1, YOBs = c(1922, 1944, 1958, 1973, 1989, 2006, 2023, 2041, 2056))
+    ageShifts = generateAgeShift(initial = 1, YOBs = c(1922, 1944, 1958, 1973, 1989, 2006, 2023, 2041, 2056)),
+    data = list(
+        dim = list(sex = "m", collar = "Rententafel", type = "Rententafel Österreich", data = "Altersverschiebung", year = "AVÖ 1996-R")
+    )
 )
 AVOe1996R.female.av325 = mortalityTable.ageShift(
     name = "AVÖ 1996R F mit Altersverschiebung (3,25%)",
     ages = ages(AVOe1996R.female),
     deathProbs = deathProbabilities(AVOe1996R.female, YOB = 1950),
-    ageShifts = generateAgeShift(initial = 2, YOBs = c(1922, 1932, 1945, 1956, 1968, 1980, 1993, 2007, 2021, 2036, 2051, 2056))
+    ageShifts = generateAgeShift(initial = 2, YOBs = c(1922, 1932, 1945, 1956, 1968, 1980, 1993, 2007, 2021, 2036, 2051, 2056)),
+    data = list(
+        dim = list(sex = "w", collar = "Rententafel", type = "Rententafel Österreich", data = "Altersverschiebung", year = "AVÖ 1996-R")
+    )
 )
 
 rm(AVOe1996R.exakt.data)

@@ -37,66 +37,115 @@ DAV2008T.data = utils::read.csv(
 DAV2008T.male = mortalityTable.period(
   name = "DAV 2008T male, loaded",
   ages = DAV2008T.data$age,
-  deathProbs = DAV2008T.data$qx1)
+  deathProbs = DAV2008T.data$qx1,
+  data = list(
+      dim = list(sex = "m", collar = "Aggregat", type = "Risikotafel", data = "loaded", year = "DAV 2008T")
+  )
+)
 
 DAV2008T.male.2Ord = mortalityTable.period(
   name = "DAV 2008T male, unloaded",
   ages = DAV2008T.data$age,
-  deathProbs = DAV2008T.data$qx2)
+  deathProbs = DAV2008T.data$qx2,
+  data = list(
+      dim = list(sex = "m", collar = "Aggregat", type = "Risikotafel", data = "unloaded", year = "DAV 2008T")
+  )
+)
 
 DAV2008T.female = mortalityTable.period(
   name = "DAV 2008T female, loaded",
   ages = DAV2008T.data$age,
-  deathProbs = DAV2008T.data$qy1)
+  deathProbs = DAV2008T.data$qy1,
+  data = list(
+      dim = list(sex = "w", collar = "Aggregat", type = "Risikotafel", data = "loaded", year = "DAV 2008T")
+  )
+)
 
 DAV2008T.female.2Ord = mortalityTable.period(
   name = "DAV 2008T female, unloaded",
   ages = DAV2008T.data$age,
-  deathProbs = DAV2008T.data$qy2)
+  deathProbs = DAV2008T.data$qy2,
+  data = list(
+      dim = list(sex = "w", collar = "Aggregat", type = "Risikotafel", data = "unloaded", year = "DAV 2008T")
+  )
+)
 
 ### DAV 2008T Smoker
 
 DAV2008T.male.smoker = mortalityTable.period(
     name = "DAV 2008T male smoker, loaded",
     ages = DAV2008T.data$age,
-    deathProbs = DAV2008T.data$qx1R)
+    deathProbs = DAV2008T.data$qx1R,
+    data = list(
+        dim = list(sex = "m", collar = "Raucher", type = "Risikotafel", data = "loaded", year = "DAV 2008T")
+    )
+)
 
 DAV2008T.male.smoker.2Ord = mortalityTable.period(
     name = "DAV 2008T male smoker, unloaded",
     ages = DAV2008T.data$age,
-    deathProbs = DAV2008T.data$qx2R)
+    deathProbs = DAV2008T.data$qx2R,
+    data = list(
+        dim = list(sex = "m", collar = "Raucher", type = "Risikotafel", data = "unloaded", year = "DAV 2008T")
+    )
+)
 
 DAV2008T.female.smoker = mortalityTable.period(
     name = "DAV 2008T female smoker, loaded",
     ages = DAV2008T.data$age,
-    deathProbs = DAV2008T.data$qy1R)
+    deathProbs = DAV2008T.data$qy1R,
+    data = list(
+        dim = list(sex = "w", collar = "Raucher", type = "Risikotafel", data = "loaded", year = "DAV 2008T")
+    )
+)
 
 DAV2008T.female.smoker.2Ord = mortalityTable.period(
     name = "DAV 2008T female smoker, unloaded",
     ages = DAV2008T.data$age,
-    deathProbs = DAV2008T.data$qy2R)
+    deathProbs = DAV2008T.data$qy2R,
+    data = list(
+        dim = list(sex = "w", collar = "Raucher", type = "Risikotafel", data = "unloaded", year = "DAV 2008T")
+    )
+)
 
 
 ### DAV 2008T Non-Smoker
 DAV2008T.male.nonsmoker = mortalityTable.period(
   name = "DAV 2008T male non-smoker, loaded",
   ages = DAV2008T.data$age,
-  deathProbs = DAV2008T.data$qx1NR)
+  deathProbs = DAV2008T.data$qx1NR,
+  data = list(
+      dim = list(sex = "m", collar = "Nichtraucher", type = "Risikotafel", data = "loaded", year = "DAV 2008T")
+  )
+)
 
 DAV2008T.male.nonsmoker.2Ord = mortalityTable.period(
   name = "DAV 2008T male non-smoker, unloaded",
   ages = DAV2008T.data$age,
-  deathProbs = DAV2008T.data$qx2NR)
+  deathProbs = DAV2008T.data$qx2NR,
+  data = list(
+      dim = list(sex = "m", collar = "Nichtraucher", type = "Risikotafel", data = "unloaded", year = "DAV 2008T")
+  )
+)
+
 
 DAV2008T.female.nonsmoker = mortalityTable.period(
   name = "DAV 2008T female non-smoker, loaded",
   ages = DAV2008T.data$age,
-  deathProbs = DAV2008T.data$qy1NR)
+  deathProbs = DAV2008T.data$qy1NR,
+  data = list(
+      dim = list(sex = "w", collar = "Nichtraucher", type = "Risikotafel", data = "loaded", year = "DAV 2008T")
+  )
+)
 
 DAV2008T.female.nonsmoker.2Ord = mortalityTable.period(
   name = "DAV 2008T female non-smoker, unloaded",
   ages = DAV2008T.data$age,
-  deathProbs = DAV2008T.data$qy2NR)
+  deathProbs = DAV2008T.data$qy2NR,
+  data = list(
+      dim = list(sex = "w", collar = "Nichtraucher", type = "Risikotafel", data = "unloaded", year = "DAV 2008T")
+  )
+)
 
 rm(DAV2008T.data)
 

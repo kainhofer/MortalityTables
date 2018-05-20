@@ -12,29 +12,45 @@ USA1971IAM.data = utils::read.csv(
     col.names = c("age","qx", "qy", "B"),
     skip = 3)
 
-USA1971IAM.male = mortalityTable.period (
+USA1971IAM.male = mortalityTable.period(
   name = "USA 1971 IAM, male",
   ages = USA1971IAM.data$age,
-  deathProbs = USA1971IAM.data$qx)
+  deathProbs = USA1971IAM.data$qx,
+  data = list(
+      dim = list(sex = "m", collar = "Mortality", type = "Rententafel", data = "unloaded", year = "1971 IAM")
+  )
+)
 
-USA1971IAM.female = mortalityTable.period (
+USA1971IAM.female = mortalityTable.period(
   name = "USA 1971 IAM, female",
   ages = USA1971IAM.data$age,
-  deathProbs = USA1971IAM.data$qy)
+  deathProbs = USA1971IAM.data$qy,
+  data = list(
+      dim = list(sex = "w", collar = "Mortality", type = "Rententafel", data = "unloaded", year = "1971 IAM")
+  )
+)
 
-USA1971IAM.male.projected = mortalityTable.improvementFactors (
+USA1971IAM.male.projected = mortalityTable.improvementFactors(
   name = "USA 1971 IAM, male, projected",
   ages = USA1971IAM.data$age,
   baseYear = 1971,
   deathProbs = USA1971IAM.data$qx,
-  improvement = USA1971IAM.data$B)
+  improvement = USA1971IAM.data$B,
+  data = list(
+      dim = list(sex = "m", collar = "Mortality", type = "Rententafel", data = "unloaded", year = "1971 IAM projected")
+  )
+)
 
-USA1971IAM.female.projected = mortalityTable.improvementFactors (
+USA1971IAM.female.projected = mortalityTable.improvementFactors(
   name = "USA 1971 IAM, female, projected",
   ages = USA1971IAM.data$age,
   baseYear = 1971,
   deathProbs = USA1971IAM.data$qy,
-  improvement = USA1971IAM.data$B)
+  improvement = USA1971IAM.data$B,
+  data = list(
+      dim = list(sex = "w", collar = "Mortality", type = "Rententafel", data = "unloaded", year = "1971 IAM projected")
+  )
+)
 
 rm(USA1971IAM.data)
 

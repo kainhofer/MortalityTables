@@ -30,7 +30,10 @@ DAV1994R.male = mortalityTable.trendProjection(
     ages = DAV1994R.exakt.data$age,
     baseYear = 2000,
     deathProbs = DAV1994R.exakt.data$qx2000,
-    trend = DAV1994R.exakt.data$trendM
+    trend = DAV1994R.exakt.data$trendM,
+    data = list(
+        dim = list(sex = "m", collar = "Rententafel", type = "Rententafel Deutschland", data = "loaded", year = "DAV 1994R")
+    )
 );
 
 DAV1994R.female = mortalityTable.trendProjection(
@@ -38,7 +41,10 @@ DAV1994R.female = mortalityTable.trendProjection(
     ages = DAV1994R.exakt.data$age,
     baseYear = 2000,
     deathProbs = DAV1994R.exakt.data$qxAVbase1955,
-    trend = DAV1994R.exakt.data$trendF
+    trend = DAV1994R.exakt.data$trendF,
+    data = list(
+        dim = list(sex = "w", collar = "Rententafel", type = "Rententafel Deutschland", data = "loaded", year = "DAV 1994R")
+    )
 );
 
 
@@ -47,14 +53,20 @@ DAV1994R.male.av = mortalityTable.ageShift(
     name = "DAV 1994R male, age-shifted",
     ages = DAV1994R.exakt.data$age,
     deathProbs = DAV1994R.exakt.data$qxAVbase1955,
-    ageShifts = DAV1994R.av.data["AS.Male"]
+    ageShifts = DAV1994R.av.data["AS.Male"],
+    data = list(
+        dim = list(sex = "m", collar = "Rententafel", type = "Rententafel Deutschland", data = "age-shifted", year = "DAV 1994R")
+    )
 );
 
 DAV1994R.female.av = mortalityTable.ageShift(
     name = "DAV 1994R female, age-shifted",
     ages = DAV1994R.exakt.data$age,
     deathProbs = DAV1994R.exakt.data$qyAVbase1955,
-    ageShifts = DAV1994R.av.data["AS.Female"]
+    ageShifts = DAV1994R.av.data["AS.Female"],
+    data = list(
+        dim = list(sex = "w", collar = "Rententafel", type = "Rententafel Deutschland", data = "age-shifted", year = "DAV 1994R")
+    )
 );
 
 

@@ -71,15 +71,21 @@ DAV2004R.male = mortalityTable.trendProjection(
     ages = DAV2004R.data.basistafeln$age,
     baseYear = 1999,
     deathProbs = DAV2004R.data.basistafeln$qxAgg,
-    trend = DAV2004R.data.trend$trend1Ord.male
-);
+    trend = DAV2004R.data.trend$trend1Ord.male,
+    data = list(
+        dim = list(sex = "m", collar = "Aggregat", type = "Rententafel", data = "loaded", year = "DAV 2004R")
+    )
+)
 
 DAV2004R.female = mortalityTable.trendProjection(
     name = "DAV 2004R female, aggregate, loaded",
     ages = DAV2004R.data.basistafeln$age,
     baseYear = 1999,
     deathProbs = DAV2004R.data.basistafeln$qyAgg,
-    trend = DAV2004R.data.trend$trend1Ord.female
+    trend = DAV2004R.data.trend$trend1Ord.female,
+    data = list(
+        dim = list(sex = "w", collar = "Aggregat", type = "Rententafel", data = "loaded", year = "DAV 2004R")
+    )
 )
 
 
@@ -88,15 +94,21 @@ DAV2004R.male.2Ord = mortalityTable.trendProjection(
     ages = DAV2004R.data.basistafeln$age,
     baseYear = 1999,
     deathProbs = DAV2004R.data.basistafeln$qxAgg,
-    trend = DAV2004R.data.trend$trend2Ord.male.start
-);
+    trend = DAV2004R.data.trend$trend2Ord.male.start,
+    data = list(
+        dim = list(sex = "m", collar = "Aggregat", type = "Rententafel", data = "unloaded", year = "DAV 2004R")
+    )
+)
 
 DAV2004R.female.2Ord = mortalityTable.trendProjection(
     name = "DAV 2004R female, aggregate, unloaded, no trend dampening",
     ages = DAV2004R.data.basistafeln$age,
     baseYear = 1999,
     deathProbs = DAV2004R.data.basistafeln$qyAgg,
-    trend = DAV2004R.data.trend$trend2Ord.female.start
+    trend = DAV2004R.data.trend$trend2Ord.female.start,
+    data = list(
+        dim = list(sex = "w", collar = "Aggregat", type = "Rententafel", data = "unloaded", year = "DAV 2004R")
+    )
 )
 
 
@@ -105,26 +117,38 @@ DAV2004R.male.av = mortalityTable.ageShift(
     name = "DAV 2004R male, age-shifted, aggregate, loaded",
     ages = DAV2004R.data.av.grundtafeln$age,
     deathProbs = DAV2004R.data.av.grundtafeln$qx1Ord,
-    ageShifts = DAV2004R.data.av["shiftM1Ord"]
-);
+    ageShifts = DAV2004R.data.av["shiftM1Ord"],
+    data = list(
+        dim = list(sex = "m", collar = "Aggregat", type = "Rententafel", data = "age-shifted, loaded", year = "DAV 2004R")
+    )
+)
 DAV2004R.female.av = mortalityTable.ageShift(
     name = "DAV 2004R female, age-shifted, aggregate, loaded",
     ages = DAV2004R.data.av.grundtafeln$age,
     deathProbs = DAV2004R.data.av.grundtafeln$qy1Ord,
-    ageShifts = DAV2004R.data.av["shiftF1Ord"]
+    ageShifts = DAV2004R.data.av["shiftF1Ord"],
+    data = list(
+        dim = list(sex = "w", collar = "Aggregat", type = "Rententafel", data = "age-shifted, loaded", year = "DAV 2004R")
+    )
 )
 
 DAV2004R.male.av.2Ord = mortalityTable.ageShift(
     name = "DAV 2004R male, age-shifted, aggregate, unloaded, no trend dampening",
     ages = DAV2004R.data.av.grundtafeln$age,
     deathProbs = DAV2004R.data.av.grundtafeln$qxBestand,
-    ageShifts = DAV2004R.data.av["shiftMBestand"]
-);
+    ageShifts = DAV2004R.data.av["shiftMBestand"],
+    data = list(
+        dim = list(sex = "m", collar = "Aggregat", type = "Rententafel", data = "age-shifted, unloaded", year = "DAV 2004R")
+    )
+)
 DAV2004R.female.av.2Ord = mortalityTable.ageShift(
     name = "DAV 2004R female, age-shifted, aggregate, unloaded, no trend dampening",
     ages = DAV2004R.data.av.grundtafeln$age,
     deathProbs = DAV2004R.data.av.grundtafeln$qyBestand,
-    ageShifts = DAV2004R.data.av["shiftFBestand"]
+    ageShifts = DAV2004R.data.av["shiftFBestand"],
+    data = list(
+        dim = list(sex = "w", collar = "Aggregat", type = "Rententafel", data = "age-shifted, unloaded", year = "DAV 2004R")
+    )
 )
 
 

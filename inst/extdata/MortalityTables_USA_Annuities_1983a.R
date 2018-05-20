@@ -12,26 +12,42 @@ USA1983a.data = utils::read.csv(
     skip = 3)
 
 
-USA1983a.male = mortalityTable.period (
+USA1983a.male = mortalityTable.period(
   name = "USA 1983 Table a, male",
   ages = USA1983a.data$age,
-  deathProbs = USA1983a.data$qx)
+  deathProbs = USA1983a.data$qx,
+  data = list(
+      dim = list(sex = "m", collar = "Mortality", type = "Rententafel", data = "loaded", year = "1983a")
+  )
+)
 
-USA1983a.female = mortalityTable.period (
+USA1983a.female = mortalityTable.period(
   name = "USA 1983 Table a, female",
   ages = USA1983a.data$age,
-  deathProbs = USA1983a.data$qy)
+  deathProbs = USA1983a.data$qy,
+  data = list(
+      dim = list(sex = "w", collar = "Mortality", type = "Rententafel", data = "loaded", year = "1983a")
+  )
+)
 
 
-USA1983GAM.male = mortalityTable.period (
+USA1983GAM.male = mortalityTable.period(
   name = "USA 1983 GAM, male",
   ages = USA1983a.data$age,
-  deathProbs = USA1983a.data$qxG)
+  deathProbs = USA1983a.data$qxG,
+  data = list(
+      dim = list(sex = "m", collar = "group Mortality", type = "Rententafel", data = "loaded", year = "1983 GAM")
+  )
+)
 
-USA1983GAM.female = mortalityTable.period (
+USA1983GAM.female = mortalityTable.period(
   name = "USA 1983 GAM, female",
   ages = USA1983a.data$age,
-  deathProbs = USA1983a.data$qyG)
+  deathProbs = USA1983a.data$qyG,
+  data = list(
+      dim = list(sex = "w", collar = "group Mortality", type = "Rententafel", data = "loaded", year = "1983 GAM")
+  )
+)
 
 rm(USA1983a.data)
 

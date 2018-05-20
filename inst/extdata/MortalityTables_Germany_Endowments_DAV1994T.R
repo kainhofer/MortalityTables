@@ -22,22 +22,38 @@ DAV1994T.data = utils::read.csv(
 DAV1994T.male = mortalityTable.period(
     name       = "DAV 1994T male, loaded",
     ages       = DAV1994T.data$Alter,
-    deathProbs = DAV1994T.data$qbar_x.a)
+    deathProbs = DAV1994T.data$qbar_x.a,
+    data = list(
+        dim = list(sex = "m", collar = "Aggregat", type = "Risikotafel", data = "loaded", year = "DAV 1994T")
+    )
+)
 
 DAV1994T.male.2Ord = mortalityTable.period(
     name       = "DAV 1994T male, unloaded",
     ages       = DAV1994T.data$Alter,
-    deathProbs = DAV1994T.data$q_x)
+    deathProbs = DAV1994T.data$q_x,
+    data = list(
+        dim = list(sex = "m", collar = "Aggregat", type = "Risikotafel", data = "unloaded", year = "DAV 1994T")
+    )
+)
 
 DAV1994T.female = mortalityTable.period(
     name       = "DAV 1994T female, loaded",
     ages       = DAV1994T.data$Alter,
-    deathProbs = DAV1994T.data$qbar_y.a )
+    deathProbs = DAV1994T.data$qbar_y.a,
+    data = list(
+        dim = list(sex = "w", collar = "Aggregat", type = "Risikotafel", data = "loaded", year = "DAV 1994T")
+    )
+)
 
 DAV1994T.female.2Ord = mortalityTable.period(
     name       = "DAV 1994T female, unloaded",
     ages       = DAV1994T.data$Alter,
-    deathProbs = DAV1994T.data$q_y)
+    deathProbs = DAV1994T.data$q_y,
+    data = list(
+        dim = list(sex = "w", collar = "Aggregat", type = "Risikotafel", data = "unloaded", year = "DAV 1994T")
+    )
+)
 
 rm(DAV1994T.data)
 

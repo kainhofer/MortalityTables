@@ -14,14 +14,20 @@ mort.AT.forecast.male = mortalityTable.trendProjection(
     baseYear = 2014,
     deathProbs = AT.pop.fc$q.Männer.2014,
     trend = -AT.pop.fc$Männer,
-    ages = AT.pop.fc$X
+    ages = AT.pop.fc$X,
+    data = list(
+        dim = list(sex = "m", collar = "Gesamtbevölkerung", type = "Bevölkerungsprognose", data = "official", year = "2014-2080")
+    )
 )
 mort.AT.forecast.female = mortalityTable.trendProjection(
     name = "Österreich Frauen (mittl. Sz.)",
     baseYear = 2014,
     deathProbs = AT.pop.fc$q.Frauen.2014,
     trend = -AT.pop.fc$Frauen,
-    ages = AT.pop.fc$X
+    ages = AT.pop.fc$X,
+    data = list(
+        dim = list(sex = "w", collar = "Gesamtbevölkerung", type = "Bevölkerungsprognose", data = "official", year = "2014-2080")
+    )
 )
 
 rm(AT.pop.fc)
