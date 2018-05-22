@@ -26,6 +26,7 @@
 #' @export
 plotMortalityTableComparisons = function(
     data, ...,
+    aes = NULL,
     ages = NULL,
     xlim = NULL, ylim = NULL,
     xlab = NULL, ylab = NULL,
@@ -56,7 +57,11 @@ plotMortalityTableComparisons = function(
                           env=list(refname=reference@name));
     }
 
-    pl = ggplot(data, aes(x = x, y = y, color = group)) +
+    pl = ggplot(data, aes(x = x, y = y, color = group))
+    if (!is.null(aes)) {
+        pl = pl + aes
+    }
+    pl = pl +
         theme_bw() +
         theme(
             plot.title = element_text(size=18, face="bold"),
