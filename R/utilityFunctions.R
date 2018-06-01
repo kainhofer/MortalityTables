@@ -2,7 +2,7 @@
 NULL
 
 
-fitExtrapolationLaw = function(data, ages, data.ages = ages, Dx = data * Ex, Ex, method = "LF2", law = "HP", fit = 75:99, extrapolate = 80:120, fadeIn = 80:90, fadeOut = NULL, verbose = FALSE) {
+fitExtrapolationLaw = function(data, ages, data.ages = ages, Dx = NULL, Ex = NULL, qx = NULL, method = "LF2", law = "HP", fit = 75:99, extrapolate = 80:120, fadeIn = 80:90, fadeOut = NULL, verbose = FALSE) {
     # Add the extrapolate ages to the needed ages
     neededAges = union(ages, extrapolate)
     # constrain the fit and fade-in range to given ages
@@ -14,7 +14,7 @@ fitExtrapolationLaw = function(data, ages, data.ages = ages, Dx = data * Ex, Ex,
 
     # Hohe Alter: Fitte Heligman-Pollard im Bereich 75-99
     fitLaw = MortalityLaw(
-        x = data.ages, Dx = Dx, Ex = Ex,
+        x = data.ages, Dx = Dx, Ex = Ex, qx = qx,
         law = law, opt.method = method,
         fit.this.x = fit)
     # summary(fitAP.m.75.99)
@@ -188,19 +188,21 @@ mT.fitExtrapolationLaw = function(table, method = "LF2", law = "HP",
     ages = ages(table)
     if (!is.null(table@exposures) && !is.na(table@exposures)) {
         Ex = table@exposures
-        if (!is.null(table@data$deaths)) {
-            Dx = table@data$deaths
-        } else {
-            Dx = table@deathProbs * Ex
-        }
+        qx = table@deathProbs
+        # if (!is.null(table@data$deaths)) {
+        #     Dx = table@data$deaths
+        # } else {
+        #     Dx = table@deathProbs * Ex
+        # }
     } else {
         Ex = rep(1, length(ages))
-        Dx = table@deathProbs
+        # Dx = table@deathProbs
+        qx = table@deathProbs
     }
     table  = mT.fillAges(table, neededAges = union(ages, extrapolate), fill = 0)
     fitted = fitExtrapolationLaw(
         data = table@deathProbs, ages = ages(table),
-        Dx = Dx, Ex = Ex, data.ages = ages,
+        qx = qx, Ex = Ex, data.ages = ages,
         method = method, law = law,
         fit = fit, extrapolate = extrapolate,
         fadeIn = fadeIn, fadeOut = fadeOut,
