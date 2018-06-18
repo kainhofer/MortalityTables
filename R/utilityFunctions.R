@@ -119,14 +119,15 @@ mT.scaleProbs = function(table, factor = 1.0, name.postfix = "scaled", name = pa
 
 
 #' @export
-mT.setTrend = function(table, trend, trendages = ages(table), baseYear = table@baseYear) {
+mT.setTrend = function(table, trend, trendages = ages(table), baseYear = table@baseYear, dampingFunction = identity) {
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable.")
 
     t = mortalityTable.trendProjection(
         table,
         baseYear = baseYear,
-        trend = trend[match(table@ages, trendages)]
+        trend = trend[match(table@ages, trendages)],
+        dampingFunction = dampingFunction
     )
     t
 }
