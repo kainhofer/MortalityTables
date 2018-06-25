@@ -67,8 +67,11 @@
 #' @import scales
 #' @export
 whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ", smoothed", ..., weights = NULL, log = TRUE) {
+    if (is.list(table)) {
+        return(lapply(table, whittaker.mortalityTable, lambda = lambda, d = d, name.postfix = name.postfix, ..., weights = weights, log = log))
+    }
     if (!is(table, "mortalityTable")) {
-        stop("Table object must be an instance of mortalityTable in whittaker.mortalityTable.")
+        stop("Table object must be an instance (or list of instances) of mortalityTable in whittaker.mortalityTable.")
     }
     # append the postfix to the table name to distinguish it from the original (raw) table
     if (!is.null(name.postfix)) {
