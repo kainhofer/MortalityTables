@@ -67,8 +67,11 @@
 #' @import scales
 #' @export
 whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ", smoothed", ..., weights = NULL, log = TRUE) {
-    if (is.list(table)) {
-        return(lapply(table, whittaker.mortalityTable, lambda = lambda, d = d, name.postfix = name.postfix, ..., weights = weights, log = log))
+    if (is.array(table)) {
+        return(array(
+            lapply(table, whittaker.mortalityTable, lambda = lambda, d = d, name.postfix = name.postfix, ..., weights = weights, log = log),
+            dim = dim(table), dimnames = dimnames(table))
+        )
     }
     if (!is(table, "mortalityTable")) {
         stop("Table object must be an instance (or list of instances) of mortalityTable in whittaker.mortalityTable.")
