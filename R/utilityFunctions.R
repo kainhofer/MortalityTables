@@ -284,3 +284,22 @@ mT.setDimInfo = function(table, ..., append = TRUE) {
     table
 }
 
+
+#' @export
+pT.getSubTable = function(table, subtable = "qx") {
+    if (is.array(table)) {
+        return(array(
+            lapply(table, pT.getSubTable, subtable = subtable),
+            dim = dim(table), dimnames = dimnames(table))
+        )
+    } else if (is.list(table)) {
+        return(lapply(table, pT.getSubTable, subtable = subtable))
+    }
+    if (!is(table, "pensionTable"))
+        stop("First argument must be a pensionTable or a list of pensionTable objects.")
+
+    if (.hasSlot(table, subtable))
+        slot(table, subtable)
+    else
+        NULL
+}
