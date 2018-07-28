@@ -75,12 +75,14 @@ fitExpExtrapolation = function(data, idx, up = TRUE, verbose = FALSE) {
 
 
 #' @export
-mT.setName = function(table, name = table@name) {
+mT.setName = function(table, name) {
     if (is.array(table)) {
         return(array(
             lapply(table, mT.setName, name = name),
             dim = dim(table), dimnames = dimnames(table))
         )
+    } else if (is.list(table)) {
+        return(lapply(table, mT.setName, name = name))
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -98,6 +100,8 @@ mT.fillAges = function(table, neededAges, fill = 0) {
             lapply(table, mT.fillAges, neededAges = neededAges, fill = fill),
             dim = dim(table), dimnames = dimnames(table))
         )
+    } else if (is.list(table)) {
+        return(lapply(table, mT.fillAges, neededAges = neededAges, fill = fill))
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -121,17 +125,24 @@ mT.fillAges = function(table, neededAges, fill = 0) {
 }
 
 #' @export
-mT.scaleProbs = function(table, factor = 1.0, name.postfix = "scaled", name = paste(table@name, name.postfix)) {
+mT.scaleProbs = function(table, factor = 1.0, name.postfix = "scaled", name = NULL) {
     if (is.array(table)) {
         return(array(
             lapply(table, mT.scaleProbs, factor = factor, name.postfix = name.postfix, name = name),
             dim = dim(table), dimnames = dimnames(table))
         )
+    } else if (is.list(table)) {
+        return(lapply(table, mT.scaleProbs, factor = factor, name.postfix = name.postfix, name = name))
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
 
     table@deathProbs = factor * table@deathProbs
+    if (is.null(name)) {
+        if (!is.null(name.postfix)) {
+            name = paste(table@name, name.postfix)
+        }
+    }
     if (!is.null(name)) {
         table@name = name
     }
@@ -140,20 +151,22 @@ mT.scaleProbs = function(table, factor = 1.0, name.postfix = "scaled", name = pa
 
 
 #' @export
-mT.setTrend = function(table, trend, trendages = ages(table), baseYear = table@baseYear, dampingFunction = identity) {
+mT.setTrend = function(table, trend, trendages = NULL, baseYear = NULL, dampingFunction = identity) {
     if (is.array(table)) {
         return(array(
             lapply(table, mT.setTrend, trend = trend, trendages = trendages, baseYear = baseYear, dampingFunction = dampingFunction),
             dim = dim(table), dimnames = dimnames(table))
         )
+    } else if (is.list(table)) {
+        return(lapply(table, mT.setTrend, trend = trend, trendages = trendages, baseYear = baseYear, dampingFunction = dampingFunction))
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
 
     t = mortalityTable.trendProjection(
         table,
-        baseYear = baseYear,
-        trend = trend[match(table@ages, trendages)],
+        baseYear = if (is.null(baseYear)) table@baseYear else baseYear,
+        trend = trend[match(table@ages, if (is.null(trendages)) ages(table) else trendages)],
         dampingFunction = dampingFunction
     )
     t
@@ -171,32 +184,38 @@ mT.extrapolateTrendExp = function(table, idx, up = TRUE) {
             lapply(table, mT.extrapolateTrendExp, idx = idx, up = up),
             dim = dim(table), dimnames = dimnames(table))
         )
+    } else if (is.list(table)) {
+        return(lapply(table, mT.extrapolateTrendExp, idx = idx, up = up))
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
 
     if (.hasSlot(table, "trend") && !is.null(table@trend))
         table@trend = fitExpExtrapolation(table@trend, idx = idx,up = up)
-    if (.hasSlot(table, "tren2") && !is.null(table@trend2))
+    if (.hasSlot(table, "trend2") && !is.null(table@trend2))
         table@trend2 = fitExpExtrapolation(table@trend2, idx = idx,up = up)
     table
 }
 
 
 #' @export
-mT.translate = function(table, baseYear, name = table@name) {
+mT.translate = function(table, baseYear, name = NULL) {
     if (is.array(table)) {
         return(array(
             lapply(table, mT.translate, baseYear = baseYear, name = name),
             dim = dim(table), dimnames = dimnames(table))
         )
+    } else if (is.list(table)) {
+        return(lapply(table, mT.translate, baseYear = baseYear, name = name))
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
 
     table@deathProbs = periodDeathProbabilities(table, Period = baseYear)
     table@baseYear = baseYear
-    table@name = name
+    if (!is.null(name)) {
+        table@name = name
+    }
     table
 }
 
@@ -208,6 +227,8 @@ mT.extrapolateProbsExp = function(table, age, up = TRUE) {
             lapply(table, mT.extrapolateProbsExp, age = age, up = up),
             dim = dim(table), dimnames = dimnames(table))
         )
+    } else if (is.list(table)) {
+        return(lapply(table, mT.extrapolateProbsExp, age = age, up = up))
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -272,6 +293,8 @@ mT.setDimInfo = function(table, ..., append = TRUE) {
             lapply(table, mT.setDimInfo, ..., append = append),
             dim = dim(table), dimnames = dimnames(table))
         )
+    } else if (is.list(table)) {
+        return(lapply(table, mT.setDimInfo, ..., append = append))
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -303,3 +326,4 @@ pT.getSubTable = function(table, subtable = "qx") {
     else
         NULL
 }
+
