@@ -190,9 +190,9 @@ mT.extrapolateTrendExp = function(table, idx, up = TRUE) {
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
 
-    if (.hasSlot(table, "trend") && !is.null(table@trend))
+    if (.hasSlot(table, "trend") && !is.null(table@trend) && length(table@trend) > 1)
         table@trend = fitExpExtrapolation(table@trend, idx = idx,up = up)
-    if (.hasSlot(table, "trend2") && !is.null(table@trend2))
+    if (.hasSlot(table, "trend2") && !is.null(table@trend2) && length(table@trend2) > 1)
         table@trend2 = fitExpExtrapolation(table@trend2, idx = idx,up = up)
     table
 }
@@ -327,3 +327,70 @@ pT.getSubTable = function(table, subtable = "qx") {
         NULL
 }
 
+
+
+#' @exportMethod mT.round
+setGeneric("mT.round", function(object, digits = 8) standardGeneric("mT.round"));
+
+#' @describeIn setModification Return the life table with the given modification set
+setMethod("mT.round", "mortalityTable",
+          function(object, digits = 8) {
+              object
+          })
+setMethod("mT.round", "mortalityTable.period",
+          function(object, digits = 8) {
+              o = callNextMethod()
+              o@deathProbs = round(o@deathProbs, digits = digits)
+              o@loading    = round(o@loading, digits = digits)
+              o
+          })
+setMethod("mT.round", "mortalityTable.trendProjection",
+          function(object, digits = 8) {
+              o = callNextMethod()
+              if (!is.null(o@trend) && !is.na(o@trend)) {
+                  o@trend  = round(o@trend, digits = digits)
+              }
+              if (!is.null(o@trend2) && !is.na(o@trend2)) {
+                o@trend2 = round(o@trend2, digits = digits)
+              }
+              o
+          })
+setMethod("mT.round", "mortalityTable.improvementFactors",
+          function(object, digits = 8) {
+              o = callNextMethod()
+              o@improvement = round(o@improvement, digits = digits)
+              if (!is.null(o@loading) && !is.na(o@loading)) {
+                  o@loading    = round(o@loading, digits = digits)
+              }
+              o
+          })
+setMethod("mT.round", "array",
+          function(object, digits = 8) {
+              array(
+                  lapply(object, mT.round, digits = digits),
+                  dim = dim(object), dimnames = dimnames(object))
+          })
+setMethod("mT.round", "list",
+          function(object, digits = 8) {
+              lapply(object, mT.round, digits = digits)
+          })
+
+setMethod("mT.round", "pensionTable",
+          function(object, digits = 8) {
+              object@qx = mT.round(object@qx, digits = digits)
+              object@ix = mT.round(object@ix, digits = digits)
+              object@qix = mT.round(object@qix, digits = digits)
+              object@rx = mT.round(object@rx, digits = digits)
+              object@apx = mT.round(object@apx, digits = digits)
+              object@qpx = mT.round(object@qpx, digits = digits)
+              object@hx = mT.round(object@hx, digits = digits)
+              object@qwy = mT.round(object@qwy, digits = digits)
+              object@qgx = mT.round(object@qgx, digits = digits)
+              object
+          })
+
+
+# pensionTables.list()
+# pensionTables.load("*")
+# library(tidyverse)
+# AVOe2008P.male %>% mT.round(digits = 2)
