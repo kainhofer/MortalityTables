@@ -23,7 +23,6 @@ fitExtrapolationLaw = function(data, ages, data.ages = ages, Dx = NULL, Ex = NUL
 
     weights = rep(0, length(neededAges))
     names(weights) = neededAges
-
     if (!is.null(fadeIn)) {
         weights[neededAges < min(fadeIn)] = 0
         fadeInLen = length(fadeIn);
@@ -121,6 +120,8 @@ mT.fillAges = function(table, neededAges, fill = 0) {
         table@loading = fillAges(table@loading, givenAges = existingAges, neededAges = neededAges, fill = 0)
     if (!is.null(table@data$deaths))
         table@data$deaths = fillAges(table@data$deaths, givenAges = existingAges, neededAges = neededAges, fill = 0)
+    if (!is.null(table@data$rawProbs))
+        table@data$rawProbs = fillAges(table@data$rawProbs, givenAges = existingAges, neededAges = neededAges, fill = 0)
     table
 }
 
