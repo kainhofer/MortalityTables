@@ -334,6 +334,28 @@ pT.getSubTable = function(table, subtable = "qx") {
         NULL
 }
 
+#' @export
+mT.switchover = function(table, to, at, weights = NULL) {
+    if (is.array(table)) {
+        return(array(
+            lapply(table, mT.switchover, to = to, at = at, weights = weights),
+            dim = dim(table), dimnames = dimnames(table))
+        )
+    } else if (is.list(table)) {
+        return(lapply(table, mT.switchover, to = to, at = at, weights = weights))
+    }
+    if (!is(table, "mortalityTable"))
+        stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
+
+    if (is.null(weights)) {
+        ags.table = ages(table)
+        ags.to = ages(to)
+        weights = 1 * (ags.to >= at)
+    }
+    table@deathProbs = table@deathProbs * (1 - weights) + to@deathProbs * weights
+    table
+}
+
 
 
 #' @exportMethod mT.round
