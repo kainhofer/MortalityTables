@@ -249,10 +249,9 @@ mT.extrapolateProbsExp = function(table, age, up = TRUE) {
 #' @export
 mT.fitExtrapolationLaw = function(table, method = "LF2", law = "HP",
                                   fit = 75:99, extrapolate = 80:120,
-                                  fadeIn = 80:90, fadeOut = NULL) {
+                                  fadeIn = 80:90, fadeOut = NULL, raw = NULL) {
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable.")
-
     ages = ages(table)
     # if (!is.null(table@exposures) && !is.na(table@exposures)) {
         # Ex = table@exposures
@@ -267,10 +266,17 @@ mT.fitExtrapolationLaw = function(table, method = "LF2", law = "HP",
         # Dx = table@deathProbs
         # qx = table@deathProbs
     # }
+    if (!is.null(raw)) {
+        rawData = raw
+    } else if (!is.null(table@data$rawProbs)) {
+        rawData = table@data$rawProbs
+    } else {
+        rawData = table@deathProbs
+    }
     table  = mT.fillAges(table, neededAges = union(ages, extrapolate), fill = 0)
     fitted = fitExtrapolationLaw(
         data = table@deathProbs, ages = ages(table),
-        qx = table@deathProbs, data.ages = ages,
+        qx = rawData, data.ages = ages,
         method = method, law = law,
         fit = fit, extrapolate = extrapolate,
         fadeIn = fadeIn, fadeOut = fadeOut,
