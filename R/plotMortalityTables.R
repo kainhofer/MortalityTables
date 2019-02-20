@@ -58,12 +58,14 @@ plotMortalityTables = function(
     if (missing(xlab)) xlab = "Alter";
     if (missing(ylab)) ylab = expression(paste("Sterbewahrscheinlichkeit ", q[x]));
 
-    data = subset(data, y > 0)
     if (!is.null(ages)) {
         data = data[data$x %in% ages,]
     }
 
-    pl = ggplot(subset(data, y > 0), aes(x = x, y = y, color = group))
+    if (log) {
+        data = subset(data, y > 0)
+    }
+    pl = ggplot(data, aes(x = x, y = y, color = group))
     if (!is.null(aes)) {
         pl = pl + aes
     }
