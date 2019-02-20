@@ -9,8 +9,9 @@
 \usage{
 calculateImprovements(object, ...)
 
-\S4method{calculateImprovements}{mortalityTable.improvementFactors}(object, ...,
-  Period = NULL, YOB = 1982)
+
+  \S4method{calculateImprovements}{mortalityTable.improvementFactors}(object,
+  ..., Period = NULL, YOB = 1982)
 }
 \arguments{
 \item{object}{A pension table object (instance of a \code{\linkS4class{mortalityTable.improvementFactors}} class)}

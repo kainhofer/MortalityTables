@@ -7,13 +7,13 @@ stopifnot(require(methods), require(utils), require(MortalityTables)) # Mortalit
 ###############################################################################
 
 
-AT.pop.fc = utils::read.csv(system.file("extdata", "Austria_Population_Forecast.csv", package = "MortalityTables"), skip = 2);
+AT.pop.fc = utils::read.csv(system.file("extdata", "Austria_Population_Forecast.csv", package = "MortalityTables"), skip = 2, encoding = "UTF-8");
 
 mort.AT.forecast.male = mortalityTable.trendProjection(
     name = "Österreich Männer (mittl. Sz.)",
     baseYear = 2014,
-    deathProbs = AT.pop.fc$q.Männer.2014,
-    trend = -AT.pop.fc$Männer,
+    deathProbs = AT.pop.fc$q.M.2014,
+    trend = -AT.pop.fc$M,
     ages = AT.pop.fc$X,
     data = list(
         dim = list(sex = "m", collar = "Gesamtbevölkerung", type = "Bevölkerungsprognose", data = "official", year = "2014-2080")
@@ -22,8 +22,8 @@ mort.AT.forecast.male = mortalityTable.trendProjection(
 mort.AT.forecast.female = mortalityTable.trendProjection(
     name = "Österreich Frauen (mittl. Sz.)",
     baseYear = 2014,
-    deathProbs = AT.pop.fc$q.Frauen.2014,
-    trend = -AT.pop.fc$Frauen,
+    deathProbs = AT.pop.fc$q.F.2014,
+    trend = -AT.pop.fc$F,
     ages = AT.pop.fc$X,
     data = list(
         dim = list(sex = "w", collar = "Gesamtbevölkerung", type = "Bevölkerungsprognose", data = "official", year = "2014-2080")

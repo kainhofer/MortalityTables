@@ -21,10 +21,12 @@ periodDeathProbabilities(object, ..., ages = NULL, Period = 1975)
 \S4method{periodDeathProbabilities}{mortalityTable.ageShift}(object, ...,
   ages = NULL, Period = 1975)
 
-\S4method{periodDeathProbabilities}{mortalityTable.trendProjection}(object, ...,
-  ages = NULL, Period = 1975)
 
-\S4method{periodDeathProbabilities}{mortalityTable.improvementFactors}(object,
+  \S4method{periodDeathProbabilities}{mortalityTable.trendProjection}(object,
+  ..., ages = NULL, Period = 1975)
+
+
+  \S4method{periodDeathProbabilities}{mortalityTable.improvementFactors}(object,
   ..., ages = NULL, Period = 1975)
 
 \S4method{periodDeathProbabilities}{mortalityTable.mixed}(object, ...,

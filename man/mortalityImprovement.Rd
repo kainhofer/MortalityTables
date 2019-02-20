@@ -8,8 +8,8 @@
 \usage{
 mortalityImprovement(object, ..., Period = NULL, YOB = 1975)
 
-\S4method{mortalityImprovement}{mortalityTable}(object, ..., Period = NULL,
-  YOB = 1975)
+\S4method{mortalityImprovement}{mortalityTable}(object, ...,
+  Period = NULL, YOB = 1975)
 }
 \arguments{
 \item{object}{The life table object (class inherited from mortalityTable)}

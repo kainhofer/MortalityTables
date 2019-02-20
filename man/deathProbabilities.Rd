@@ -14,8 +14,8 @@
 \usage{
 deathProbabilities(object, ..., ages = NULL, YOB = 1975)
 
-\S4method{deathProbabilities}{mortalityTable.period}(object, ..., ages = NULL,
-  YOB = 1975)
+\S4method{deathProbabilities}{mortalityTable.period}(object, ...,
+  ages = NULL, YOB = 1975)
 
 \S4method{deathProbabilities}{mortalityTable.ageShift}(object, ...,
   ages = NULL, YOB = 1975)
@@ -23,11 +23,11 @@ deathProbabilities(object, ..., ages = NULL, YOB = 1975)
 \S4method{deathProbabilities}{mortalityTable.trendProjection}(object, ...,
   ages = NULL, YOB = 1975)
 
-\S4method{deathProbabilities}{mortalityTable.improvementFactors}(object, ...,
-  ages = NULL, YOB = 1975)
+\S4method{deathProbabilities}{mortalityTable.improvementFactors}(object,
+  ..., ages = NULL, YOB = 1975)
 
-\S4method{deathProbabilities}{mortalityTable.mixed}(object, ..., ages = NULL,
-  YOB = 1975)
+\S4method{deathProbabilities}{mortalityTable.mixed}(object, ...,
+  ages = NULL, YOB = 1975)
 
 \S4method{deathProbabilities}{mortalityTable.jointLives}(object, ...,
   ageDifferences = c(), ages = NULL, YOB = 1975)
