@@ -11,7 +11,7 @@ a.vz.dataF = utils::read.csv(system.file("extdata", "Austria_Census_Female.csv",
 a.vz.dataU = utils::read.csv(system.file("extdata", "Austria_Census_Unisex.csv", package = "MortalityTables"), skip = 3);
 
 censtable = function(data, name, qslot, baseYear = 1900, sex = "m") {
-  qx = data[names(data) = = qslot];
+  qx = data[names(data) == qslot];
   ix = complete.cases(qx);
   mortalityTable.period(name = name, ages = data$x[ix], deathProbs = qx[ix,], baseYear = baseYear,
       data = list(
