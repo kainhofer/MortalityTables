@@ -294,6 +294,38 @@ mT.fitExtrapolationLaw = function(table, method = "LF2", law = "HP",
 }
 
 #' @export
+pT.setDimInfo = function(table, ..., append = TRUE) {
+    if (is.array(table)) {
+        return(array(
+            lapply(table, pT.setDimInfo, ..., append = append),
+            dim = dim(table), dimnames = dimnames(table))
+        )
+    } else if (is.list(table)) {
+        return(lapply(table, pT.setDimInfo, ..., append = append))
+    }
+    if (!is(table, "pensionTable"))
+        stop("First argument must be a pensionTable or a list of pensionTable objects.")
+
+    if (append) {
+        table@data[names(list(...))] = list(...)
+    } else {
+        table@data = list(...)
+    }
+
+    table@qx = mT.setDimInfo(table@qx, ..., append = append)
+    table@ix = mT.setDimInfo(table@ix, ..., append = append)
+    table@qix = mT.setDimInfo(table@qix, ..., append = append)
+    table@rx = mT.setDimInfo(table@rx, ..., append = append)
+    table@apx = mT.setDimInfo(table@apx, ..., append = append)
+    table@qpx = mT.setDimInfo(table@qpx, ..., append = append)
+    table@hx = mT.setDimInfo(table@hx, ..., append = append)
+    table@qwy = mT.setDimInfo(table@qwy, ..., append = append)
+    table@qgx = mT.setDimInfo(table@qgx, ..., append = append)
+    table
+}
+
+
+#' @export
 mT.setDimInfo = function(table, ..., append = TRUE) {
     if (is.array(table)) {
         return(array(
@@ -302,7 +334,10 @@ mT.setDimInfo = function(table, ..., append = TRUE) {
         )
     } else if (is.list(table)) {
         return(lapply(table, mT.setDimInfo, ..., append = append))
+    } else if (is(table, "pensionTable")) {
+        return(pT.setDimInfo(table, ..., append = append))
     }
+
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
 
@@ -328,10 +363,14 @@ pT.getSubTable = function(table, subtable = "qx") {
     if (!is(table, "pensionTable"))
         stop("First argument must be a pensionTable or a list of pensionTable objects.")
 
-    if (.hasSlot(table, subtable))
-        slot(table, subtable)
-    else
-        NULL
+    if (length(subtable) > 1) {
+        return(lapply(subtable, function(st) pT.getSubTable(table, subtable = st)))
+    } else {
+        if (.hasSlot(table, subtable))
+            slot(table, subtable)
+        else
+            NULL
+    }
 }
 
 #' @export
@@ -380,7 +419,7 @@ setMethod("mT.round", "mortalityTable.trendProjection",
                   o@trend  = round(o@trend, digits = digits)
               }
               if (!is.null(o@trend2) && !is.na(o@trend2)) {
-                o@trend2 = round(o@trend2, digits = digits)
+                  o@trend2 = round(o@trend2, digits = digits)
               }
               o
           })
@@ -418,6 +457,92 @@ setMethod("mT.round", "pensionTable",
               object
           })
 
+
+
+#' @exportMethod mT.cleanup
+setGeneric("mT.cleanup", function(object) standardGeneric("mT.cleanup"));
+
+setMethod("mT.cleanup", "mortalityTable",
+          function(object) {
+              object@data = list(dim = object@data$dim)
+              object
+          })
+setMethod("mT.cleanup", "mortalityTable.period",
+          function(object) {
+              o = callNextMethod()
+              o@ages = unname(o@ages)
+              o@deathProbs = unname(o@deathProbs)
+              o@exposures = NULL
+              o
+          })
+setMethod("mT.cleanup", "mortalityTable.trendProjection",
+          function(object) {
+              o = callNextMethod()
+              o@trend = unname(o@trend)
+              o@trend2 = unname(o@trend2)
+              o
+          })
+setMethod("mT.cleanup", "array",
+          function(object) {
+              array(
+                  lapply(object, mT.cleanup),
+                  dim = dim(object), dimnames = dimnames(object))
+          })
+setMethod("mT.cleanup", "list",
+          function(object) {
+              lapply(object, mT.cleanup)
+          })
+
+setMethod("mT.cleanup", "pensionTable",
+          function(object) {
+              object = callNextMethod()
+              object@qx = mT.cleanup(object@qx)
+              object@ix = mT.cleanup(object@ix)
+              object@qix = mT.cleanup(object@qix)
+              object@rx = mT.cleanup(object@rx)
+              object@apx = mT.cleanup(object@apx)
+              object@qpx = mT.cleanup(object@qpx)
+              object@hx = mT.cleanup(object@hx)
+              object@qwy = mT.cleanup(object@qwy)
+              object@qgx = mT.cleanup(object@qgx)
+              object
+          })
+
+
+#' @export
+pT.calculateTotalMortality = function(object, ...) {
+    probs = transitionProbabilities(object, Period = object@baseYear, as.data.frame = TRUE)
+    probs$qgALT = probs$qg
+
+    la = head(Reduce('*', (1 - probs$q - probs$i), init = 100000, accumulate = TRUE), -1)
+    lg = la
+    for (idx in seq_along(lg)) {
+        probs$qg[idx] = probs$qi[idx] - la[idx]/lg[idx] * (probs$qi[idx] - probs$q[idx] - probs$i[idx] * 1/2 * probs$qi[idx] / (1 - 1/2*probs$qi[idx]))
+        lg[idx + 1] = lg[idx] * (1 - probs$qg[idx])
+    }
+    lg = head(lg, -1)
+
+    probs$qg
+}
+
+
+#' @export
+pT.recalculateTotalMortality = function(object, ...) {
+    if (is.array(table)) {
+        return(array(
+            lapply(table, pT.recalculateTotalMortality, ...),
+            dim = dim(table), dimnames = dimnames(table))
+        )
+    } else if (is.list(table)) {
+        return(lapply(table, pT.recalculateTotalMortality, ...))
+    }
+    if (!is(table, "pensionTable"))
+        stop("First argument must be a pensionTable or a list of pensionTable objects.")
+
+    qg = pT.calculateTotalMortality(object)
+    object@qgx@deathProbs = qg
+    object
+}
 
 # pensionTables.list()
 # pensionTables.load("*")
