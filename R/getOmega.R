@@ -1,4 +1,4 @@
-#' @include mortalityTable.R mortalityTable.period.R mortalityTable.mixed.R mortalityTable.joined.R mortalityTable.observed.R
+#' @include mortalityTable.R mortalityTable.period.R mortalityTable.mixed.R mortalityTable.joined.R
 NULL
 
 #' Return the maximum age of the life table

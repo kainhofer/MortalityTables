@@ -1,4 +1,4 @@
-#' @include mortalityTable.period.R mortalityTable.mixed.R mortalityTable.joined.R mortalityTable.observed.R
+#' @include mortalityTable.period.R mortalityTable.mixed.R mortalityTable.joined.R
 NULL
 
 #' Return the defined ages of the life table
@@ -32,11 +32,5 @@ setMethod("ages", "mortalityTable.mixed",
 # setMethod("ages", "mortalityTable.joined",
 #           function (object, ...) {
 #               ages(object@table1);
-#           })
-
-# #' @describeIn ages Return the defined ages of the observed life table
-# setMethod("ages", "mortalityTable.observed",
-#           function(object, ...) {
-#               object@ages;
 #           })
 

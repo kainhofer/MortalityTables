@@ -1,4 +1,4 @@
-#' @include mortalityTable.R utilityFunctions.R getOmega.R periodDeathProbabilities.R deathProbabilities.R ages.R
+#' @include mortalityTable.R utilityFunctions.R ages.R getOmega.R periodDeathProbabilities.R deathProbabilities.R
 NULL
 
 #' Class mortalityTable.observed - Life table from actual observations
@@ -27,11 +27,12 @@ mortalityTable.observed = setClass(
  contains = "mortalityTable"
 )
 
-#' @describeIn ages Return the ages of the life table
+#' @describeIn ages Return the defined ages of the observed life table
 setMethod("ages", "mortalityTable.observed",
-          function(object) {
-              object@ages
+          function(object, ...) {
+              object@ages;
           })
+
 
 #' @describeIn getOmega Return the maximum age of the life table
 setMethod("getOmega", "mortalityTable.observed",
