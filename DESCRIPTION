@@ -7,6 +7,7 @@ Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinho
 Author: Reinhold Kainhofer [aut, cre]
 Maintainer: Reinhold Kainhofer <reinhold@kainhofer.com>
 URL: https://gitlab.open-tools.net/R/r-mortality-tables
+Encoding: UTF-8
 Depends:
     ggplot2,
     methods,
@@ -24,24 +25,27 @@ Description: Classes to implement and plot cohort life tables
     merged life tables.
 License: GPL (>= 2)
 RoxygenNote: 6.1.0.9000
-Collate: 'mortalityTable.R'
+Collate: 
+    'mortalityTable.R'
     'mortalityTable.period.R'
     'mortalityTable.ageShift.R'
     'ageShift.R'
-    'mortalityTable.observed.R'
-    'mortalityTable.joined.R'
-    'mortalityTable.mixed.R'
-    'ages.R'
-    'baseTable.R'
-    'baseYear.R'
     'fillAges.R'
-    'pensionTable.R'
-    'commutationNumbers.R'
+    'mortalityTable.mixed.R'
     'mortalityTable.improvementFactors.R'
     'mortalityTable.trendProjection.R'
     'deathProbabilities.R'
-    'getCohortTable.R'
+    'periodDeathProbabilities.R'
+    'mortalityTable.joined.R'
     'getOmega.R'
+    'pensionTable.R'
+    'utilityFunctions.R'
+    'mortalityTable.observed.R'
+    'ages.R'
+    'baseTable.R'
+    'baseYear.R'
+    'commutationNumbers.R'
+    'getCohortTable.R'
     'getPeriodTable.R'
     'lifeTable.R'
     'makeQxDataFrame.R'
@@ -50,7 +54,6 @@ Collate: 'mortalityTable.R'
     'mortalityTable.MakehamGompertz.R'
     'mortalityTable.Weibull.R'
     'mortalityTable.deMoivre.R'
-    'periodDeathProbabilities.R'
     'mortalityTable.jointLives.R'
     'mortalityTables.list.R'
     'mortalityTables.load.R'
@@ -61,6 +64,5 @@ Collate: 'mortalityTable.R'
     'setLoading.R'
     'setModification.R'
     'undampenTrend.R'
-    'utilityFunctions.R'
     'whittaker.mortalityTable.R'
 VignetteBuilder: knitr

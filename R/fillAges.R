@@ -17,6 +17,7 @@ fillAges = function(probs = c(), givenAges = c(), neededAges = NULL, fill = NA_r
         result = rep(fill, length(neededAges))
         providedAges = intersect(neededAges, givenAges)
         result[match(providedAges, neededAges)] = probs[match(providedAges, givenAges)]
+        setNames(result, neededAges)
         result
     } else {
         probs

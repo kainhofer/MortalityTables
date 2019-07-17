@@ -30,9 +30,3 @@ setMethod("getOmega", "mortalityTable.mixed",
 #           function(object) {
 #               getOmega(object@table1);
 #           })
-
-# #' @describeIn getOmega Return the maximum age of the joined life table
-# setMethod("getOmega", "mortalityTable.observed",
-#           function(object) {
-#               max(object@ages, na.rm = TRUE);
-#           })
