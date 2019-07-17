@@ -1,4 +1,4 @@
-#' @include mortalityTable.R
+#' @include mortalityTable.R mortalityTable.trendProjection.R mortalityTable.improvementFactors.R pensionTable.R
 NULL
 
 
@@ -48,7 +48,14 @@ fitExtrapolationLaw = function(data, ages, data.ages = ages, Dx = NULL, Ex = NUL
 
 
 
-# Fit an exponential function exp(-A*(x-x0)) to the last value (f(100) and f'(100) need to coincide):
+#' Fit an exponential function exp(-A*(x-x0)) to the last value (f(100) and f'(100) need to coincide):
+#'
+#' @param data data.frame to which an exponential function should be fit
+#' @param idx Index of the position of the fit
+#' @param up Whether the fit is forward- or backward-facing
+#' @param verbose Whether to include data about the fit in the output
+#'
+# exportMethod fitExpExtrapolation
 fitExpExtrapolation = function(data, idx, up = TRUE, verbose = FALSE) {
     # browser()
     # Anchor point of the extrapolation
@@ -73,6 +80,15 @@ fitExpExtrapolation = function(data, idx, up = TRUE, verbose = FALSE) {
 }
 
 
+#' Sets a new name for the given mortality table or the list/table/array of mortalityTables
+#'
+#' @param table A life table object (instance of a \code{mortalityTable} class) or a list, table or array of mortalityTable objects
+#' @param name New name for the table.
+#'
+#' @examples
+#' mortalityTables.load("Austria_Annuities")
+#' mT.setName(AVOe2005R.male, name = "Austrian male Annuity table 2005-R")
+#'
 #' @export
 mT.setName = function(table, name) {
     if (is.array(table)) {
@@ -92,6 +108,17 @@ mT.setName = function(table, name) {
 
 
 
+#' Restrict the given \code{mortalityTable} object(s) to given ages, potentially filling with NA values to ensure they cover the full desired age range
+#'
+#' @param table A life table object (instance of a \code{mortalityTable} class) or a list, table or array of mortalityTable objects
+#' @param neededAges The vector of ages the returned objects should cover (even if the values are 0 or NA)
+#' @param fill The value to use for all ages for which the original table(s) do not have any information
+#'
+#' @examples
+#' mortalityTables.load("Austria_Annuities")
+#' # return a table with only ages 100-130, where ages above 120 (not defined in the original table) are filled with qx=1:
+#' mT.fillAges(AVOe2005R.male, neededAges = 100:130, fill = 1)
+#'
 #' @export
 mT.fillAges = function(table, neededAges, fill = 0) {
     if (is.array(table)) {
@@ -125,6 +152,17 @@ mT.fillAges = function(table, neededAges, fill = 0) {
     table
 }
 
+#' Scale all probabilities of the given \code{mortalityTable} object(s) by the given factor
+#'
+#' @param table A life table object (instance of a \code{mortalityTable} class) or a list, table or array of mortalityTable objects
+#' @param factor Scaling factor for the probabilities (1.0 means unchanged)
+#' @param name.postfix String to append to the original name of the table
+#' @param name New name, overwriting the existing name of the table (takes precedence over \code{name.postfix})
+#'
+#' @examples
+#' mortalityTables.load("Austria_Annuities")
+#' mT.scaleProbs(AVOe2005R.male, 1.5) # Add 50% to all death probabilities of the table
+#'
 #' @export
 mT.scaleProbs = function(table, factor = 1.0, name.postfix = "scaled", name = NULL) {
     if (is.array(table)) {
@@ -151,6 +189,14 @@ mT.scaleProbs = function(table, factor = 1.0, name.postfix = "scaled", name = NU
 }
 
 
+#' Set/Add a trend vector for the probabilities of the given \code{mortalityTable} object(s). Returns a \code{mortalityTable.trendProjection} object
+#'
+#' @param table A life table object (instance of a \code{mortalityTable} class) or a list, table or array of mortalityTable objects
+#' @param trend Trend vector to be applied to the mortality table
+#' @param trendages Ages corresponding to the values of the \code{trend} vector
+#' @param baseYear Base year for the trend projection (passed on to \code{mortalityTable.trendProjection})
+#' @param dampingFunction Trend damping (passed on to \code{mortalityTable.trendProjection})
+#'
 #' @export
 mT.setTrend = function(table, trend, trendages = NULL, baseYear = NULL, dampingFunction = identity) {
     if (is.array(table)) {
