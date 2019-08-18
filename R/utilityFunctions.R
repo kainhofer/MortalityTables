@@ -98,6 +98,8 @@ mT.setName = function(table, name) {
         )
     } else if (is.list(table)) {
         return(lapply(table, mT.setName, name = name))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -128,6 +130,8 @@ mT.fillAges = function(table, neededAges, fill = 0) {
         )
     } else if (is.list(table)) {
         return(lapply(table, mT.fillAges, neededAges = neededAges, fill = fill))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -172,6 +176,8 @@ mT.scaleProbs = function(table, factor = 1.0, name.postfix = "scaled", name = NU
         )
     } else if (is.list(table)) {
         return(lapply(table, mT.scaleProbs, factor = factor, name.postfix = name.postfix, name = name))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -206,6 +212,8 @@ mT.setTrend = function(table, trend, trendages = NULL, baseYear = NULL, dampingF
         )
     } else if (is.list(table)) {
         return(lapply(table, mT.setTrend, trend = trend, trendages = trendages, baseYear = baseYear, dampingFunction = dampingFunction))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -233,6 +241,8 @@ mT.extrapolateTrendExp = function(table, idx, up = TRUE) {
         )
     } else if (is.list(table)) {
         return(lapply(table, mT.extrapolateTrendExp, idx = idx, up = up))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -254,6 +264,8 @@ mT.translate = function(table, baseYear, name = NULL) {
         )
     } else if (is.list(table)) {
         return(lapply(table, mT.translate, baseYear = baseYear, name = name))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -276,6 +288,8 @@ mT.extrapolateProbsExp = function(table, age, up = TRUE) {
         )
     } else if (is.list(table)) {
         return(lapply(table, mT.extrapolateProbsExp, age = age, up = up))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -348,6 +362,8 @@ pT.setDimInfo = function(table, ..., append = TRUE) {
         )
     } else if (is.list(table)) {
         return(lapply(table, pT.setDimInfo, ..., append = append))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "pensionTable"))
         stop("First argument must be a pensionTable or a list of pensionTable objects.")
@@ -382,6 +398,8 @@ mT.setDimInfo = function(table, ..., append = TRUE) {
         return(lapply(table, mT.setDimInfo, ..., append = append))
     } else if (is(table, "pensionTable")) {
         return(pT.setDimInfo(table, ..., append = append))
+    } else if (is.na(c(table))) {
+        return(table)
     }
 
     if (!is(table, "mortalityTable"))
@@ -405,6 +423,8 @@ pT.getSubTable = function(table, subtable = "qx") {
         )
     } else if (is.list(table)) {
         return(lapply(table, pT.getSubTable, subtable = subtable))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "pensionTable"))
         stop("First argument must be a pensionTable or a list of pensionTable objects.")
@@ -428,6 +448,8 @@ mT.switchover = function(table, to, at, weights = NULL) {
         )
     } else if (is.list(table)) {
         return(lapply(table, mT.switchover, to = to, at = at, weights = weights))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
@@ -581,6 +603,8 @@ pT.recalculateTotalMortality = function(object, ...) {
         )
     } else if (is.list(table)) {
         return(lapply(table, pT.recalculateTotalMortality, ...))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "pensionTable"))
         stop("First argument must be a pensionTable or a list of pensionTable objects.")

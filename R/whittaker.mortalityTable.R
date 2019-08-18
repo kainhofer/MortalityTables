@@ -74,6 +74,8 @@ whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ",
         )
     } else if (is.list(table)) {
         return(lapply(table, whittaker.mortalityTable, lambda = lambda, d = d, name.postfix = name.postfix, ..., weights = weights, log = log))
+    } else if (is.na(c(table))) {
+        return(table)
     }
     if (!is(table, "mortalityTable")) {
         stop("Table object must be an instance (or list of instances) of mortalityTable in whittaker.mortalityTable.")

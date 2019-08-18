@@ -30,6 +30,17 @@ mort.AT.forecast.female = mortalityTable.trendProjection(
     )
 )
 
+
+mort.AT.forecast = array(
+    data = c(mortalityTable.NA),
+    dim = c(2),
+    dimnames = list(Geschlecht = c("m", "w"))
+)
+mort.AT.forecast[["m"]] = mort.AT.forecast.male
+mort.AT.forecast[["w"]] = mort.AT.forecast.female
+
+
+
 rm(AT.pop.fc)
 
 ###############################################################################
