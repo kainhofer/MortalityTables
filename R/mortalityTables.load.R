@@ -4,8 +4,9 @@
 #'                data sets is provided by the function \code{\link{mortalityTables.list}}.
 #'                Wildcards (*) are allowed to match and load multiple datasets.
 #' @param package The package that contains the dataset in its \code{extdata/}
-#'                directory. Defaults to the "MortalityTables" package.
-#'                Multiple packages can be given as a vector.
+#'                directory. Defaults to all packages starting with names that
+#'                start with "MortalityTables" or "PensionTables".
+#'                Multiple packages can be given as a vector, even using regular expressions.
 #' @param prefix The prefix for the data sets (default is "MortalityTables").
 #'
 #' @examples
@@ -16,20 +17,24 @@
 #' mortalityTables.load("MyCustomTable", package = c("MyCustomPackage"))
 #'
 #' @export
-mortalityTables.load = function(dataset, package = c("MortalityTables", "MortalityTablesPrivate"), prefix = "MortalityTables") {
+mortalityTables.load = function(dataset, package = c("^MortalityTables", "^PensionTables"), prefix = "MortalityTables") {
     sets = mortalityTables.list(dataset, package = package, prefix = prefix);
     if (length(sets) == 0) {
         warning(sprintf("Unable to locate dataset '%s' provided by the %s package!", dataset, paste(c(package), collapse = " or ")));
     }
+    pkgs = installed.packages()
     for (set in sets) {
         sname = gsub("[^-A-Za-z0-9_.]", "", set);
         message("Loading table dataset '", sname, "'");
         loaded = FALSE;
-        for (p in c(package)) {
-            filename = system.file("extdata", paste(prefix, "_", sname, ".R", sep = ""), package = p);
-            if (filename != "") {
-                sys.source(filename, envir = globalenv())
-                loaded = TRUE
+        for (p in pkgs[,1]) {
+            if (any(sapply(package, grepl, p))) { # package matches the pattern given as argument
+                filename = system.file("extdata", paste(prefix, "_", sname, ".R", sep = ""), package = p);
+                if (filename != "") {
+                    require(p, character.only = TRUE) # Make sure the providing package is loaded, in case it provides helper functions
+                    sys.source(filename, envir = globalenv())
+                    loaded = TRUE
+                }
             }
         }
         if (!loaded) {
@@ -45,16 +50,16 @@ mortalityTables.load = function(dataset, package = c("MortalityTables", "Mortali
 #'                data sets is provided by the function \code{\link{pensionTables.list}}.
 #'                Wildcards (*) are allowed to match and load multiple datasets.
 #' @param package The package that contains the dataset in its \code{extdata/}
-#'                directory. Defaults to the "MortalityTables" package.
-#'                Multiple packages can be given as a vector.
+#'                directory. Defaults to all packages starting with names that
+#'                start with "MortalityTables" or "PensionTables".
+#'                Multiple packages can be given as a vector, even using regular expressions.
 #'
 #' pensionTables.list()
 #' pensionTables.load("*")
 #' pensionTables.load("USA_PensionPlan_RP2014")
 #'
 #' @export
-pensionTables.load = function(dataset, package = c("MortalityTables", "MortalityTablesPrivate")) {
+pensionTables.load = function(dataset, package = c("^MortalityTables", "^PensionTables")) {
     mortalityTables.load(dataset = dataset, package = package, prefix = "PensionTables")
 }
-
 
