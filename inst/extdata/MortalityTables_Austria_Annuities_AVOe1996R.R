@@ -92,5 +92,21 @@ AVOe1996R.female.av325 = mortalityTable.ageShift(
     )
 )
 
+
+AVOe1996R = array(
+    data = c(mortalityTable.NA),
+    dim = c(2, 2, 2),
+    dimnames = list(Geschlecht = c("m", "w"), Collar = c("Einzel", "Gruppe", "AV"))
+)
+
+AVOe1996R[["m", "Einzel"]] = AVOe1996R.male
+AVOe1996R[["w", "Einzel"]] = AVOe1996R.female
+
+AVOe1996R[["m", "Gruppe"]] = AVOe1996R.male.group
+AVOe1996R[["w", "Gruppe"]] = AVOe1996R.female.group
+AVOe1996R[["m", "AV"]] = AVOe1996R.male.av325
+AVOe1996R[["w", "AV"]] = AVOe1996R.female.av325
+
+
 rm(AVOe1996R.exakt.data)
 

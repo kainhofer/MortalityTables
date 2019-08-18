@@ -27,7 +27,7 @@ AVOe2005R_gen = function(nm, probs, trend, sex = "m", data = "loaded") {
             trend = AVOe2005R.exakt.data[[trend]],
             dampingFunction = AVOe2005R.trend.damping,
             data = list(
-                dim = list(sex = sex, collar = "Rententafel", type = "Rententafel Österreich", data = data, year = "AVÖ 2005-R")
+                dim = list(sex = sex, collar = "Rententafel", type = "Rententafel Österreich", data = data, year = "AVÖ 2005-R", table = "AVÖ 2005-R")
             )
         )
     )
@@ -101,6 +101,58 @@ AVOe2005R.female.group.av = AVOe2005R_gen.av(
 AVOe2005R.unisex.group.av = AVOe2005R_gen.av(
     "AVÖ 2005R unisex group (age-shifted), loaded",
     "qu1972G", "shiftUG", sex = "u", data = "age-shift, loaded, group")
+
+
+AVOe2005R = array(
+    data = c(mortalityTable.NA),
+    dim = c(3, 2, 2),
+    dimnames = list(Geschlecht = c("m", "w", "u"), Collar = c("Einzel", "Gruppe"), Type = c("loaded", "unloaded"))
+)
+
+AVOe2005R.nodamping = array(
+    data = c(mortalityTable.NA),
+    dim = c(3, 2, 2),
+    dimnames = list(Geschlecht = c("m", "w", "u"), Collar = c("Einzel", "Gruppe"), Type = c("loaded", "unloaded"))
+)
+
+AVOe2005R[["m", "Einzel", "loaded"]] =   AVOe2005R.male
+AVOe2005R[["w", "Einzel", "loaded"]] =   AVOe2005R.female
+AVOe2005R[["u", "Einzel", "loaded"]] =   AVOe2005R.unisex
+AVOe2005R[["m", "Gruppe", "loaded"]] =   AVOe2005R.male.group
+AVOe2005R[["w", "Gruppe", "loaded"]] =   AVOe2005R.female.group
+AVOe2005R[["u", "Gruppe", "loaded"]] =   AVOe2005R.unisex.group
+
+AVOe2005R[,, "unloaded"] = NA
+AVOe2005R[["m", "Einzel", "unloaded"]] = AVOe2005R.male.unloaded
+AVOe2005R[["w", "Einzel", "unloaded"]] = AVOe2005R.female.unloaded
+
+
+
+
+AVOe2005R.nodamping[["m", "Einzel", "loaded"]] =     AVOe2005R.male.nodamping
+AVOe2005R.nodamping[["w", "Einzel", "loaded"]] =     AVOe2005R.female.nodamping
+AVOe2005R.nodamping[["u", "Einzel", "loaded"]] =     AVOe2005R.unisex.nodamping
+AVOe2005R.nodamping[["m", "Gruppe", "loaded"]] =     AVOe2005R.male.nodamping.group
+AVOe2005R.nodamping[["w", "Gruppe", "loaded"]] =     AVOe2005R.female.nodamping.group
+AVOe2005R.nodamping[["u", "Gruppe", "loaded"]] =     AVOe2005R.unisex.nodamping.group
+
+AVOe2005R.nodamping[, , "unloaded"] = NA
+AVOe2005R.nodamping[["m", "Einzel", "unloaded"]] = AVOe2005R.male.nodamping.unloaded
+AVOe2005R.nodamping[["w", "Einzel", "unloaded"]] = AVOe2005R.female.nodamping.unloaded
+
+
+AVOe2005R.av = array(
+    data = c(mortalityTable.NA),
+    dim = c(3, 2),
+    dimnames = list(Geschlecht = c("m", "w", "u"), Collar = c("Einzel", "Gruppe"))
+)
+
+AVOe2005R.av[["m", "Einzel"]] = AVOe2005R.male.av
+AVOe2005R.av[["w", "Einzel"]] = AVOe2005R.female.av
+AVOe2005R.av[["u", "Einzel"]] = AVOe2005R.unisex.av
+AVOe2005R.av[["m", "Gruppe"]] = AVOe2005R.male.group.av
+AVOe2005R.av[["w", "Gruppe"]] = AVOe2005R.female.group.av
+AVOe2005R.av[["u", "Gruppe"]] = AVOe2005R.unisex.group.av
 
 
 
