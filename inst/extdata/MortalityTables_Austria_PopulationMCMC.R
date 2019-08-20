@@ -1,0 +1,74 @@
+stopifnot(require(methods), require(utils), require(MortalityTables), require(tidyverse), require(reshape2)) # MortalityTable classes; new; Excel reader
+
+
+###############################################################################
+### Gesamtbevölkerung Österreich: Bevölkerungsprognose bis 2080 (mittleres Szenario)
+### Datenquelle: Statistik Austria
+###############################################################################
+
+mort.AT.MCMC.load = function() {
+    data = utils::read.csv(system.file("extdata", "Austria_Population_MCMC2018.csv", package = "MortalityTables"), skip = 5, encoding = "UTF-8", check.names = FALSE);
+    data.array = data %>% as_tibble %>%
+        gather(Variable, Value, -Parameter, -Alter) %>%
+        separate(Variable, into = c("Geschlecht", "Jahr"), sep = ", ") %>%
+        filter(Jahr == "1980") %>%
+        mutate(Jahr = NULL) %>%
+        acast(Alter ~ Geschlecht ~ Parameter, value.var = "Value")
+
+    exp(data.array[,,"alpha"])/2
+    mort.AT.MCMC = array(
+        data = c(mortalityTable.NA),
+        dim = c(3),
+        dimnames = list(Geschlecht = c("m", "w", "u"))
+    )
+
+    MCMC.trend.damping = function(t) { 200 * atan(t / 200) }
+
+    # TODO: Eta einbauen
+    mort.AT.MCMC[["m"]] =  mortalityTable.trendProjection(
+        name = "Österreich MCMC Männer",
+        ages = as.integer(dimnames(data.array)[[1]]),
+        baseYear = 2008,
+        deathProbs = exp(data.array[,"Mann","alpha"])/2,
+        trend = -data.array[,"Mann","beta"],
+        dampingFunction = MCMC.trend.damping,
+        data = list(
+            dim = list(sex = "m", collar = "Gesamtbevölkerung", type = "MCMC-Fit 1980-2017", data = "MCMC", year = "1980-2017", Tafel = "MCMC-Zerlegung Bevölkerungssterblichkeit")
+        )
+    )
+    mort.AT.MCMC[["w"]] =  mortalityTable.trendProjection(
+        name = "Österreich MCMC Frauen",
+        ages = as.integer(dimnames(data.array)[[1]]),
+        baseYear = 2008,
+        deathProbs = exp(data.array[,"Frau","alpha"])/2,
+        trend = -data.array[,"Frau","beta"],
+        dampingFunction = MCMC.trend.damping,
+        data = list(
+            dim = list(sex = "w", collar = "Gesamtbevölkerung", type = "MCMC-Fit 1980-2017", data = "MCMC", year = "1980-2017", Tafel = "MCMC-Zerlegung Bevölkerungssterblichkeit")
+        )
+    )
+    mort.AT.MCMC[["u"]] =  mortalityTable.trendProjection(
+        name = "Österreich MCMC Unisex",
+        ages = as.integer(dimnames(data.array)[[1]]),
+        baseYear = 2008,
+        deathProbs = exp(data.array[,"Unisex","alpha"])/2,
+        trend = -data.array[,"Unisex","beta"],
+        dampingFunction = MCMC.trend.damping,
+        data = list(
+            dim = list(sex = "u", collar = "Gesamtbevölkerung", type = "MCMC-Fit 1980-2017", data = "MCMC", year = "1980-2017", Tafel = "MCMC-Zerlegung Bevölkerungssterblichkeit")
+        )
+    )
+    mort.AT.MCMC
+}
+
+
+mort.AT.MCMC = mort.AT.MCMC.load()
+
+
+rm(mort.AT.MCMC.load)
+
+###############################################################################
+
+# mortalityTables.load("Austria*")
+# plotMortalityTables(mort.AT.MCMC, mort.AT.forecast, mort.AT.census[,"2011"], Period = 2011) + facet_grid(.~sex)
+# plotMortalityTrend(mort.AT.MCMC, mort.AT.forecast, mort.AT.census[,"2011"], Period = 2011) + facet_grid(.~sex)
