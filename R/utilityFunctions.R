@@ -354,63 +354,63 @@ mT.fitExtrapolationLaw = function(table, method = "LF2", law = "HP",
 }
 
 #' @export
-pT.setDimInfo = function(table, ..., append = TRUE) {
-    if (is.array(table)) {
+pT.setDimInfo = function(tbl, ..., append = TRUE) {
+    if (is.array(tbl)) {
         return(array(
-            lapply(table, pT.setDimInfo, ..., append = append),
-            dim = dim(table), dimnames = dimnames(table))
+            lapply(tbl, pT.setDimInfo, ..., append = append),
+            dim = dim(tbl), dimnames = dimnames(tbl))
         )
-    } else if (is.list(table)) {
-        return(lapply(table, pT.setDimInfo, ..., append = append))
-    } else if (is.na(c(table))) {
-        return(table)
+    } else if (is.list(tbl)) {
+        return(lapply(tbl, pT.setDimInfo, ..., append = append))
+    } else if (is.na(c(tbl))) {
+        return(tbl)
     }
-    if (!is(table, "pensionTable"))
+    if (!is(tbl, "pensionTable"))
         stop("First argument must be a pensionTable or a list of pensionTable objects.")
 
     if (append) {
-        table@data[names(list(...))] = list(...)
+        tbl@data[names(list(...))] = list(...)
     } else {
-        table@data = list(...)
+        tbl@data = list(...)
     }
 
-    table@qx = mT.setDimInfo(table@qx, ..., append = append)
-    table@ix = mT.setDimInfo(table@ix, ..., append = append)
-    table@qix = mT.setDimInfo(table@qix, ..., append = append)
-    table@rx = mT.setDimInfo(table@rx, ..., append = append)
-    table@apx = mT.setDimInfo(table@apx, ..., append = append)
-    table@qpx = mT.setDimInfo(table@qpx, ..., append = append)
-    table@hx = mT.setDimInfo(table@hx, ..., append = append)
-    table@qwy = mT.setDimInfo(table@qwy, ..., append = append)
-    table@qgx = mT.setDimInfo(table@qgx, ..., append = append)
-    table
+    tbl@qx = mT.setDimInfo(tbl@qx, ..., append = append)
+    tbl@ix = mT.setDimInfo(tbl@ix, ..., append = append)
+    tbl@qix = mT.setDimInfo(tbl@qix, ..., append = append)
+    tbl@rx = mT.setDimInfo(tbl@rx, ..., append = append)
+    tbl@apx = mT.setDimInfo(tbl@apx, ..., append = append)
+    tbl@qpx = mT.setDimInfo(tbl@qpx, ..., append = append)
+    tbl@hx = mT.setDimInfo(tbl@hx, ..., append = append)
+    tbl@qwy = mT.setDimInfo(tbl@qwy, ..., append = append)
+    tbl@qgx = mT.setDimInfo(tbl@qgx, ..., append = append)
+    tbl
 }
 
 
 #' @export
-mT.setDimInfo = function(table, ..., append = TRUE) {
-    if (is.array(table)) {
+mT.setDimInfo = function(tbl, ..., append = TRUE) {
+    if (is.array(tbl)) {
         return(array(
-            lapply(table, mT.setDimInfo, ..., append = append),
-            dim = dim(table), dimnames = dimnames(table))
+            lapply(tbl, mT.setDimInfo, ..., append = append),
+            dim = dim(tbl), dimnames = dimnames(tbl))
         )
-    } else if (is.list(table)) {
-        return(lapply(table, mT.setDimInfo, ..., append = append))
-    } else if (is(table, "pensionTable")) {
-        return(pT.setDimInfo(table, ..., append = append))
-    } else if (is.na(c(table))) {
-        return(table)
+    } else if (is.list(tbl)) {
+        return(lapply(tbl, mT.setDimInfo, ..., append = append))
+    } else if (is(tbl, "pensionTable")) {
+        return(pT.setDimInfo(tbl, ..., append = append))
+    } else if (is.na(c(tbl))) {
+        return(tbl)
     }
 
-    if (!is(table, "mortalityTable"))
+    if (!is(tbl, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
 
     if (append) {
-        table@data$dim[names(list(...))] = list(...)
+        tbl@data$dim[names(list(...))] = list(...)
     } else {
-        table@data$dim = list(...)
+        tbl@data$dim = list(...)
     }
-    table
+    tbl
 }
 
 
