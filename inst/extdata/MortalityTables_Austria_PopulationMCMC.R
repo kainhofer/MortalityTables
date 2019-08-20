@@ -1,4 +1,4 @@
-stopifnot(require(methods), require(utils), require(MortalityTables), require(tidyverse), require(reshape2)) # MortalityTable classes; new; Excel reader
+stopifnot(require(methods), require(utils), require(MortalityTables), require(tidyverse), require(reshape2), require(pracma)) # MortalityTable classes; new; Excel reader
 
 
 ###############################################################################
@@ -24,13 +24,16 @@ mort.AT.MCMC.load = function() {
 
     MCMC.trend.damping = function(t) { 200 * atan(t / 200) }
 
+    # Parameter für Whittaker-Smoothing:
+    d = 2
+    lambda = 10
     # TODO: Eta einbauen
     mort.AT.MCMC[["m"]] =  mortalityTable.trendProjection(
         name = "Österreich MCMC Männer",
         ages = as.integer(dimnames(data.array)[[1]]),
         baseYear = 2008,
-        deathProbs = exp(data.array[,"Mann","alpha"])/2,
-        trend = -data.array[,"Mann","beta"],
+        deathProbs = exp(whittaker(data.array[,"Mann","alpha"], lambda = lambda, d = d))/2,
+        trend = whittaker(-data.array[,"Mann","beta"], lambda = lambda, d = d),
         dampingFunction = MCMC.trend.damping,
         data = list(
             dim = list(sex = "m", collar = "Gesamtbevölkerung", type = "MCMC-Fit 1980-2017", data = "MCMC", year = "1980-2017", Tafel = "MCMC-Zerlegung Bevölkerungssterblichkeit")
@@ -40,8 +43,8 @@ mort.AT.MCMC.load = function() {
         name = "Österreich MCMC Frauen",
         ages = as.integer(dimnames(data.array)[[1]]),
         baseYear = 2008,
-        deathProbs = exp(data.array[,"Frau","alpha"])/2,
-        trend = -data.array[,"Frau","beta"],
+        deathProbs = exp(whittaker(data.array[,"Frau","alpha"], lambda = lambda, d = d))/2,
+        trend = whittaker(-data.array[,"Frau","beta"], lambda = lambda, d = d),
         dampingFunction = MCMC.trend.damping,
         data = list(
             dim = list(sex = "w", collar = "Gesamtbevölkerung", type = "MCMC-Fit 1980-2017", data = "MCMC", year = "1980-2017", Tafel = "MCMC-Zerlegung Bevölkerungssterblichkeit")
@@ -51,8 +54,8 @@ mort.AT.MCMC.load = function() {
         name = "Österreich MCMC Unisex",
         ages = as.integer(dimnames(data.array)[[1]]),
         baseYear = 2008,
-        deathProbs = exp(data.array[,"Unisex","alpha"])/2,
-        trend = -data.array[,"Unisex","beta"],
+        deathProbs = exp(whittaker(data.array[,"Unisex","alpha"], lambda = lambda, d = d))/2,
+        trend = whittaker(-data.array[,"Unisex","beta"], lambda = lambda, d = d),
         dampingFunction = MCMC.trend.damping,
         data = list(
             dim = list(sex = "u", collar = "Gesamtbevölkerung", type = "MCMC-Fit 1980-2017", data = "MCMC", year = "1980-2017", Tafel = "MCMC-Zerlegung Bevölkerungssterblichkeit")
