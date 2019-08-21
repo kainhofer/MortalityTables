@@ -31,8 +31,18 @@ mortalityTables.load = function(dataset, package = c("^MortalityTables", "^Pensi
             if (any(sapply(package, grepl, p))) { # package matches the pattern given as argument
                 filename = system.file("extdata", paste(prefix, "_", sname, ".R", sep = ""), package = p);
                 if (filename != "") {
-                    require(p, character.only = TRUE) # Make sure the providing package is loaded, in case it provides helper functions
-                    sys.source(filename, envir = globalenv())
+                    # Make sure the providing package is loaded, in case it provides helper functions
+                    require(p, character.only = TRUE)
+
+                    # Taken from the definition of sys.source and adjusted to include the
+                    # encoding (required for Windows, otherwise UTF8-strings will be broken!)
+                    lines = readLines(filename, encoding = "UTF-8", warn = FALSE)
+                    srcfile = srcfilecopy(filename, lines, file.mtime(filename), isFile = TRUE)
+                    exprs = parse(text = lines, srcfile = srcfile, keep.source = TRUE)
+                    for (i in seq_along(exprs))
+                        eval(exprs[i], envir = globalenv())
+
+                    # sys.source(filename, envir = globalenv())
                     loaded = TRUE
                 }
             }
