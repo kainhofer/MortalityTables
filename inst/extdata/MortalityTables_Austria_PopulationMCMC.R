@@ -1,4 +1,4 @@
-stopifnot(require(methods), require(utils), require(MortalityTables), require(tidyverse), require(reshape2), require(pracma)) # MortalityTable classes; new; Excel reader
+stopifnot(require(methods), require(utils), require(MortalityTables), require(tidyverse), require(reshape2), require(pracma), require(MortalityLaws)) # MortalityTable classes; new; Excel reader
 
 
 ###############################################################################
@@ -38,7 +38,10 @@ mort.AT.MCMC.load = function() {
         data = list(
             dim = list(sex = "m", collar = "Gesamtbevölkerung", type = "MCMC-Fit 1980-2017", data = "MCMC", year = "1980-2017", Tafel = "MCMC-Zerlegung Bevölkerungssterblichkeit")
         )
-    )
+    ) %>%
+        mT.fitExtrapolationLaw(law = "HP2", method = "LF2", fit = 80:98, extrapolate = 90:120, fadeIn = 90:99) %>%
+        mT.extrapolateTrendExp(idx = 92, up = TRUE)
+
     mort.AT.MCMC[["w"]] =  mortalityTable.trendProjection(
         name = "Österreich MCMC Frauen",
         ages = as.integer(dimnames(data.array)[[1]]),
@@ -49,7 +52,10 @@ mort.AT.MCMC.load = function() {
         data = list(
             dim = list(sex = "w", collar = "Gesamtbevölkerung", type = "MCMC-Fit 1980-2017", data = "MCMC", year = "1980-2017", Tafel = "MCMC-Zerlegung Bevölkerungssterblichkeit")
         )
-    )
+    ) %>%
+        mT.fitExtrapolationLaw(law = "HP2", method = "LF2", fit = 80:98, extrapolate = 90:120, fadeIn = 90:99) %>%
+        mT.extrapolateTrendExp(idx = 94, up = TRUE)
+
     mort.AT.MCMC[["u"]] =  mortalityTable.trendProjection(
         name = "Österreich MCMC Unisex",
         ages = as.integer(dimnames(data.array)[[1]]),
@@ -60,9 +66,13 @@ mort.AT.MCMC.load = function() {
         data = list(
             dim = list(sex = "u", collar = "Gesamtbevölkerung", type = "MCMC-Fit 1980-2017", data = "MCMC", year = "1980-2017", Tafel = "MCMC-Zerlegung Bevölkerungssterblichkeit")
         )
-    )
+    ) %>%
+        mT.fitExtrapolationLaw(law = "HP2", method = "LF2",fit = 80:98, extrapolate = 90:120, fadeIn = 90:99) %>%
+        mT.extrapolateTrendExp(idx = 98, up = TRUE)
+
     mort.AT.MCMC
 }
+
 
 
 mort.AT.MCMC = mort.AT.MCMC.load()
@@ -73,5 +83,5 @@ rm(mort.AT.MCMC.load)
 ###############################################################################
 
 # mortalityTables.load("Austria*")
-# plotMortalityTables(mort.AT.MCMC, mort.AT.forecast, mort.AT.census[,"2011"], Period = 2011) + facet_grid(.~sex)
-# plotMortalityTrend(mort.AT.MCMC, mort.AT.forecast, mort.AT.census[,"2011"], Period = 2011) + facet_grid(.~sex)
+# plotMortalityTables(mort.AT.MCMC, Period = 2008)
+# plotMortalityTrend(mort.AT.MCMC, Period = 2008)
