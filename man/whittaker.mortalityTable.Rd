@@ -4,8 +4,15 @@
 \alias{whittaker.mortalityTable}
 \title{Smooth a life table using the Whittaker-Henderson method, intepolation possibly missing values}
 \usage{
-whittaker.mortalityTable(table, lambda = 10, d = 2,
-  name.postfix = ", smoothed", ..., weights = NULL, log = TRUE)
+whittaker.mortalityTable(
+  table,
+  lambda = 10,
+  d = 2,
+  name.postfix = ", smoothed",
+  ...,
+  weights = NULL,
+  log = TRUE
+)
 }
 \arguments{
 \item{table}{Mortality table to be graduated. Must be an instance of a

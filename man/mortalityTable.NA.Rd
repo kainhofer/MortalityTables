@@ -4,7 +4,9 @@
 \name{mortalityTable.NA}
 \alias{mortalityTable.NA}
 \title{Empty mortality table indicating NA}
-\format{An object of class \code{mortalityTable.period} of length 1.}
+\format{
+An object of class \code{mortalityTable.period} of length 1.
+}
 \usage{
 mortalityTable.NA
 }

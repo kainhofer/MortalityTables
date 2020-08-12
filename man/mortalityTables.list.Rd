@@ -5,15 +5,18 @@
 \title{List all available sets of life tables provided by the \link[MortalityTables]{MortalityTables-package} package
 An existing life table can then be loaded with \link{mortalityTables.load}.}
 \usage{
-mortalityTables.list(pattern = "*", package = c("MortalityTables",
-  "MortalityTablesPrivate"), prefix = "MortalityTables")
+mortalityTables.list(
+  pattern = "*",
+  package = c("^MortalityTables", "^PensionTables"),
+  prefix = "MortalityTables"
+)
 }
 \arguments{
-\item{pattern}{Restrict the results only to life table sets that match the pattern (default: "*" to show all sets)}
+\item{pattern}{Restrict the results only to life table sets that match the pattern with wildcards (default: "*" to show all sets)}
 
 \item{package}{The package that contains the desired dataset in its \code{extdata/}
 directory. Defaults to the "MortalityTables" package.
-Multiple packages can be given as a vector.}
+Multiple packages can be given as a vector, even using regular expressions.}
 
 \item{prefix}{The file prefix, defaults to MortalityTables. Can be overridden to list other types of files, like "PensionTables"}
 }

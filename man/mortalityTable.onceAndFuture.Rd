@@ -4,8 +4,11 @@
 \alias{mortalityTable.onceAndFuture}
 \title{Generate a (deterministic) mortality table with all probabilities starting at a given age set to 1}
 \usage{
-mortalityTable.onceAndFuture(transitionAge,
-  name = "Deterministic mortality table", ages = 0:99)
+mortalityTable.onceAndFuture(
+  transitionAge,
+  name = "Deterministic mortality table",
+  ages = 0:99
+)
 }
 \arguments{
 \item{transitionAge}{The age where the deterministic transition occurs}

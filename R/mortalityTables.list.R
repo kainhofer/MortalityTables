@@ -16,7 +16,7 @@
 #' @export
 mortalityTables.list = function(pattern = "*", package = c("^MortalityTables", "^PensionTables"), prefix = "MortalityTables") {
     ret = c()
-    pkgs = installed.packages()
+    pkgs = utils::installed.packages()
     for (p in pkgs[,1]) {
         if (any(sapply(package, grepl, p))) { # package matches the pattern given as argument
             filepath = system.file("extdata", package = p);

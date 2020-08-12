@@ -22,7 +22,7 @@ mortalityTables.load = function(dataset, package = c("^MortalityTables", "^Pensi
     if (length(sets) == 0) {
         warning(sprintf("Unable to locate dataset '%s' provided by the %s package!", dataset, paste(c(package), collapse = " or ")));
     }
-    pkgs = installed.packages()
+    pkgs = utils::installed.packages()
     for (set in sets) {
         sname = gsub("[^-A-Za-z0-9_.]", "", set);
         message("Loading table dataset '", sname, "'");

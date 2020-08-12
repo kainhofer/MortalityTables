@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilityFunctions.R
 \name{mT.fillAges}
 \alias{mT.fillAges}
-\title{Restrict the given \code{mortalityTable} object(s) to given ages, potentially filling with NA values to ensure they cover the full desired age range}
+\title{Restrict/expand a mortalityTable to certain ages}
 \usage{
 mT.fillAges(table, neededAges, fill = 0)
 }
@@ -18,7 +18,8 @@ Restrict the given \code{mortalityTable} object(s) to given ages, potentially fi
 }
 \examples{
 mortalityTables.load("Austria_Annuities")
-# return a table with only ages 100-130, where ages above 120 (not defined in the original table) are filled with qx=1:
+# return a table with only ages 100-130, where ages above 120 (not defined
+# in the original table) are filled with qx=1:
 mT.fillAges(AVOe2005R.male, neededAges = 100:130, fill = 1)
 
 }

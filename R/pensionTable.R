@@ -69,6 +69,7 @@ pensionTableProbArrange = function(x, q, i, qi, r, ap, api, qp, h, qw, yx, qg, a
 #' @slot yx     Age difference of the widow to the deceased
 #' @slot qgx    Death probability of whole group (derived from mortalityTable), irrespective of state
 #' @slot invalids.retire    Whether invalids retire like actives or stay invalid until death
+#' @slot probs.arrange A function that takes the individual transition probabilities of all the components and creates one object (a data.frame or a list) that will be returned by the method \code{transitionProbabilities}. The default arranges all tables without further modification. However, some pension tables (like the german Heubeck table) require the total mortality to be recalculated from the individual mortalities of actives and disabled. In this case, the function assigned to this slot will also calculate that total probability.
 #'
 #' @export pensionTable
 #' @exportClass pensionTable

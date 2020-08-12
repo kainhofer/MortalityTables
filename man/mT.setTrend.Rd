@@ -5,11 +5,21 @@
 \alias{mT.addTrend}
 \title{Set/Add a trend vector for the probabilities of the given \code{mortalityTable} object(s). Returns a \code{mortalityTable.trendProjection} object}
 \usage{
-mT.setTrend(table, trend, trendages = NULL, baseYear = NULL,
-  dampingFunction = identity)
+mT.setTrend(
+  table,
+  trend,
+  trendages = NULL,
+  baseYear = NULL,
+  dampingFunction = identity
+)
 
-mT.addTrend(table, trend, trendages = NULL, baseYear = NULL,
-  dampingFunction = identity)
+mT.addTrend(
+  table,
+  trend,
+  trendages = NULL,
+  baseYear = NULL,
+  dampingFunction = identity
+)
 }
 \arguments{
 \item{table}{A life table object (instance of a \code{mortalityTable} class) or a list, table or array of mortalityTable objects}

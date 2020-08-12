@@ -65,6 +65,7 @@
 #' @seealso \code{\link[pracma]{whittaker}}
 #'
 #' @import scales
+#' @import pracma
 #' @export
 whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ", smoothed", ..., weights = NULL, log = TRUE) {
     if (is.array(table)) {
@@ -90,7 +91,7 @@ whittaker.mortalityTable = function(table, lambda = 10, d = 2, name.postfix = ",
     ages = table@ages
 
     if (missing(weights) || is.null(weights)) {
-        if (is.null(table@exposures) || is.na(table@exposures)) {
+        if (is.null(table@exposures) || any(is.na(table@exposures))) {
             weights = rep(1, length(ages))
         } else {
             weights = table@exposures

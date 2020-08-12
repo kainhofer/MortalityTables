@@ -6,7 +6,7 @@ NULL
 #' A cohort life table described by actual observations (data frame of PODs
 #' per year and age)
 #'
-#' @slot data    The observations
+#' @slot deathProbs    The observed death probabilities (age-specific probability of dying within one year)
 #' @slot years   The observation years
 #' @slot ages    The observation ages
 #'

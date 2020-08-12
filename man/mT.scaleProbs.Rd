@@ -4,8 +4,7 @@
 \alias{mT.scaleProbs}
 \title{Scale all probabilities of the given \code{mortalityTable} object(s) by the given factor}
 \usage{
-mT.scaleProbs(table, factor = 1, name.postfix = "scaled",
-  name = NULL)
+mT.scaleProbs(table, factor = 1, name.postfix = "scaled", name = NULL)
 }
 \arguments{
 \item{table}{A life table object (instance of a \code{mortalityTable} class) or a list, table or array of mortalityTable objects}

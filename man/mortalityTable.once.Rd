@@ -4,8 +4,11 @@
 \alias{mortalityTable.once}
 \title{Generate a (deterministic) mortality table with only one probability set to 1 (for the given age)}
 \usage{
-mortalityTable.once(transitionAge,
-  name = "Deterministic mortality table", ages = 0:99)
+mortalityTable.once(
+  transitionAge,
+  name = "Deterministic mortality table",
+  ages = 0:99
+)
 }
 \arguments{
 \item{transitionAge}{The age where the deterministic transition occurs}

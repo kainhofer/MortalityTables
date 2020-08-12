@@ -4,8 +4,7 @@
 \alias{pensionTables.load}
 \title{Load a named set of pension tables provided by the \link{MortalityTables} package}
 \usage{
-pensionTables.load(dataset, package = c("MortalityTables",
-  "MortalityTablesPrivate"))
+pensionTables.load(dataset, package = c("^MortalityTables", "^PensionTables"))
 }
 \arguments{
 \item{dataset}{The set of lifpensione tables to be loaded. A list of all available
@@ -13,8 +12,9 @@ data sets is provided by the function \code{\link{pensionTables.list}}.
 Wildcards (*) are allowed to match and load multiple datasets.}
 
 \item{package}{The package that contains the dataset in its \code{extdata/}
-               directory. Defaults to the "MortalityTables" package.
-               Multiple packages can be given as a vector.
+               directory. Defaults to all packages starting with names that
+               start with "MortalityTables" or "PensionTables".
+               Multiple packages can be given as a vector, even using regular expressions.
 
 pensionTables.list()
 pensionTables.load("*")

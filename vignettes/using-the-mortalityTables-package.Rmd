@@ -9,7 +9,7 @@ output:
         fig_width: 7
         fig_height: 5
 vignette: >
-  %\VignetteIndexEntry{MortalityTables}
+  %\VignetteIndexEntry{Using the MortalityTables Package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
 The MortalityTables package provides the `mortalityTable` base class and
-some derived classes to handle diffferent types of mortality tables (also 
+some derived classes to handle different types of mortality tables (also 
 called life tables), mainly
 used for life insurance. Additionally it provides a plot function to compare
 multiple life tables either directly using the absolute mortalities in
@@ -90,8 +90,9 @@ mortalityTables.list("Austria_*")
 # Load the German annuity table DAV 2004-R
 mortalityTables.load("Germany_Annuities_DAV2004R")
 
-# Load all Austrian data sets
-mortalityTables.load("Austria_*")
+# Load all Austrian annuity data sets
+mortalityTables.load("Austria_Annuities*")
+mortalityTables.load("Austria_Census")
 ```
 
 
@@ -412,6 +413,12 @@ AVOe2005R.female.mod@name = "Modified table (lower bound of 3%)"
 plot(AVOe2005R.female, AVOe2005R.female.mod, title = "Original and modified table")
 ```
 
+## Creating mortality tables from data and modifying them using various helper functions
+
+The package \code{MortalityTables} not only provides the data structures and some
+examples of mortality tables, it also provides several functions to modify
+existing tables. In particular, the functions available provide 
+
 ## Pension Tables
 Pension tables generalize mortality tables in that the state space is increased 
 from two states (alive / dead) to four states (active / invalidity or realy 
@@ -419,7 +426,8 @@ retirement / old age retirement / dead). As a consequence, there is no longer
 just one transition probability, but multiple.
 
 Possible states are:
-* active: healty, no pension, typically paying some kin of premium
+
+* active: healty, no pension, typically paying some kind of premium
 * incapacity: disablity pension (in most cases permanent), not working, early pension
 * retirement: old age pension, usually starting with a fixed age
 * dead
@@ -428,6 +436,7 @@ Possible states are:
 Correspondingly, the `pensionTable` class offers the following slots describing 
 transition probabilities for the corresponding state transitions (by a 
 `mortalityTable`-derived object):
+
 * `qxaa`:  death probability of actives (active -> dead)
 * `ix`:    invalidity probability (active -> incapacity)
 * `qix`:   death probability of invalid (invalid -> dead)
@@ -443,6 +452,7 @@ All functions that handle `mortalityTable` object can be used with these slots.
 
 Additionally, the following functions are provided to obtain the set of all 
 transition probabilities in one data frame:
+
 * `transitionProbabilities(pension_table, YOB)`
 * `periodTransitionProbabilities(pension_table, Period)`
 

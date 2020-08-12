@@ -12,7 +12,7 @@ per year and age)
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{The observations}
+\item{\code{deathProbs}}{The observed death probabilities (age-specific probability of dying within one year)}
 
 \item{\code{years}}{The observation years}
 

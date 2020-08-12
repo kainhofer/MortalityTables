@@ -5,7 +5,7 @@ NULL
 #'
 #' @param object The life table object (class inherited from mortalityTable)
 #' @param Period The observation year, for which the death probabilities should
-#'        be determined
+#'        be determined. If missing, the base year of the table is used.
 #' @param ... Other parameters (currently unused)
 #'
 #' @examples
@@ -24,8 +24,11 @@ setGeneric("getPeriodTable",
 #'             \code{mortalityTable.period} object
 setMethod("getPeriodTable","mortalityTable",
           function (object, Period, ...) {
+              if(missing(Period)) {
+                  Period = baseYear(object)
+              }
               mortalityTable.period(
-                  name = paste(object@name, ", Period ", Period),
+                  name = paste0(object@name, ", Period ", Period),
                   baseYear = Period,
                   ages = ages(object),
                   deathProbs = periodDeathProbabilities(object, Period = Period, ...)
