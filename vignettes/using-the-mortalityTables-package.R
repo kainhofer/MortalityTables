@@ -1,5 +1,6 @@
 ## ----echo = FALSE-------------------------------------------------------------
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+options(tidyverse.quiet = TRUE)
 
 ## ----message=FALSE------------------------------------------------------------
 library("MortalityTables")
@@ -150,4 +151,124 @@ AVOe2005R.female.mod = setModification(AVOe2005R.female, modification = function
 # Make sure the modified table has a new name, otherwise plots might break
 AVOe2005R.female.mod@name = "Modified table (lower bound of 3%)"
 plot(AVOe2005R.female, AVOe2005R.female.mod, title = "Original and modified table")
+
+## ----AustrianPopulation.RawData-----------------------------------------------
+library(tidyverse)
+data("PopulationData.AT2017", package = "MortalityTables")
+PopulationData.AT2017.raw = PopulationData.AT2017 %>%
+  select(age, exposure.total, deaths.total) %>%
+  mutate(qraw = deaths.total / (exposure.total + deaths.total/2))
+
+## ----AustrianPopulationTableRaw-----------------------------------------------
+PopulationTable.AT2017 = mortalityTable.period(
+  name = "Austrian Population Mortality 2017 (raw)", 
+  baseYear = 2017,
+  deathProbs = PopulationData.AT2017.raw$qraw,
+  ages = PopulationData.AT2017.raw$age,
+  exposures = PopulationData.AT2017.raw$exposure.total,
+  data = list(
+    deaths = PopulationData.AT2017.raw$deaths.total,
+    dim = list(sex = "u", collar = "Population", type = "raw", year = "2017")
+  )
+)
+plotMortalityTables(PopulationTable.AT2017, title = "Austrian population mortality (raw), 2017")
+
+## ----AustrianPopulationTableSmooth--------------------------------------------
+PopulationTable.AT2017.smooth = PopulationTable.AT2017 %>%
+  whittaker.mortalityTable(lambda = 1/10, d = 2, name.postfix = ", Whittaker") %>%
+  mT.setDimInfo(type = "smoothed")
+plotMortalityTables(PopulationTable.AT2017, PopulationTable.AT2017.smooth, title = "Austrian population mortality (raw and smoothed), 2017")  +
+  aes(colour = type)
+
+## ----AustrianPopulationTableCut100--------------------------------------------
+PopulationData.AT2017.raw %>% filter(age > 90)
+PopulationTable.AT2017.cut = PopulationTable.AT2017.smooth %>%
+  mT.fillAges(0:99) %>%
+  mT.setName("Austrian Population Mortality 2017, Whittaker-smoothed and cut at age 99")
+
+## ----AustrianPopulationTableExtrapolated--------------------------------------
+PopulationTable.AT2017.ex = PopulationTable.AT2017.smooth %>%
+  mT.fitExtrapolationLaw(law = "HP2", fit = 75:99, extrapolate = 80:120, fadeIn = 80:95) %>%
+  mT.setDimInfo(type = "smoothed and extrapolated")
+plotMortalityTables(PopulationTable.AT2017, PopulationTable.AT2017.smooth, PopulationTable.AT2017.ex, title = "Austrian population mortality (raw and smoothed), 2017")  +
+  aes(colour = type)
+
+## ----AustrianPopulationTableFitComparison-------------------------------------
+plotMortalityTables(
+  PopulationTable.AT2017, 
+  PopulationTable.AT2017.smooth %>%
+    mT.fitExtrapolationLaw(law = "HP2", fit = 75:99, extrapolate = 80:120, fadeIn = 80:95) %>%
+    mT.setDimInfo(type = "Extrapolation: HP2, Fit 75--99"),
+  
+  PopulationTable.AT2017.smooth %>%
+    mT.fitExtrapolationLaw(law = "HP2", fit = 75:85, extrapolate = 80:120, fadeIn = 80:95) %>%
+    mT.setDimInfo(type = "Extrapolation: HP, Fit 75--85"),
+  
+  PopulationTable.AT2017.smooth %>%
+    mT.fitExtrapolationLaw(law = "HP2", fit = 90:110, extrapolate = 80:120, fadeIn = 90:100) %>%
+    mT.setDimInfo(type = "Extrapolation: HP2, Fit 90--110"),
+  
+  title = "Examples of different fitting ranges for extrapolation")  +
+  aes(colour = type)
+
+## ----AustrianPopulationTableFitFunctionComparison-----------------------------
+plotMortalityTables(
+  PopulationTable.AT2017, 
+  PopulationTable.AT2017.smooth %>%
+    mT.fitExtrapolationLaw(law = "HP2", fit = 75:99, extrapolate = 80:120, fadeIn = 80:95) %>%
+    mT.setDimInfo(type = "HP2"),
+  PopulationTable.AT2017.smooth %>%
+    mT.fitExtrapolationLaw(law = "thiele", fit = 75:99, extrapolate = 80:120, fadeIn = 80:95) %>%
+    mT.setDimInfo(type = "thiele"),
+  PopulationTable.AT2017.smooth %>%
+    mT.fitExtrapolationLaw(law = "ggompertz", fit = 75:99, extrapolate = 80:120, fadeIn = 80:95) %>%
+    mT.setDimInfo(type = "ggompertz"),
+  PopulationTable.AT2017.smooth %>%
+    mT.fitExtrapolationLaw(law = "carriere1", fit = 75:99, extrapolate = 80:120, fadeIn = 80:95) %>%
+    mT.setDimInfo(type = "carriere1"),
+
+  title = "Examples of different fitting functions for extrapolation (fit 75--99)", 
+  ages = 75:120, legend.position = "bottom", legend.key.width = unit(15, "mm"))  +
+  aes(colour = type) + labs(colour = "Mortality Law")
+
+## ----AustrianPopulationTableTrendForecast-------------------------------------
+mortalityTables.load("Austria_PopulationForecast")
+plotMortalityTrend(mort.AT.forecast, title = "Forecast trend (medium scenario) by Statistik Austria")
+
+## ----AustrianPopulationTableTrend---------------------------------------------
+PopulationTable.AT2017.trend = PopulationTable.AT2017.ex %>%
+  mT.addTrend(mort.AT.forecast$m@trend, trendages = ages(mort.AT.forecast$m)) %>%
+  mT.setDimInfo(type = "smoothed, extrapolated, trend")
+
+PopulationTable.AT2017.trend.ex = PopulationTable.AT2017.trend %>%
+  mT.extrapolateTrendExp(95) %>%
+  mT.setDimInfo(type = "smoothed, extrapolated, trend extrapolated")
+
+plotMortalityTrend(PopulationTable.AT2017.trend, PopulationTable.AT2017.trend.ex,
+                   title = "Extrapolating the trend via Exponential function") +
+  aes(color = type)
+
+
+
+plotMortalityTables(PopulationTable.AT2017, PopulationTable.AT2017.smooth, PopulationTable.AT2017.ex, PopulationTable.AT2017.trend.ex, YOB = 1980, title = "Austrian population mortality (Period 2017 vs. Generation 1980)", legend.position = c(0.01, 0.99), legend.justification = c(0,1))  +
+  aes(colour = type)
+
+
+## ----AustrianPopulationTableFinal---------------------------------------------
+# Lots of non-essential or support information is stored inside the table's data field:
+PopulationTable.AT2017.trend.ex@data$whittaker
+
+# Clean up the table (remove all non-essential data, but do not modify results)
+PopulationTable.AT2017.Cohort.FINAL = PopulationTable.AT2017.trend.ex %>%
+  mT.cleanup() %>%
+  mT.round(digits = 6) %>%
+  mT.setName("Austrian Population Mortality, Period 2017 with trend projection")
+
+
+## ----AustrianPopulationTableScaled--------------------------------------------
+TableForProduct = PopulationTable.AT2017.Cohort.FINAL %>%
+  mT.scaleProbs(factor = 1.25, name.postfix = "10% security added")
+
+plotMortalityTables(TableForProduct, PopulationTable.AT2017.Cohort.FINAL, 
+                    title = "Adding a security loading of 25%", Period = 2017, legend.position = "bottom")
 

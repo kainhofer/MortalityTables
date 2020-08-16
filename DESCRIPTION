@@ -13,7 +13,8 @@ Depends:
     methods,
     scales,
     utils,
-    pracma
+    pracma,
+    R (>= 2.10)
 Suggests:
     lifecontingencies,
     MortalityLaws,
@@ -29,6 +30,7 @@ Description: Classes to implement and plot cohort life tables
 License: GPL (>= 2)
 RoxygenNote: 7.1.1
 Collate: 
+    'DocumentData.R'
     'mortalityTable.R'
     'mortalityTable.period.R'
     'mortalityTable.ageShift.R'

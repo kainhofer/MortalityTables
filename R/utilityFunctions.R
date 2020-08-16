@@ -733,10 +733,10 @@ setMethod("mT.round", "mortalityTable.period",
 setMethod("mT.round", "mortalityTable.trendProjection",
           function(object, digits = 8) {
               o = callNextMethod()
-              if (!is.null(o@trend) && !is.na(o@trend)) {
+              if (!is.null(o@trend) && !all(is.na(o@trend))) {
                   o@trend  = round(o@trend, digits = digits)
               }
-              if (!is.null(o@trend2) && !is.na(o@trend2)) {
+              if (!is.null(o@trend2) && !all(is.na(o@trend2))) {
                   o@trend2 = round(o@trend2, digits = digits)
               }
               o
@@ -746,7 +746,7 @@ setMethod("mT.round", "mortalityTable.improvementFactors",
           function(object, digits = 8) {
               o = callNextMethod()
               o@improvement = round(o@improvement, digits = digits)
-              if (!is.null(o@loading) && !is.na(o@loading)) {
+              if (!is.null(o@loading) && !all(is.na(o@loading))) {
                   o@loading    = round(o@loading, digits = digits)
               }
               o
