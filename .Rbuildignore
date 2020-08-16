@@ -7,3 +7,5 @@ data-raw
 PossibleTables.txt
 ^MortalityTables_.*\.tar\.gz$
 
+^doc$
+^Meta$
