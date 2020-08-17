@@ -8,6 +8,7 @@ output:
         toc_depth: 3
         fig_width: 7
         fig_height: 5
+        number_sections: true
 vignette: >
   %\VignetteIndexEntry{Using the MortalityTables Package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -27,7 +28,7 @@ multiple life tables either directly using the absolute mortalities in
 log-linear plots or using relative mortalities as percentages of a given
 reference table.
 
-## Types of Life Tables
+# Types of Life Tables
 
 Provided types of mortality tables are:
 
@@ -67,12 +68,12 @@ Provided types of mortality tables are:
     : Transition probabilities for a four-state pension model (active, invalid, 
       retirement and death, with a possible widow in the event of death).
 
-## Loading the MortalityTables package
+# Loading the MortalityTables package
 ```{r message=FALSE}
 library("MortalityTables")
 ```
 
-## Provided Data Sets
+# Provided Data Sets
 
 The package provides several real-life life tables published by census bureaus 
 and actuarial associations around the world. You can use the function 
@@ -101,9 +102,9 @@ In the next few sections we will always use some of the provided life tables
 for demonstration purposes. 
 
 
-## Working with life table objects
+# Working with life table objects
 
-### Plotting life tables
+## Plotting life tables
 
 The package provides several functions to plot lifetables:
 
@@ -145,7 +146,7 @@ plot(AVOe1996R.male, AVOe2005R.male, Period = 2020, title = "Comparison for obse
 
 ```
 
-### Obtaining period and cohort death probabilities
+## Obtaining period and cohort death probabilities
 
 To obtain death probabilities from all the different types of tables, there are two functions:
     
@@ -192,7 +193,7 @@ death probabilities for the cohort life table.
 
 
 
-### Other data extraction functions from life tables
+## Other data extraction functions from life tables
 
 | function               | description |
 |:---------------------- |:---------------------------------------------------|
@@ -204,12 +205,49 @@ death probabilities for the cohort life table.
 |`lifetable(table, YOB)`  | Returns the cohort death probabilities as a `lifetable` object for use with the lifecontingencies package|
 
 
+## Dimensional information
+
+Mortality tables are always created for special purposes, particular collectives, 
+types of risk, sex, year, etc. So, each [MortalityTable] object provides for a list
+of such factors that describe the underlying target of the mortality table
+and that can be used e.g. when plotting mortality Tables (just like any other 
+factor variable in a ggplot):
+
+```{r DimensionalInfoPlot}
+plotMortalityTables(
+  mort.AT.census[c("m", "w"), c("1951", "1991", "2001", "2011")]) + 
+  aes(color = as.factor(year), linetype = sex) + labs(color = "Period", linetype = "Sex")
+```
+
+The dimensional information is stored inside the \code{@data$dim} field of the MortalityTable:
+```{r DimensionalInformationStorage}
+mort.AT.census.2011.male@data$dim
+```
+
+There are no hard and enforced rules for these names and the potential values 
+of the dimensional information. There are, however, some conventions that are
+obeyed by most of the tables provided by this package:
+
+| Key   | Potential values | Description |
+|:------|:-----------------|:------------|
+| sex   | "m", "w", "u"    | Sex         |
+| collar | "Rententafel", "Gruppenrententafel", "Einzel", "Gruppe", "Gesamtbevölkerung", "Raucher", "Nichtraucher", "Arbeiter", "Angestellte", "Mischtafel" | Collective, to which the mortality table applies |
+| type  | "Rententafel", "Volkssterbetafel", "Pensionstafel", "Bevölkerungsprognose", "Beobachtung", "Risikotafel" | The type of table | 
+| data  | "official", "raw", "loaded", "loaded, group", "unloaded", "age-shifted", "geglättet" | The type of data | 
+| year  | numeric year, "2014-2080", "1980-2017", "1947-2017" | The year (or range) described by the table |
+| tablename | "AVÖ 1996-R", "AVÖ 2005-R", "EROM 85", "EROF 85", "EROM G1950", "EROF G1950", "EROM G1950 AV", "EROF G1950 AV", "RR67", "DAV 1994R", "DAV 2004R", "DAV 1994T", "DAV 2008T", "1971 IAM", "1971 IAM projected", "1983a", "1983 GAM", "1994 GAM", "1994 GAR", "2012 IAM", "Annuity 2000", "AVÖ 1999-P", "AVÖ 2008-P", "Ettl-Pagler 1989", "DAV 2005-G" | The formal name of the table | 
+| risk | "Tod", "sonst. Ausscheiden", "Invalidisierung", "Partnerwahrscheinlichkeit im Tod", "mittl. Hinterbliebenenalter" | The type of risk described by the table |
+| probability | "qx", "sx", "ix", "qgx", "qix", "qpx", "hx", "qwy", "yx" | The probability described by the table (corresponds with "risk") |
+| country | "Österreich", "Deutschland", "USA", ... | The geographic region of the table (not neccessarily only countries) |
+| source | "AVÖ", "Statistik Austria", "DAV", ... | Source of the data / table |
+
+Some of the provided datasets (mortality tables) have not yet fully implemented these conventions, so pleasy be vary when using them.
 
 
 
-## Creating a life table object
+# Creating a life table object
 
-### Period life tables
+## Period life tables
 Period death probabilities are the simplest type of life table, giving the 
 probabilities of death observed during the
 corresponding year (the "period"). The death probabilities of different ages
@@ -230,7 +268,7 @@ deathProbabilities(lt)
 <!-- TODO -->
 
 
-### Cohort life tables with trend projection
+## Cohort life tables with trend projection
 
 A cohort life table with trend projection needs the following parameters:
 
@@ -306,10 +344,10 @@ atPlus2.damp2 = mortalityTable.trendProjection(
     }
 )
 
-plot(mort.AT.census.2011.male, atPlus2, atPlus2.damp, atPlus2.damp2, YOB = 2011, legend.position = c(0.8,0.75))
+plot(mort.AT.census.2011.male, atPlus2, atPlus2.damp, atPlus2.damp2, YOB = 2011, legend.position = c(0.02, 0.98), legend.justification = c(0, 1))
 ```
 
-### Cohort life tables with age-shift
+## Cohort life tables with age-shift
 
 Age-shifted cohort life tables are an approximation to full cohort life tables.
 Full cohort life tables apply a trend or improvment factors to the death 
@@ -371,9 +409,9 @@ really be used with extreme care!
 
 
 
-## Modifying life table objects
+# Modifying life table objects
 
-### Copying life tables
+## Copying life tables
 
 Life tables are simple pass-by-value S4 objects, so copying works by simple assignment. 
 
@@ -385,7 +423,7 @@ b@modification = function(qx) pmax(qx, 0.01)
 plot(AVOe2005R.female, b, YOB = 2000)
 ```
 
-### Adding a security loading to the raw probabilities
+## Adding a security loading to the raw probabilities
 
 When calculating premiums for life insurance contracts, one often needs to add 
 a certain security loading on the raw death probabilities (e.g. 10% increased
@@ -400,7 +438,7 @@ AVOe2005R.female.sec@name = "Table with 10% loading"
 plot(AVOe2005R.female, AVOe2005R.female.sec, title = "Original and modified table")
 ```
 
-### Adding a modification to the raw probabilities
+## Adding a modification to the raw probabilities
 
 Some uses require post-processing of the death probabilities, like adding a lower
 bound for the death probabilities. To achive this, all `mortalityTable`-derived 
@@ -414,7 +452,7 @@ AVOe2005R.female.mod@name = "Modified table (lower bound of 3%)"
 plot(AVOe2005R.female, AVOe2005R.female.mod, title = "Original and modified table")
 ```
 
-## Creating mortality tables from data and modifying them using various helper functions
+# Creating mortality tables from data and modifying them using various helper functions
 
 The package \code{MortalityTables} not only provides the data structures and some
 examples of mortality tables, it also provides several functions to create mortality
@@ -652,7 +690,7 @@ plotMortalityTables(TableForProduct, PopulationTable.AT2017.Cohort.FINAL,
 ```
 
 
-## Pension Tables
+# Pension Tables
 Pension tables generalize mortality tables in that the state space is increased 
 from two states (alive / dead) to four states (active / invalidity or realy 
 retirement / old age retirement / dead). As a consequence, there is no longer 

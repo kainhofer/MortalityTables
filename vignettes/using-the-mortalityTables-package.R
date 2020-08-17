@@ -57,6 +57,14 @@ table.per2020 = getPeriodTable(AVOe2005R.male, Period = 2020)
 plot(table.coh1977, table.per2020, title = "Comparison of cohort 1977 with Period 2020", legend.position = c(1,0))
 
 
+## ----DimensionalInfoPlot------------------------------------------------------
+plotMortalityTables(
+  mort.AT.census[c("m", "w"), c("1951", "1991", "2001", "2011")]) + 
+  aes(color = as.factor(year), linetype = sex) + labs(color = "Period", linetype = "Sex")
+
+## ----DimensionalInformationStorage--------------------------------------------
+mort.AT.census.2011.male@data$dim
+
 ## -----------------------------------------------------------------------------
 lt = mortalityTable.period(name = "Sample period lifetable", ages = 1:99, deathProbs = exp(-(99:1)/10))
 plot(lt, title = "Simple log-linear period mortality table")
@@ -104,7 +112,7 @@ atPlus2.damp2 = mortalityTable.trendProjection(
     }
 )
 
-plot(mort.AT.census.2011.male, atPlus2, atPlus2.damp, atPlus2.damp2, YOB = 2011, legend.position = c(0.8,0.75))
+plot(mort.AT.census.2011.male, atPlus2, atPlus2.damp, atPlus2.damp2, YOB = 2011, legend.position = c(0.02, 0.98), legend.justification = c(0, 1))
 
 ## -----------------------------------------------------------------------------
 baseTableShift = getCohortTable(atPlus2, YOB = 2011);
