@@ -9,3 +9,4 @@ PossibleTables.txt
 
 ^doc$
 ^Meta$
+^inst/extdata/Austria_Population_Observation.csv$

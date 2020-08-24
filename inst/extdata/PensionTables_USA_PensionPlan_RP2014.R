@@ -46,7 +46,7 @@ RP2014.readImprovements = function(file) {
     lastyear = tail(cn,1)
     lastyear = substr(lastyear, 1, nchar(lastyear) - 1);
     colnames(data) = c(head(cn, -1), lastyear)
-    bel20 = data["≤ 20",];
+    bel20 = data["<= 20",];
     young = matrix(bel20, ncol = length(bel20), nrow = 21, byrow = TRUE, dimnames = list(0:20, colnames(data)))
     rbind(young, data[-1,])
 }
