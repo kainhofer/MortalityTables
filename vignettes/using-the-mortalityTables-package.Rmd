@@ -51,10 +51,10 @@ Provided types of mortality tables are:
     : Death probabilities for cohort $YOB$ are obtained by using death probabilities
       for cohort $X$ and modifying the technical age with a birth-year dependent shift:
           $$q_x^{YOB} = q_{x+shift(YOB)}^{(base)}$$
-<!-- * Observed life table -->
-<!--     : Class `mortalityTable.observed` -->
-<!--     : Death probabilities observed during several years. The probabilities are -->
-<!--       stored as a matrix with observation year and age as dimensions. -->
+* Observed life table
+    : Class `mortalityTable.observed`
+    : Death probabilities observed during several years. The probabilities are
+      stored as a matrix with observation year and age as dimensions.
 * Mixed life table
     : Class `mortalityTable.mixed`
     : Arithmetic mean of two life tables with given weights. This approach is
@@ -208,7 +208,7 @@ death probabilities for the cohort life table.
 ## Dimensional information
 
 Mortality tables are always created for special purposes, particular collectives, 
-types of risk, sex, year, etc. So, each [MortalityTable] object provides for a list
+types of risk, sex, year, etc. So, each `MortalityTable` object provides for a list
 of such factors that describe the underlying target of the mortality table
 and that can be used e.g. when plotting mortality Tables (just like any other 
 factor variable in a ggplot):
@@ -219,7 +219,7 @@ plotMortalityTables(
   aes(color = as.factor(year), linetype = sex) + labs(color = "Period", linetype = "Sex")
 ```
 
-The dimensional information is stored inside the \code{@data$dim} field of the MortalityTable:
+The dimensional information is stored inside the `@data$dim` field of the MortalityTable:
 ```{r DimensionalInformationStorage}
 mort.AT.census.2011.male@data$dim
 ```
@@ -230,16 +230,16 @@ obeyed by most of the tables provided by this package:
 
 | Key   | Potential values | Description |
 |:------|:-----------------|:------------|
-| sex   | "m", "w", "u"    | Sex         |
-| collar | "Rententafel", "Gruppenrententafel", "Einzel", "Gruppe", "Gesamtbevölkerung", "Raucher", "Nichtraucher", "Arbeiter", "Angestellte", "Mischtafel" | Collective, to which the mortality table applies |
-| type  | "Rententafel", "Volkssterbetafel", "Pensionstafel", "Bevölkerungsprognose", "Beobachtung", "Risikotafel" | The type of table | 
-| data  | "official", "raw", "loaded", "loaded, group", "unloaded", "age-shifted", "geglättet" | The type of data | 
-| year  | numeric year, "2014-2080", "1980-2017", "1947-2017" | The year (or range) described by the table |
-| tablename | "AVÖ 1996-R", "AVÖ 2005-R", "EROM 85", "EROF 85", "EROM G1950", "EROF G1950", "EROM G1950 AV", "EROF G1950 AV", "RR67", "DAV 1994R", "DAV 2004R", "DAV 1994T", "DAV 2008T", "1971 IAM", "1971 IAM projected", "1983a", "1983 GAM", "1994 GAM", "1994 GAR", "2012 IAM", "Annuity 2000", "AVÖ 1999-P", "AVÖ 2008-P", "Ettl-Pagler 1989", "DAV 2005-G" | The formal name of the table | 
-| risk | "Tod", "sonst. Ausscheiden", "Invalidisierung", "Partnerwahrscheinlichkeit im Tod", "mittl. Hinterbliebenenalter" | The type of risk described by the table |
-| probability | "qx", "sx", "ix", "qgx", "qix", "qpx", "hx", "qwy", "yx" | The probability described by the table (corresponds with "risk") |
-| country | "Österreich", "Deutschland", "USA", ... | The geographic region of the table (not neccessarily only countries) |
-| source | "AVÖ", "Statistik Austria", "DAV", ... | Source of the data / table |
+| `sex`   | "m", "w", "u"    | Sex         |
+| `collar` | "Rententafel", "Gruppenrententafel", "Einzel", "Gruppe", "Gesamtbevölkerung", "Raucher", "Nichtraucher", "Arbeiter", "Angestellte", "Mischtafel" | Collective, to which the mortality table applies |
+| `type`  | "Rententafel", "Volkssterbetafel", "Pensionstafel", "Bevölkerungsprognose", "Beobachtung", "Risikotafel" | The type of table | 
+| `data`  | "official", "raw", "loaded", "loaded, group", "unloaded", "age-shifted", "geglättet" | The type of data | 
+| `year`  | numeric year, "2014-2080", "1980-2017", "1947-2017" | The year (or range) described by the table |
+| `tablename` | "AVÖ 1996-R", "AVÖ 2005-R", "EROM 85", "EROF 85", "EROM G1950", "EROF G1950", "EROM G1950 AV", "EROF G1950 AV", "RR67", "DAV 1994R", "DAV 2004R", "DAV 1994T", "DAV 2008T", "1971 IAM", "1971 IAM projected", "1983a", "1983 GAM", "1994 GAM", "1994 GAR", "2012 IAM", "Annuity 2000", "AVÖ 1999-P", "AVÖ 2008-P", "Ettl-Pagler 1989", "DAV 2005-G" | The formal name of the table | 
+| `risk` | "Tod", "sonst. Ausscheiden", "Invalidisierung", "Partnerwahrscheinlichkeit im Tod", "mittl. Hinterbliebenenalter" | The type of risk described by the table |
+| `probability` | "qx", "sx", "ix", "qgx", "qix", "qpx", "hx", "qwy", "yx" | The probability described by the table (corresponds with "risk") |
+| `country` | "Österreich", "Deutschland", "USA", ... | The geographic region of the table (not neccessarily only countries) |
+| `source` | "AVÖ", "Statistik Austria", "DAV", ... | Source of the data / table |
 
 Some of the provided datasets (mortality tables) have not yet fully implemented these conventions, so pleasy be vary when using them.
 
@@ -454,12 +454,12 @@ plot(AVOe2005R.female, AVOe2005R.female.mod, title = "Original and modified tabl
 
 # Creating mortality tables from data and modifying them using various helper functions
 
-The package \code{MortalityTables} not only provides the data structures and some
+The package MortalityTables not only provides the data structures and some
 examples of mortality tables, it also provides several functions to create mortality
 tables from raw data and modify them. The package provides several editing functions,
-which all begin with the prefix \code{mT.}.
+which all begin with the prefix `mT.`.
 
-Let us take as an example the provided dataset \code{PopulationData.AT2017} of 
+Let us take as an example the provided dataset `PopulationData.AT2017` of 
 Austrian population data (exposure and deaths counts for the year 2017). 
 
 For simplicity, we only look at the unisex data (i.e. male + female numbers, 
@@ -475,7 +475,7 @@ PopulationData.AT2017.raw = PopulationData.AT2017 %>%
   mutate(qraw = deaths.total / (exposure.total + deaths.total/2))
 ```
 
-We now have all data needed to put it into a [MortalityTable] object (some fields 
+We now have all data needed to put it into a `MortalityTable` object (some fields 
 like the exposre and the data list are not strictly needed, but can be useful 
 later on):
 
@@ -500,11 +500,11 @@ plotMortalityTables(PopulationTable.AT2017, title = "Austrian population mortali
 Of course, we sooner or later want to work with a smooth table rather than the 
 raw death probabilities. The most common approach to smoothing mortality tables
 is the Whittaker-Henderson method of graduation, which is provided by the 
-function [whittaker.mortalityTable()]. The parameters are the $\ĺambda$ smoothing
+function `whittaker.mortalityTable()`. The parameters are the $\lambda$ smoothing
 parameter (determining how smooth the result shall be, which in turn means that 
-the result might be quite distant from the raw probabiliteis in some ages) and 
+the result might be quite distant from the raw probabilities in some ages) and 
 the order of differences $d$ (the default 2 typically suffices). Since we have
-the exposures available and stored inside the table, the [whittaker.mortalityTable()] 
+the exposures available and stored inside the table, the `whittaker.mortalityTable()`
 function will use the exposures as weight and so try to match age ranges with 
 high exposure much better than e.g. old ages with hardly any living.
 
@@ -516,8 +516,8 @@ plotMortalityTables(PopulationTable.AT2017, PopulationTable.AT2017.smooth, title
   aes(colour = type)
 ```
 As a side note, this example also shows how the additional dimensional infos
-set be either the constructor of the table or the [mT.setDimInfo()] function and
-stored in the \code{table$data$dim} list can be used by ggplot as aesthetics.
+set be either the constructor of the table or the `mT.setDimInfo()` function and
+stored in the `table$data$dim` list can be used by ggplot as aesthetics.
 
 
 Now, if we look at the exposures, we see that above age 95 we are below an 
@@ -541,9 +541,9 @@ The parameters of the function calibrated to match the mortalities in the fittin
 range as good as possible are then used to extrapolate the mortalities with the
 function to ages outside the existing table. 
 
-The function [mT.fitExtrapolationLaw] uses the package \code{MortalityLaws} and 
-the function [MortalityLaws::MortalityLaw()] to fit one of the mortality laws (
-see [MortalityLaws::availableLaws()] for all available laws) to the data and use
+The function `mT.fitExtrapolationLaw` uses the package `MortalityLaws` and 
+the function `MortalityLaws::MortalityLaw()` to fit one of the mortality laws 
+(see `MortalityLaws::availableLaws()` for all available laws) to the data and use
 that law to extrapolate to the desired ages, with a potential feding-in or fading-out
 age range.
 
@@ -610,11 +610,11 @@ period life table describing the observed mortality only in the year 2017.
 To describe death probabilities for a given person, one needs to take into account
 the mortality improvements and project the mortality into the future from the 
 observation year. This can be done with age-dependent yearly mortality improvements, also called
-mortaltity trend $\labmda_x$.
+mortaltity trend $\lambda_x$.
 
-For simplicity, we will use the trend $\labmda_x$ of the medium scenario of the
+For simplicity, we will use the trend $\lambda_x$ of the medium scenario of the
 mortality forecast of the Statistik Austria (forecast from 2016 to roughly 2080).
-These forecast tables are available as the mortality table \code{mort.AT.forecast}
+These forecast tables are available as the mortality table `mort.AT.forecast`
 for male and female separately. Even though we derived a table for unisex, we 
 will apply the male trends for simplicity. In practice, of course you would 
 derive proper unisex trends from the available data.
@@ -624,7 +624,7 @@ mortalityTables.load("Austria_PopulationForecast")
 plotMortalityTrend(mort.AT.forecast, title = "Forecast trend (medium scenario) by Statistik Austria")
 ```
 As we can see, the trends appear to be derived from data until age 94 and then set to a constant value ("floor"). 
-Let us first apply the male trend to the observed period life table of the year 2017, and then extrapolate the trend from age 94 to higher ages by an exponential function towards zero. The first can be done with the function [mT.addTrend()], while the second can be done with [mT.extrapolateTrendExp()]:
+Let us first apply the male trend to the observed period life table of the year 2017, and then extrapolate the trend from age 94 to higher ages by an exponential function towards zero. The first can be done with the function `mT.addTrend()`, while the second can be done with `mT.extrapolateTrendExp()`:
 
 ```{r AustrianPopulationTableTrend}
 PopulationTable.AT2017.trend = PopulationTable.AT2017.ex %>%
@@ -649,12 +649,12 @@ plotMortalityTables(PopulationTable.AT2017, PopulationTable.AT2017.smooth, Popul
 So we have now started from raw data, calculated the death probabilities, smoothed 
 them using Whittaker-Henderson, extrapolated to very old ages and added a trend 
 to create a nice Cohort Life Table.
-We could now store the \code{PopulationTable.AT2017.trend.ex} in an .RData file
+We could now store the `PopulationTable.AT2017.trend.ex` in an .RData file
 and distribute it to the public. However, we might miss that all our modification
 were also recorded inside the mortality table (to allow later introspection into 
 what was done and what was the result). For a published table, this might not 
 be desired, so we first need to clean this additional support data with the 
-[mT.cleanup()] function, which does not modify the table itself, but only 
+`mT.cleanup()` function, which does not modify the table itself, but only 
 removes all non-essential supporting information from the table:
 
 ```{r AustrianPopulationTableFinal}
@@ -670,8 +670,8 @@ PopulationTable.AT2017.Cohort.FINAL = PopulationTable.AT2017.trend.ex %>%
 ```
 
 Other functions that might be useful before publishing a table are:
-* [mT.translate()], which simply moves the base year of the internal representation of a cohort life table to a different year (by applying the trend according to the translation), but leaves cohort death probabilities unchanged. 
-* [mT.round()], which rounds the probabilities of the base table and the trend to the given number of digits.
+* `mT.translate()`, which simply moves the base year of the internal representation of a cohort life table to a different year (by applying the trend according to the translation), but leaves cohort death probabilities unchanged. 
+* `mT.round()`, which rounds the probabilities of the base table and the trend to the given number of digits.
 
 
 
@@ -679,7 +679,7 @@ When using a population mortality table like the one we just derived in
 insurance contracts, the actuary often  considers adding a certain security
 loading (e.g. 25\% on all death probabilities) to ensure sufficient security 
 and ensure the legal requirement of a prudent person.
-This can be done with the function [mT.scaleProbs()]:
+This can be done with the function `mT.scaleProbs()`:
 
 ```{r AustrianPopulationTableScaled}
 TableForProduct = PopulationTable.AT2017.Cohort.FINAL %>%
