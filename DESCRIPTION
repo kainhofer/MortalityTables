@@ -7,6 +7,7 @@ Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinho
 Author: Reinhold Kainhofer [aut, cre]
 Maintainer: Reinhold Kainhofer <reinhold@kainhofer.com>
 URL: https://gitlab.open-tools.net/R/r-mortality-tables
+BugReports: https://gitlab.open-tools.net/R/r-mortality-tables/-/issues
 Encoding: UTF-8
 Depends:
     ggplot2,
