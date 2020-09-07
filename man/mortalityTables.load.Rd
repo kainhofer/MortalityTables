@@ -18,7 +18,9 @@ Wildcards (*) are allowed to match and load multiple datasets.}
 \item{package}{The package that contains the dataset in its \code{extdata/}
 directory. Defaults to all packages starting with names that
 start with "MortalityTables" or "PensionTables".
-Multiple packages can be given as a vector, even using regular expressions.}
+Multiple packages can be given as a vector, even using regular expressions.
+This package is not automatically loaded. If a provided
+dataset needs its proving package loaded, it can do so explicitly.}
 
 \item{prefix}{The prefix for the data sets (default is "MortalityTables").}
 }
@@ -30,6 +32,6 @@ mortalityTables.list()
 mortalityTables.load("Austria_Annuities_*")
 mortalityTables.load("Austria_Annuities_AVOe2005R")
 mortalityTables.load("*Annuities")
-mortalityTables.load("MyCustomTable", package = c("MyCustomPackage"))
+\dontrun{mortalityTables.load("MyCustomTable", package = c("MyCustomPackage"))}
 
 }

@@ -15,16 +15,22 @@
 #'
 #' @export
 mortalityTables.list = function(pattern = "*", package = c("^MortalityTables", "^PensionTables"), prefix = "MortalityTables") {
-    ret = c()
-    pkgs = utils::installed.packages()
-    for (p in pkgs[,1]) {
-        if (any(sapply(package, grepl, p))) { # package matches the pattern given as argument
-            filepath = system.file("extdata", package = p);
-            files = Sys.glob(file.path(filepath, paste(prefix, "_", pattern, ".R", sep = "")))
-            ret = c(ret, gsub(paste('^', prefix, '_(.*).R$', sep = ""), '\\1', basename(files)))
-        }
+    # TODO: Generalize lib.loc to a function parameter
+    res = c()
+
+    for (p in pattern) {
+        # We want all files that are of the following form:
+        #   [LIBDIR]/MortalityTables*/extdata/[PREFIX]_[NAME].R and return the list of all [NAME] parts
+
+        lib.loc <- .libPaths()
+        # Get a list of all directories for MortalityTables / PensionTable extensions packages
+        packs = unlist(lapply(package, FUN = function(p) { list.files(lib.loc, p, full.names = TRUE)}))
+        # From those directories, list all extdata/[prefix]_[pattern].R files
+        files = Sys.glob(file.path(packs, "extdata", paste(prefix, "_", pattern, ".R", sep = "")))
+        # Extract the name, i.e. everything after the prefix and without the .R:
+        res = c(res, gsub(paste('^', prefix, '_(.*).R$', sep = ""), '\\1', basename(files)))
     }
-    ret
+    res
 }
 
 #' List all available sets of pension tables provided by the \link[MortalityTables]{MortalityTables-package} package

@@ -1,7 +1,7 @@
 Package: MortalityTables
 Type: Package
 Version: 2.0.1
-Date: 2020-08-27
+Date: 2020-09-07
 Title: A Framework for Various Types of Mortality / Life Tables
 Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinhold@kainhofer.com"))
 Author: Reinhold Kainhofer [aut, cre]
@@ -11,11 +11,12 @@ BugReports: https://gitlab.open-tools.net/R/r-mortality-tables/-/issues
 Encoding: UTF-8
 Depends:
     ggplot2,
+    R (>= 2.10)
+Imports:
     methods,
     scales,
     utils,
-    pracma,
-    R (>= 2.10)
+    pracma
 Suggests:
     lifecontingencies,
     MortalityLaws,

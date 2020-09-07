@@ -7,6 +7,8 @@
 #'                directory. Defaults to all packages starting with names that
 #'                start with "MortalityTables" or "PensionTables".
 #'                Multiple packages can be given as a vector, even using regular expressions.
+#'                This package is not automatically loaded. If a provided
+#'                dataset needs its proving package loaded, it can do so explicitly.
 #' @param prefix The prefix for the data sets (default is "MortalityTables").
 #'
 #' @examples
@@ -14,41 +16,47 @@
 #' mortalityTables.load("Austria_Annuities_*")
 #' mortalityTables.load("Austria_Annuities_AVOe2005R")
 #' mortalityTables.load("*Annuities")
-#' mortalityTables.load("MyCustomTable", package = c("MyCustomPackage"))
+#' \dontrun{mortalityTables.load("MyCustomTable", package = c("MyCustomPackage"))}
 #'
 #' @export
 mortalityTables.load = function(dataset, package = c("^MortalityTables", "^PensionTables"), prefix = "MortalityTables") {
-    sets = mortalityTables.list(dataset, package = package, prefix = prefix);
-    if (length(sets) == 0) {
-        warning(sprintf("Unable to locate dataset '%s' provided by the %s package!", dataset, paste(c(package), collapse = " or ")));
+    # TODO: Generalize lib.loc to a function parameter
+
+    # We want all files that are of the following form:
+    #   [LIBDIR]/MortalityTables*/extdata/[PREFIX]_[NAME].R
+    # where [NAME] matches the dataset argument and load them
+
+    if (missing(dataset)) {
+        warning("No datasets given to load mortality tables. Please list at least one dataset (or a corresponding pattern)")
     }
-    pkgs = utils::installed.packages()
-    for (set in sets) {
-        sname = gsub("[^-A-Za-z0-9_.]", "", set);
-        message("Loading table dataset '", sname, "'");
-        loaded = FALSE;
-        for (p in pkgs[,1]) {
-            if (any(sapply(package, grepl, p))) { # package matches the pattern given as argument
-                filename = system.file("extdata", paste(prefix, "_", sname, ".R", sep = ""), package = p);
-                if (filename != "") {
-                    # Make sure the providing package is loaded, in case it provides helper functions
-                    require(p, character.only = TRUE)
 
-                    # Taken from the definition of sys.source and adjusted to include the
-                    # encoding (required for Windows, otherwise UTF8-strings will be broken!)
-                    lines = readLines(filename, encoding = "UTF-8", warn = FALSE)
-                    srcfile = srcfilecopy(filename, lines, file.mtime(filename), isFile = TRUE)
-                    exprs = parse(text = lines, srcfile = srcfile, keep.source = TRUE)
-                    for (i in seq_along(exprs))
-                        eval(exprs[i], envir = globalenv())
+    for (set in dataset) {
+        lib.loc <- .libPaths()
+        # Get a list of all directories under lib.loc for MortalityTables / PensionTable extensions packages
+        packs = unlist(lapply(package, FUN = function(p) { list.files(lib.loc, p, full.names = TRUE)}))
+        # From those directories, list all extdata/[prefix]_[set].R files
+        files = Sys.glob(file.path(packs, "extdata", paste(prefix, "_", set, ".R", sep = "")))
 
-                    # sys.source(filename, envir = globalenv())
-                    loaded = TRUE
-                }
-            }
+        if (length(files) == 0) {
+            warning(sprintf("Unable to locate dataset '%s' provided by the package(s) %s!", dataset, paste(c(package), collapse = " or ")));
+        }
+
+        loaded = FALSE
+        for(filename in files) {
+            # Taken from the definition of sys.source and adjusted to include the
+            # encoding (required for Windows, otherwise UTF8-strings will be broken!)
+            lines = readLines(filename, encoding = "UTF-8", warn = FALSE)
+            srcfile = srcfilecopy(filename, lines, file.mtime(filename), isFile = TRUE)
+            exprs = parse(text = lines, srcfile = srcfile, keep.source = TRUE)
+            for (i in seq_along(exprs))
+                eval(exprs[i], envir = globalenv())
+
+            # sys.source(filename, envir = globalenv())
+            loaded = TRUE
+
         }
         if (!loaded) {
-            warning(sprintf("Unable to locate dataset '%s' provided by the %s package!", sname, package));
+            warning(sprintf("Unable to locate dataset '%s' provided by the %s package!", set, package));
         }
     }
 }

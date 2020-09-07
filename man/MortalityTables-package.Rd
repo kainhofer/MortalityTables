@@ -16,6 +16,7 @@ Classes to implement and plot cohort life tables
 Useful links:
 \itemize{
   \item \url{https://gitlab.open-tools.net/R/r-mortality-tables}
+  \item Report bugs at \url{https://gitlab.open-tools.net/R/r-mortality-tables/-/issues}
 }
 
 }
