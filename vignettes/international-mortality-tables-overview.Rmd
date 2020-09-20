@@ -1,0 +1,707 @@
+---
+title: "International Mortality Tables Overview"
+date: "`r Sys.Date()`"
+output: 
+    rmarkdown::html_vignette: 
+        toc: true
+        toc_depth: 2
+        fig_width: 7
+        fig_height: 5
+        number_sections: true
+vignette: >
+  %\VignetteIndexEntry{International Mortality Tables Overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(magrittr)
+library(MortalityTables)
+mortalityTables.load("Austria_Census")
+```
+
+
+
+
+
+
+<!-- ################################################################################ -->
+<!-- ################################################################################ -->
+<!-- ####                                  AUSTRIA                              ##### -->
+<!-- ################################################################################ -->
+<!-- ################################################################################ -->
+
+
+
+# Austria
+
+## Annuities
+
+Annuity tables in Austria are traditionally published by the [Actuarial Association of Austria (AVÖ)](https://avoe.at/rechnungsgrundlagen/).
+
+### ÖVM 59/61 - RR 67
+
+[TODO: Get actual table data and publication]
+* Source: H. Nabl: ÖVM 59/61 - RR67 - 3%, Die Versicherungsrundschau, 22. Jahrgang, Heft 12, Dez. 1967, p.373--380.
+
+```{r}
+mortalityTables.load("Austria_Annuities_RR67")
+plotMortalityTables(RR67, mort.AT.census.1961.male)
+```
+
+### EROM/F 85 (Period table 2020), EROM/F G 1950 (Cohort table with age shift)
+
+* EROM/F 85: gender-specific period tables, projected to year 2020 to account for mortality improvement
+  * male+female, ages 0-99
+* EROM/F G 1950: gender-specific cohort tables, base cohort 1950 with age-shifting to account for mortality improvement
+  * male+female, ages 0-99
+* Derived from population mortalities 1980/82 (improvements from population mortalities 1949/51 and 1980/82), with annuitants' selection factors applied
+* First-order table without explicit security loadings
+* Usage: Individual Annuity pricing and reserving
+* Publisher: Aktuarvereinigung Österreichs (AVÖ), https://avoe.at/
+* Target collective: Individual annuitants
+
+* Usage with the `MortalityTables` package:
+```{r EROMF85, results="hide"}
+mortalityTables.load("Austria_Annuities_EROMF")
+EROM85.male
+EROF85.female
+
+EROM.G1950.male
+EROM.G1950.male.av
+EROF.G1950.female
+EROF.G1950.female.av
+```
+* Source: F.G. Liebmann, W. Schachermayer, M. Willomitzer: Zur Erstellung von Sterbetafeln EROM 85 und EROF 85, Mitteilungen der Aktuarvereinigung Österreichs, Heft 4, Dezember 1986, p. 1--52.
+* Source: F.G. Liebmann, W. Schachermayer, M. Willomitzer: Die Generationen-Sterbetafeln EROM G 1950 und EROF G 1950, Mitteilungen der Aktuarvereinigung Österreichs, Heft 4, Dezember 1986, p. 54--94.
+
+### AVÖ 1996-R
+
+* gender-specific cohort tables with age-specific trend to account for mortality improvement (approximation via age-shifting given alternatively)
+  * male+female, ages 0-112, individual and group variants
+* Derived from population mortalities 1990/92 with annuitants' selection factors applied
+  * Trend factors derived from short-term population trend 1980--95 and long-term population trend 1865--1990
+* First-order table without explicit security loadings
+* Usage: Individual and Group Annuity pricing and reserving; Minimum required by Austrian Financial Authority until publication of successor table AVÖ 2005R
+* Publisher: Aktuarvereinigung Österreichs (AVÖ), https://avoe.at/
+* Target collective: Individual and group annuitants
+
+* Usage with the `MortalityTables` package:
+```{r AVOe1996R, results="hide"}
+mortalityTables.load("Austria_Annuities_AVOe1996R")
+AVOe1996R
+AVOe1996R.male
+AVOe1996R.male.av325
+AVOe1996R.male.group
+AVOe1996R.female
+AVOe1996R.female.av325
+AVOe1996R.female.group
+```
+* Source: S. Jörgen, F.G. Liebmann, F.W. Pagler, W. Schachermayer: Herleitung der Sterbetafel AVÖ 1996R für Rentenversicherungen, Mitteilungen der Aktuarvereinigung Österreichs, Heft 9, November 1997, p. 39--82.
+
+
+
+### AVÖ 2005-R
+
+* gender-specific cohort tables with age-specific trend to account for mortality improvement (approximation via age-shifting given alternatively)
+  * male+female, ages 0-112, individual and group variants
+  * unisex table published 2012 by mixing male+female tables
+* Derived from population mortalities 2000/02 with annuitants' selection factors applied
+  * Trend factors derived from mid-term population trend 1970--2000
+* First-order table with explicit security loadings and second-order table without security loadings
+* Usage: Individual and Group Annuity pricing and reserving; Current minimum required by Austrian Financial Authority
+* Publisher: Aktuarvereinigung Österreichs (AVÖ), https://avoe.at/
+* Target collective: Individual and group annuitants
+
+* Usage with the `MortalityTables` package:
+```{r AVOe2005R, results="hide"}
+mortalityTables.load("Austria_Annuities_AVOe2005R")
+AVOe2005R
+AVOe2005R.male
+AVOe2005R.male.group
+AVOe2005R.male.av
+AVOe2005R.male.group.av
+AVOe2005R.male.unloaded
+AVOe2005R.male.nodamping
+AVOe2005R.male.nodamping.group
+AVOe2005R.male.nodamping.unloaded
+
+AVOe2005R.female
+AVOe2005R.female.group
+AVOe2005R.female.av
+AVOe2005R.female.group.av
+AVOe2005R.female.unloaded
+AVOe2005R.female.nodamping
+AVOe2005R.female.nodamping.group
+AVOe2005R.female.nodamping.unloaded
+
+AVOe2005R.unisex
+AVOe2005R.unisex.group
+AVOe2005R.unisex.av
+AVOe2005R.unisex.group.av
+AVOe2005R.unisex.nodamping
+AVOe2005R.unisex.nodamping.group
+```
+* Sources: 
+  * R. Kainhofer, M. Predota, U. Schmock: [https://avoe.at/rententafel-avoe-2005r/](The New Austrian Annuity Valuation Table AVÖ 2005R), Mitteilungen der Aktuarvereinigung Österreichs, Heft 13, pp.55--135, http://avoe.at/pdf/mitteilungen/H13_w3.pdf
+  * Aktuarvereinigung Österreichs: [https://avoe.at/rententafel-avoe-2005r-unisex/](Konstruktion der Unisex-Rententafel AVÖ 2005 R unisex), 2012
+  * R. Kainhofer: [https://avoe.at/zur-angemessenheit-der-rententafel-avoe-2005-r/](Zur Angemessenheit der REntentafel AVÖ 2005-R), Arbeitskreis Rechnungsgrundlagen, Aktuarvereinigung Österreichs (AVÖ), 24.Oktober 2019
+
+
+
+
+
+### Comparisons
+
+```{r AT.Annuity.Comparison}
+plotMortalityTables(RR67, EROM85.male, EROF85.female, EROM.G1950.male.av, EROF.G1950.female.av, AVOe1996R[, "Einzel"], AVOe2005R[c("m", "w"), "Einzel","loaded"],
+                    aes = aes(color = year), Period = 2020, title = "Austrian Annuity Tables, Period 2020", 
+                    legend.position = "right"
+) + facet_grid(sex ~ .)
+
+plotMortalityTables(RR67, EROM85.male, EROF85.female, EROM.G1950.male.av, EROF.G1950.female.av, AVOe1996R[, "Einzel"],AVOe2005R[c("m", "w"), "Einzel","loaded"],
+                    aes = aes(color = year), YOB = 1965, title = "Austrian Annuity Tables, Cohort 1965", 
+                    legend.position = "right"
+) + facet_grid(sex ~ .)
+
+```
+
+
+## Population Mortality (Austrian Census tables)
+
+#### Census tables
+
+* gender-specific period tables
+  * male+female, unisex only 2000/02 and 2010/12; ages 0--95, from 1930 on 0--100
+* Based on the official census data:
+  * 1868/71
+  * 1879/82
+  * 1889/92
+  * 1899/1902
+  * 1909/12
+  * 1930/33
+  * 1949/51
+  * 1959/61
+  * 1970/72
+  * 1980/82
+  * 1990/92
+  * 2000/02
+  * 2010/12
+* Usage with the `MortalityTables` package:
+```{r ÖVSt}
+mortalityTables.load("Austria_Census")
+mort.AT.census
+```
+* Source: [Statistik Austria](http://statistik.at/web_de/statistiken/menschen_und_gesellschaft/bevoelkerung/sterbetafeln/index.html), http://statistik.at/wcm/idc/idcplg?IdcService=GET_NATIVE_FILE&RevisionSelectionMethod=LatestReleased&dDocName=022541
+
+
+### Official population forecast (by Statistik Austria)
+
+* Gender-specific forecast (middle scenario) of the mortalities to 2080
+* Provided by Statistik Austria (no formal publication of the tables), can be used freely with attribution
+* Usage with the `MortalityTables` package:
+```{r AT.PopulationForecast, results="hide"}
+mortalityTables.load("Austria_PopulationForecast")
+mort.AT.forecast
+mortalityTables.load("Austria_PopulationObserved")
+```
+
+### Markov-Chain-Monte-Carlo-fitted population forecast (by J. Hirz)
+
+* Gender-specific forecast (middle scenario) of the mortalities by a MCMC-fit of age-specific trend factors
+* Derived for the Austrian pension Table AVÖ 2018-P.
+* Creator: Jonas Hirz
+* Usage with the `MortalityTables` package:
+```{r AT.PopulationForecastMCMC, results="hide"}
+mortalityTables.load("Austria_PopulationMCMC")
+mort.AT.MCMC
+```
+
+* Source: R. Kainhofer, J. Hirz, A. Schubert: AVÖ 2018-P - Rechnungsgrundlagen für die Pensionsversicherung, Dokumentation der Pensionstafel, Arbeitskreis Rechnungsgrundlagen, Aktuarvereinigung Österreichs (AVÖ), 30. August 2018. https://oefdv.avoe.at/rechnungsgrundlagen/
+
+
+### Observed population mortalities 1947--2016 (by Statistik Austria)
+
+* Gender-specific observations of the mortalities from1947
+* Provided by Statistik Austria (no formal publication of the tables), can be used freely with attribution
+* Usage with the `MortalityTables` package:
+```{r AT.Observation, results="hide"}
+mortalityTables.load("Austria_PopulationObserved")
+mort.AT.observed.male
+mort.AT.observed.female
+mort.AT.observed.unisex
+
+```
+
+### Comparison
+
+```{r AT.Census.Comparison}
+plotMortalityTables(
+  mort.AT.census[c("m", "w"),],
+  
+  aes = aes(color = table),
+  legend.position = "right", legend.key.width = unit(2, "lines"),
+  title = "Comparison of Austrian Census Mortalities"
+) + labs(color = NULL) + facet_grid(sex ~ .)
+```
+
+```{r AT.Census.Projections}
+plotMortalityTables(
+  mort.AT.census[c("m", "w"),"2011"],
+  mort.AT.forecast %>% mT.setDimInfo(table = "Official forecast"),
+  mort.AT.MCMC[c("m", "w")] %>% mT.setDimInfo(table = "MCMC forecast"),
+
+  YOB = 1980,
+  aes = aes(color = table),
+  legend.position = "right", legend.key.width = unit(2, "lines"),
+  title = "Projected Austrian Population Mortalities, YOB 1980"
+  
+) + labs(color = NULL) + facet_grid(sex ~ .)
+```
+
+```{r AT.population.History}
+plotMortalityTables(
+  mort.AT.observed.male,
+  mort.AT.observed.female,
+  mort.AT.observed.unisex,
+  
+  YOB = 1940,
+  aes = aes(color = sex),
+  legend.position = "right", legend.key.width = unit(2, "lines"),
+  title = "Historic Austrian Population Mortalities (yearly raw observations), YOB 1940"
+)
+```
+
+## Occupational Pensions
+
+### Ettl-Pagler
+
+* gender-specific period tables for active and disabled persons (also transitions), as well as pensioners and widows
+* second-order table, describing the transition probabilities of the Austrian social security system
+
+```{r EttlPager, results="hide"}
+pensionTables.load("Austria_EttlPagler")
+EttlPagler.male
+EttlPagler.female
+```
+
+* Source: Ettl W. und Pagler F.: "Rechnungsgrundlagen für die Pensionsversicherung",
+Verlag: Verband der wissenschaftlichen Gesellschaften Österreichs, Wien, 1989
+
+### AVÖ 1999-P - Rechnungsgrundlagen für die Pensionsversicherung - Pagler-Pagler
+
+* gender-specific period tables for active and disabled persons (also transitions), as well as pensioners and widows
+  * 2 Variants: "P" for pension reserves, "PK" for pension funds
+  * 2 collectives: White-collar workers ("Angestellte") and mixed collective of white- and blue-collar workers
+* second-order table, describing the transition probabilities of the Austrian social security system
+* Publisher: Aktuarvereinigung Österreichs (AVÖ), Creator: Pagler & Pagler
+* No documentation available
+
+```{r AVOe1999P, results="hide"}
+pensionTables.load("Austria_AVOe1999P")
+AVOe1999P
+```
+
+
+### AVÖ 2008-P - Rechnungsgrundlagen für die Pensionsversicherung - Pagler-Pagler
+
+* gender-specific period tables for active and disabled persons (also transitions), as well as pensioners and widows
+  * 2 Variants: "P" for pension reserves, "PK" for pension funds
+  * 2 collectives: White-collar workers ("Angestellte") and mixed collective of white- and blue-collar workers
+* second-order table, describing the transition probabilities of the Austrian social security system
+* Publisher: Aktuarvereinigung Österreichs (AVÖ), Creator: Pagler & Pagler
+* No documentation available
+
+```{r AVOe2008P, results="hide"}
+pensionTables.load("Austria_AVOe2008P")
+AVOe2008P
+```
+
+
+### AVÖ 2018-P - Rechnungsgrundlagen für die Pensionsversicherung
+
+* gender-specific period tables for active and disabled persons (also transitions), as well as pensioners and widows
+  * 2 Variants: "Rehageld" ("rehab money") considered as invalidity or considered as active
+  * 2 collectives: White-collar workers ("Angestellte") and mixed collective of white- and blue-collar workers
+* second-order table, describing real the transition probabilities of the Austrian social security system (2000/2010 -- 2016)
+* Publisher: Aktuarvereinigung Österreichs (AVÖ), Creator: R. Kainhofer, J. Hirz, A. Schubert
+
+```{r AVOe2018P, results="hide"}
+pensionTables.load("Austria_AVOe2018P")
+AVOe2018P
+```
+* Source: R. Kainhofer, J. Hirz, A. Schubert: AVÖ 2018-P - Rechnungsgrundlagen für die Pensionsversicherung, Dokumentation der Pensionstafel, Arbeitskreis Rechnungsgrundlagen, Aktuarvereinigung Österreichs (AVÖ), 30. August 2018. https://oefdv.avoe.at/rechnungsgrundlagen/
+
+### Comparisons
+```{r AT.pensionTables.Comparison}
+plotMortalityTables(
+  EttlPagler.male %>% pT.getSubTable("qx"),
+  AVOe1999P["m",,"IP", "P"] %>% pT.getSubTable("qx"),
+  AVOe2008P["m",,"IP", "P"] %>% pT.getSubTable("qx"),
+  AVOe2018P["m",,"IPRG"] %>% pT.getSubTable("qx"),
+  legend.position = c(0.01, 0.99), legend.justification = c(0,1),
+  title = "Comparison of Austrian Pension Tables"
+) + labs(color = NULL)
+
+plotMortalityTables(
+  EttlPagler.male %>% pT.getSubTable("hx"),
+  AVOe1999P["m",,"IP", "P"] %>% pT.getSubTable("hx"),
+  AVOe2008P["m",,"IP", "P"] %>% pT.getSubTable("hx"),
+  AVOe2018P["m",,"IPRG"] %>% pT.getSubTable("hx"),
+  # legend.position = c(0.01, 0.99), legend.justification = c(0,1),
+  title = "Comparison of Austrian Pension Tables",
+  log = FALSE, legend.position = "bottom"
+) + labs(color = NULL)
+```
+
+## Experience Tables
+
+### Gesamtbestand (total portfolio) of life insurance companies 2012--16
+
+* gender-specific experience tables (period tables for 2012--16, central year 2014) for the whole Austrian insurance portfolio
+  * separated into tradiional and unit-linlked contracts
+* Experience mortality and lapse rates for the total portfolio of all Austrian Life insurance companies, 2012-2016
+* Publisher: Aktuarvereinigung Österreichs (AVÖ)
+* Creator: G. Friesacher, Th. Spanninger, R. Kainhofer
+ Usage with the `MortalityTables` package:
+```{r VUGesamtbestand, results = "hide"}
+mortalityTables.load("Austria_VUGesamtbestand_2012-16")
+VU.Gesamtbestand
+VU.Gesamtbestand.Storno
+VU.Gesamtbestand.Detail
+```
+```{r VUGesamtbestand.vergleich}
+plotMortalityTables(VU.Gesamtbestand, legend.position = c(0.01, 0.99), legend.justification = c(0,1), title = "Austrian insurance portfolio moratlities 2012-16")
+```
+  
+Source: G. Friesacher, Th. Spanninger, R. Kainhofer: Gesamtbestandstafel -- 
+    Lebensversicherungsbestand in Österreich von 2012 bis 2016, Arbeitskreis 
+    Rechnungsgrundlagen, Aktuarvereinigung Österreichs (AVÖ), 24. Oktober 2019. 
+    https://avoe.at/referenzsterbetafel-und-stornovektor-des-gesamtbestands-2012-16/
+
+
+### Gesamtbestand (total portfolio) of Austrian Pension Funds (Pensionskassen) 2010--16
+
+* gender-specific experienc tables (period tables for 2010--16, central year 2013) for the four largest Austrian pension funds
+  * mortalities and lapse rates
+* Experience mortality and lapse rates for the total portfolio of the four largest Austrian pension funds, 2010-2016
+* Publisher: Aktuarvereinigung Österreichs (AVÖ)
+* Creator: R. Kainhofer
+ Usage with the `MortalityTables` package:
+```{r PKGesamtbestand, results = "hide"}
+mortalityTables.load("Austria_PK-Bestand_2010-16")
+PKBestandstafel.2010.16
+```
+```{r PKBestand.vergleich}
+plotMortalityTables(PKBestandstafel.2010.16[,,"qx", "raw"], legend.position = "right", title = "Austrian pension fund mortalities 2010-16", aes = aes(color = type)) +
+  facet_grid(sex ~ .) + labs(color = "Collective")
+PKBestandstafel.2010.16[1,1,1,1]
+```
+
+
+<!-- ################################################################################ -->
+<!-- ################################################################################ -->
+<!-- ####                                  GERMANY                              ##### -->
+<!-- ################################################################################ -->
+<!-- ################################################################################ -->
+
+
+
+# Germany
+
+Tables in use:
+
+* Allgemeine Deutsche Sterbetafel 1924/26 -- Endowments (until 1980s)
+* Sterbetafel 1967 (modified Sterbetafel der BRD 1960/62) -- Endowments (1970s-1980s)
+* Sterbetafel 1986 -- Endowments
+* Sterbetafel 1986 T -- Endowments (1980s--1994)
+* DAV 1994-T -- Endowments (1994--)
+* Sterbetafel der BRD 1949/51 -- Annuities (until 1980s)
+* Sterbetafel 1987 R -- Annuities (1980s--1994)
+* DAV 1994-R -- Annuities (1994--2004)
+* DAV 2004-R -- Annuities (2004--)
+
+
+
+
+## Annuities
+
+### Sterbetafel 1987 R
+[TODO: Get table data!]
+  * Source: Lühr, K.-H.: Neue Sterbetafeln für die Rentenversicherung, Blätter DGVM XVII (1986), 485--513. https://link.springer.com/article/10.1007/BF02808817
+  
+
+### DAV 1994 R: 
+
+* gender-specific tables, Base table 2000 with age-specific trends
+    * male+female, ages 0-111
+* approximation using age-shifting is provided (central YOB 1955)
+  * Usage with the `MortalityTables` package:
+```{r DAV1994R, results = "hide"}
+mortalityTables.load("Germany_Annuities_DAV1994R")
+DAV1994R.male
+DAV1994R.male.av
+DAV1994R.female
+DAV1994R.female.av
+```
+* Source: [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), [https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/UT_LV_5.pdf]
+* Source: Schmithals B. und Schütz E. U. (1995): "Herleitung der DAV-Sterbetafel 1994 R für
+Rentenversicherungen", Blätter der Deutschen Gesellschaft für
+Versicherungsmathematik, Band XXII, Heft 1 
+  
+### DAV 2004 R:
+
+  * gender-specific tables, Base table 1999 with age-specific trends
+    * male+female, ages 0-121
+  * First- and Second-Order Tables are provided, as well as a reserving table for existing business ("Bestand" and "B20")
+  * Variants Aggregate and Select tables (5 years) are provided
+  * Usage with the `MortalityTables` package: (only Aggregate tables)
+```{r DAV2004R, results="hide"}
+mortalityTables.load("Germany_Annuities_DAV2004R")
+DAV2004R.male
+DAV2004R.male.2Ord
+DAV2004R.male.av
+DAV2004R.male.av.2Ord
+DAV2004R.female
+DAV2004R.female.2Ord
+DAV2004R.female.av
+DAV2004R.female.av.2Ord
+```
+  * Source: [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2018-01-24_DAV-Richtlinie_Herleitung_DAV2004R.pdf
+
+
+### Comparison
+
+```{r DE.Annuities.Comparison}
+plotMortalityTables(
+  DAV1994R.male, DAV1994R.female, 
+  DAV2004R.male, DAV2004R.male.2Ord, 
+  DAV2004R.female, DAV2004R.female.2Ord,
+  
+  Period = 2000, aes = aes(linetype = sex, color = interaction(year, data)), 
+  legend.position = c(0.01, 0.99), legend.justification = c(0,1), legend.key.width = unit(2, "lines"),
+  title = "Comparison of German Annuity Tables, Period 2000"
+) + labs(linetype = NULL, color = NULL)
+
+plotMortalityTrend(
+  DAV1994R.male, DAV1994R.female, 
+  DAV2004R.male, DAV2004R.male.2Ord, 
+  DAV2004R.female, DAV2004R.female.2Ord,
+
+  Period = 2000, aes = aes(linetype = sex, color = interaction(year, data)), 
+  legend.position = c(0.99, 0.99), legend.justification = c(1,1), legend.key.width = unit(2, "lines"), 
+  title = "Age-specific trends of German Annuity Tables, Period 2000"
+) + labs(linetype = NULL, color = NULL) + theme(legend.box.just = "right")
+```
+
+
+## Population Mortality (German Census tables)
+
+* gender-specific period tables
+  * male+female, unisex only 2000/02 and 2010/12; ages 0--95, from 1930 on 0--100
+* Based on the official census data:
+  * 1871/80
+  * 1881/90
+  * 1891/1900
+  * 1901/10
+  * 1910/11
+  * 1924/26
+  * 1932/34
+  * 1949/51
+  * 1960/62
+  * 1970/72
+  * 1986/88
+
+* Usage with the `MortalityTables` package:
+```{r ADSt}
+mortalityTables.load("Germany_Census")
+mort.DE.census
+```
+* Source: Allgemeine Sterbetafeln, abgekürzte Sterbetafelnund Sterbetafeln, 1871/1881 bis 2008/2010. Wiesbaden. Statist. Bundesamt. Artikel 5126202109005, Mai 2012. https://www.statistischebibliothek.de/mir/receive/DESerie_mods_00002188
+
+
+
+
+### Comparison
+
+```{r DE.Census.Comparison}
+plotMortalityTables(
+  mort.DE.census,
+  
+  aes = aes(color = table),
+  legend.position = "right", legend.key.width = unit(2, "lines"),
+  title = "Comparison of German Census Mortalities"
+) + labs(color = NULL) + facet_grid(sex ~ .)
+```
+
+
+## Tables for contract with death characteristics (Life Insurances, Endowments)
+
+### Association Table of Assured Lives 1986
+[TODO]
+
+* Base on German Population Mortality Table 1981/83
+
+### DAV 1994 T
+
+* gender-specific cohort table for German whole life insurances
+* Based on the German Population Mortality Table 1986/88
+* Generated: Deutsche Aktuarvereinigung (DAV), "Life-Insurance" committee
+* Publisher: Deutsche Aktuarvereinigung (DAV), https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx
+
+* Usage with the `MortalityTables` package:
+```{r DAV1994T,results="hide"}
+mortalityTables.load("Germany_Endowments_DAV1994T")
+DAV1994T.male
+DAV1994T.male.2Ord
+DAV1994T.female
+DAV1994T.female.2Ord
+
+```
+* Source: H. Loebus: Bestimmung einer angemessenen Sterbetafel für Lebensversicherungen mit Todesfallcharakter, Blätter DGVM XXI (1994), 497--524. https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx
+
+### DAV 2008 T, DAV 2008 T R/NR
+
+
+* gender-specific cohort table for German whole life insurances
+* Based on reinsurance data 2001--2004 (47 German insurance companies)
+* Generated: Deutsche Aktuarvereinigung (DAV), "Life-Insurance" committee
+* Publisher: Deutsche Aktuarvereinigung (DAV), https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx
+* Minimum standard prescribed by the DAV to be used for reserving unit-linked, endowment and whole life insurances in Germany
+
+* Usage with the `MortalityTables` package:
+```{r DAV2008T,results="hide"}
+mortalityTables.load("Germany_Endowments_DAV2008T")
+DAV2008T.male
+DAV2008T.male.2Ord
+DAV2008T.male.nonsmoker
+DAV2008T.male.nonsmoker.2Ord
+DAV2008T.male.smoker
+DAV2008T.male.smoker.2Ord
+
+DAV2008T.female
+DAV2008T.female.2Ord
+DAV2008T.female.nonsmoker
+DAV2008T.female.nonsmoker.2Ord
+DAV2008T.female.smoker
+DAV2008T.female.smoker.2Ord
+```
+* Source: Herleitung der Sterbetafel DAV 2008 T für Lebensversicherungen mit Todesfallcharakter, [https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx](Deutsche Aktuarvereinigung (DAV)), 22.11.2008. https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2018-10-05_DAV-Richtlinie_Herleitung_DAV2008T.pdf
+* Source: Raucher- und Nichtrauchersterbetafeln für Lebensversicherungen mit Todesfallcharakter, [https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx](Deutsche Aktuarvereinigung (DAV)), 22.11.2008. https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2018-10-05_DAV-Richtlinie_Herleitung_DAV2008T_R_NR.pdf
+
+
+### Comparisons
+
+```{r DAV-T.comparison}
+plotMortalityTables(
+  DAV1994T.male, DAV1994T.male.2Ord, DAV2008T.male, DAV2008T.male.2Ord, DAV2008T.male.nonsmoker,  DAV2008T.male.smoker,
+  DAV1994T.female, DAV1994T.female.2Ord, DAV2008T.female, DAV2008T.female.2Ord, DAV2008T.female.nonsmoker,  DAV2008T.female.smoker,
+  aes = aes(color = interaction(year, collar), linetype = data), legend.position = "right", legend.key.width = unit(1.5, "lines"),
+  title = "German whole life mortality tables"
+) + facet_grid(sex ~ .)
+``` 
+
+
+## Occupational Disability
+
+### DAV 1997 I
+[TODO]
+https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx
+
+* Source: Kolster N., Loebus H. und Mörtlbauer W. (1998): "Neue Rechnungsgrundlagen für die
+Berufsunfähigkeitsversicherung DAV 1997", Blätter der Deutschen Gesellschaft
+für Versicherungsmathematik, Band XXIII, Heft 4 
+
+### DAV 1998 EU
+[TODO]
+https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx
+
+### DAV 2001 EM/EM-T
+[TODO]
+https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx
+
+
+## MTPL Annuities
+
+### DAV 2006 HUR
+[TODO]
+https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx
+
+
+## Old-Age Care
+[TODO]
+
+### DAV 2008 P
+[TODO]
+
+
+## Occupational Pensions
+
+### Heubeck Richttafeln 1959
+[TODO]
+
+* Source: G. Heubeck, K. Fischer: Richttafeln für die Pensionsversicherung, René
+Fischer Verlag, Weissenburg/Bayern, 1959
+
+### Heubeck Richttafeln 1983
+[TODO]
+
+* Source: Heubeck K.: "Richttafeln", Verlag: Heubeck-Richttafeln-GmbH, Köln, 1983
+
+### Heubeck Richttafeln 1998
+[TODO]
+
+* Source: Heubeck K.: "Richttafeln 1998", Verlag Heubeck-Richttafeln-GmbH, Köln, 1998
+
+### Richttafeln DAV 2005-G
+[TODO]
+
+https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx
+* Source: Klaus Heubeck, Richard Herrmann und Gabriele D’Souza. „Die Richttafeln 2005 G – Modell, Herleitung, Formeln“. In: Blätter der DGVFM 27.3 (Apr. 2006), S. 473–517.
+
+
+### Heubeck Richttafeln 2018-G
+[TODO]
+
+
+
+
+
+
+<!-- ################################################################################ -->
+<!-- ################################################################################ -->
+<!-- ####                   UNITED STATES OF AMERICA                            ##### -->
+<!-- ################################################################################ -->
+<!-- ################################################################################ -->
+
+# United States of America
+
+Source: [https://content.naic.org/sites/default/files/pbr_data_valuation_manual_current_edition.pdf] (Appendix M)
+
+[TODO]
+
+## Annuities (individual and group)
+
+## Whole Life Insurances
+
+## Experience Tables
+
+## Pension Plans
+
+### RP-2000
+
+### RP-2014
+
+Source: Society of Actuaries. RP-2014 Mortality Tables Report. Techn. Ber. Okt. 2014. URL: https://www.soa.
+org/experience-studies/2014/research-2014-rp/.
+Source: Society of Actuaries. Mortality Improvement Scale MP-2014 Report. Techn. Ber. Okt. 2014. URL: https:
+//www.soa.org/experience-studies/2014/research-2014-mp/.
+
+
