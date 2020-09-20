@@ -93,7 +93,7 @@ DAV2004R.male.2Ord = mortalityTable.trendProjection(
     name = "DAV 2004R male, aggregate, unloaded, no trend dampening",
     ages = DAV2004R.data.basistafeln$age,
     baseYear = 1999,
-    deathProbs = DAV2004R.data.basistafeln$qxAgg,
+    deathProbs = DAV2004R.data.basistafeln$qxAgg2Ord,
     trend = DAV2004R.data.trend$trend2Ord.male.start,
     data = list(
         dim = list(sex = "m", collar = "Aggregat", type = "Rententafel", data = "unloaded", year = "DAV 2004R")
@@ -104,7 +104,7 @@ DAV2004R.female.2Ord = mortalityTable.trendProjection(
     name = "DAV 2004R female, aggregate, unloaded, no trend dampening",
     ages = DAV2004R.data.basistafeln$age,
     baseYear = 1999,
-    deathProbs = DAV2004R.data.basistafeln$qyAgg,
+    deathProbs = DAV2004R.data.basistafeln$qyAgg2Ord,
     trend = DAV2004R.data.trend$trend2Ord.female.start,
     data = list(
         dim = list(sex = "w", collar = "Aggregat", type = "Rententafel", data = "unloaded", year = "DAV 2004R")
