@@ -14,7 +14,7 @@ censtable = function(data, name, qslot, baseYear = 1900, sex = "m") {
     ix = complete.cases(qx);
     mortalityTable.period(name = name, ages = data$Alter[ix], deathProbs = qx[ix,], baseYear = baseYear,
       data = list(
-          dim = list(sex = sex, collar = "Gesamtbevölkerung", type = "Volkssterbetafel Deutschland", data = "official", year = baseYear)
+          dim = list(sex = sex, collar = "Gesamtbevölkerung", type = "Volkssterbetafel Deutschland", data = "official", year = baseYear, table = substr(name, 1, nchar(name) - 2))
       )
   )
 }
@@ -43,6 +43,37 @@ mort.DE.census.1960.62.female = censtable(de.vz.dataBRD, name = "ADSt 1960/62 F"
 mort.DE.census.1970.72.female = censtable(de.vz.dataBRD, name = "ADSt 1970/72 F",   baseYear = 1869, qslot = "ADSt.1970.72.F", sex = "w")
 mort.DE.census.1986.88.female = censtable(de.vz.dataBRD, name = "ADSt 1986/88 F",   baseYear = 1869, qslot = "ADSt.1986.88.F", sex = "w")
 
+mort.DE.census = array(
+  data = c(mortalityTable.NA),
+  dim = c(2, 11),
+  dimnames = list(Geschlecht = c("m", "w"), Jahr = c("1871/81", "1881/90", "1891/1900", "1901/10", "1910/11","1924/26","1932/34","1949/51", "1960/62", "1970/72", "1986/88"))
+)
+
+
+
+mort.DE.census[["m", "1871/81"]] = mort.DE.census.1871.81.male
+mort.DE.census[["m", "1881/90"]] = mort.DE.census.1881.90.male
+mort.DE.census[["m", "1891/1900"]] = mort.DE.census.1891.1900.male
+mort.DE.census[["m", "1901/10"]] = mort.DE.census.1901.10.male
+mort.DE.census[["m", "1910/11"]] = mort.DE.census.1910.11.male
+mort.DE.census[["m", "1924/26"]] = mort.DE.census.1924.26.male
+mort.DE.census[["m", "1932/34"]] = mort.DE.census.1932.34.male
+mort.DE.census[["m", "1949/51"]] = mort.DE.census.1949.51.male
+mort.DE.census[["m", "1960/62"]] = mort.DE.census.1960.62.male
+mort.DE.census[["m", "1970/72"]] = mort.DE.census.1970.72.male
+mort.DE.census[["m", "1986/88"]] = mort.DE.census.1986.88.male
+
+mort.DE.census[["w", "1871/81"]] = mort.DE.census.1871.81.female
+mort.DE.census[["w", "1881/90"]] = mort.DE.census.1881.90.female
+mort.DE.census[["w", "1891/1900"]] = mort.DE.census.1891.1900.female
+mort.DE.census[["w", "1901/10"]] = mort.DE.census.1901.10.female
+mort.DE.census[["w", "1910/11"]] = mort.DE.census.1910.11.female
+mort.DE.census[["w", "1924/26"]] = mort.DE.census.1924.26.female
+mort.DE.census[["w", "1932/34"]] = mort.DE.census.1932.34.female
+mort.DE.census[["w", "1949/51"]] = mort.DE.census.1949.51.female
+mort.DE.census[["w", "1960/62"]] = mort.DE.census.1960.62.female
+mort.DE.census[["w", "1970/72"]] = mort.DE.census.1970.72.female
+mort.DE.census[["w", "1986/88"]] = mort.DE.census.1986.88.female
 
 
 
