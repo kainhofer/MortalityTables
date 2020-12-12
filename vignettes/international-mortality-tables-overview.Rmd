@@ -21,8 +21,19 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r PackageCheck, echo = FALSE}
+required <- c("tidyverse")
+if (!all(sapply(required, 
+                function(pkg) requireNamespace(pkg, quietly = TRUE)))) {
+  message(paste("This vignette needs the followig packages:\n\t", 
+                paste(required, collapse = " "), 
+                "\nSince not all are installed, code will not be executed: "))
+  knitr::opts_chunk$set(eval = FALSE)
+}
+```
+
 ```{r setup}
-library(magrittr)
+library(tidyverse, quietly = TRUE)
 library(MortalityTables)
 mortalityTables.load("Austria_Census")
 ```
@@ -49,6 +60,7 @@ Annuity tables in Austria are traditionally published by the [Actuarial Associat
 ### ÖVM 59/61 - RR 67
 
 [TODO: Get actual table data and publication]
+
 * Source: H. Nabl: ÖVM 59/61 - RR67 - 3%, Die Versicherungsrundschau, 22. Jahrgang, Heft 12, Dez. 1967, p.373--380.
 
 ```{r}
@@ -402,7 +414,6 @@ PKBestandstafel.2010.16
 ```{r PKBestand.vergleich}
 plotMortalityTables(PKBestandstafel.2010.16[,,"qx", "raw"], legend.position = "right", title = "Austrian pension fund mortalities 2010-16", aes = aes(color = type)) +
   facet_grid(sex ~ .) + labs(color = "Collective")
-PKBestandstafel.2010.16[1,1,1,1]
 ```
 
 
@@ -664,6 +675,7 @@ Fischer Verlag, Weissenburg/Bayern, 1959
 [TODO]
 
 https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx
+
 * Source: Klaus Heubeck, Richard Herrmann und Gabriele D’Souza. „Die Richttafeln 2005 G – Modell, Herleitung, Formeln“. In: Blätter der DGVFM 27.3 (Apr. 2006), S. 473–517.
 
 
@@ -701,6 +713,7 @@ Source: [https://content.naic.org/sites/default/files/pbr_data_valuation_manual_
 
 Source: Society of Actuaries. RP-2014 Mortality Tables Report. Techn. Ber. Okt. 2014. URL: https://www.soa.
 org/experience-studies/2014/research-2014-rp/.
+
 Source: Society of Actuaries. Mortality Improvement Scale MP-2014 Report. Techn. Ber. Okt. 2014. URL: https:
 //www.soa.org/experience-studies/2014/research-2014-mp/.
 

@@ -7,9 +7,11 @@ NULL
 #' @param ... Currently unused
 #'
 #' @examples
-#' mortalityTables.load("Austria_*")
+#' mortalityTables.load("Austria_Annuities")
 #' ages(AVOe2005R.male)
 #' ages(AVOe1996R.male)
+#'
+#' mortalityTables.load("Austria_Census")
 #' ages(mort.AT.census.2011.male)
 #'
 #' @exportMethod ages

@@ -3,11 +3,20 @@
 \name{lifeTable}
 \alias{lifeTable}
 \alias{lifeTable,mortalityTable-method}
+\alias{lifeTable,array-method}
+\alias{lifeTable,list-method}
+\alias{lifeTable,NULL-method}
 \title{Return the lifetable object (package lifecontingencies) for the cohort life table}
 \usage{
 lifeTable(object, ...)
 
 \S4method{lifeTable}{mortalityTable}(object, ...)
+
+\S4method{lifeTable}{array}(object, ...)
+
+\S4method{lifeTable}{list}(object, ...)
+
+\S4method{lifeTable}{`NULL`}(object, ...)
 }
 \arguments{
 \item{object}{The life table object (class inherited from mortalityTable)}
@@ -22,13 +31,20 @@ Return the lifetable object (package lifecontingencies) for the cohort life tabl
 \itemize{
 \item \code{mortalityTable}: Return the lifetable object (package lifecontingencies)
 for the cohort life table
+
+\item \code{array}: Return the lifetable object (package lifecontingencies) from the mortalityTable objects stored in the array
+
+\item \code{list}: Return the lifetable object (package lifecontingencies)  from the mortalityTable objects stored in the list
+
+\item \code{NULL}: Empty dummy function to handle unassigned variables
 }}
 
 \examples{
+if (requireNamespace("lifecontingencies", quietly = TRUE)) {
 library("lifecontingencies")
 mortalityTables.load("Austria_Annuities")
 lifeTable(AVOe2005R.male, YOB = 2017)
 axn(lifeTable(AVOe2005R.male, YOB = 1975), x = 65, i = 0.03)
 axn(lifeTable(AVOe2005R.male, YOB = 2017), x = 65, i = 0.03)
-
+}
 }

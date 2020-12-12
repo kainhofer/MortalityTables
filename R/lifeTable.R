@@ -8,12 +8,13 @@ NULL
 #'            of the life table
 #'
 #' @examples
+#' if (requireNamespace("lifecontingencies", quietly = TRUE)) {
 #' library("lifecontingencies")
 #' mortalityTables.load("Austria_Annuities")
 #' lifeTable(AVOe2005R.male, YOB = 2017)
 #' axn(lifeTable(AVOe2005R.male, YOB = 1975), x = 65, i = 0.03)
 #' axn(lifeTable(AVOe2005R.male, YOB = 2017), x = 65, i = 0.03)
-#'
+#' }
 #' @exportMethod lifeTable
 setGeneric("lifeTable", function(object, ...) standardGeneric("lifeTable"));
 
@@ -25,5 +26,29 @@ setMethod("lifeTable","mortalityTable",
               if (qx[[length(qx)]] != 1) {
                   qx = c(qx, 1, 1);
               }
-              lifecontingencies::probs2lifetable(qx, type = "qx")
+              if (requireNamespace("lifecontingencies", quietly = TRUE)) {
+                  lifecontingencies::probs2lifetable(qx, type = "qx")
+              } else {
+                  warning("The MortalityTables::lifeTable function requires the lifecontingencies package to be installed. Please install it, if you intend to use the lifeTable function.")
+              }
           })
+
+#' @describeIn lifeTable Return the lifetable object (package lifecontingencies) from the mortalityTable objects stored in the array
+setMethod("lifeTable", "array",
+          function(object,  ...) {
+              array(
+                  lapply(object, lifeTable,  ...),
+                  dim = dim(object), dimnames = dimnames(object))
+          })
+#' @describeIn lifeTable Return the lifetable object (package lifecontingencies)  from the mortalityTable objects stored in the list
+setMethod("lifeTable", "list",
+          function(object,  ...) {
+              lapply(object, lifeTable, ...)
+          })
+
+#' @describeIn lifeTable Empty dummy function to handle unassigned variables
+setMethod("lifeTable", "NULL",
+          function(object,  ...) {
+              NULL
+          })
+
