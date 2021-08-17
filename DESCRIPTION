@@ -1,7 +1,7 @@
 Package: MortalityTables
 Type: Package
-Version: 2.0.2
-Date: 2020-12-12
+Version: 2.0.3
+Date: 2021-08-17
 Title: A Framework for Various Types of Mortality / Life Tables
 Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinhold@kainhofer.com"))
 Author: Reinhold Kainhofer [aut, cre]
