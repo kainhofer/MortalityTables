@@ -299,9 +299,9 @@ plotMortalityTables(
 * second-order table, describing the transition probabilities of the Austrian social security system
 
 ```{r EttlPager, results="hide"}
-pensionTables.load("Austria_EttlPagler")
-EttlPagler.male
-EttlPagler.female
+# pensionTables.load("Austria_EttlPagler")
+# EttlPagler.male
+# EttlPagler.female
 ```
 
 * Source: Ettl W. und Pagler F.: "Rechnungsgrundlagen für die Pensionsversicherung",
@@ -317,8 +317,8 @@ Verlag: Verband der wissenschaftlichen Gesellschaften Österreichs, Wien, 1989
 * No documentation available
 
 ```{r AVOe1999P, results="hide"}
-pensionTables.load("Austria_AVOe1999P")
-AVOe1999P
+# pensionTables.load("Austria_AVOe1999P")
+# AVOe1999P
 ```
 
 
@@ -332,8 +332,8 @@ AVOe1999P
 * No documentation available
 
 ```{r AVOe2008P, results="hide"}
-pensionTables.load("Austria_AVOe2008P")
-AVOe2008P
+# pensionTables.load("Austria_AVOe2008P")
+# AVOe2008P
 ```
 
 
@@ -346,32 +346,32 @@ AVOe2008P
 * Publisher: Aktuarvereinigung Österreichs (AVÖ), Creator: R. Kainhofer, J. Hirz, A. Schubert
 
 ```{r AVOe2018P, results="hide"}
-pensionTables.load("Austria_AVOe2018P")
-AVOe2018P
+# pensionTables.load("Austria_AVOe2018P")
+# AVOe2018P
 ```
 * Source: R. Kainhofer, J. Hirz, A. Schubert: AVÖ 2018-P - Rechnungsgrundlagen für die Pensionsversicherung, Dokumentation der Pensionstafel, Arbeitskreis Rechnungsgrundlagen, Aktuarvereinigung Österreichs (AVÖ), 30. August 2018. https://oefdv.avoe.at/rechnungsgrundlagen/
 
-### Comparisons
-```{r AT.pensionTables.Comparison}
-plotMortalityTables(
-  EttlPagler.male %>% pT.getSubTable("qx"),
-  AVOe1999P["m",,"IP", "P"] %>% pT.getSubTable("qx"),
-  AVOe2008P["m",,"IP", "P"] %>% pT.getSubTable("qx"),
-  AVOe2018P["m",,"IPRG"] %>% pT.getSubTable("qx"),
-  legend.position = c(0.01, 0.99), legend.justification = c(0,1),
-  title = "Comparison of Austrian Pension Tables"
-) + labs(color = NULL)
+<!-- ### Comparisons -->
+<!-- ```{r AT.pensionTables.Comparison} -->
+<!-- plotMortalityTables( -->
+<!--   EttlPagler.male %>% pT.getSubTable("qx"), -->
+<!--   AVOe1999P["m",,"IP", "P"] %>% pT.getSubTable("qx"), -->
+<!--   AVOe2008P["m",,"IP", "P"] %>% pT.getSubTable("qx"), -->
+<!--   AVOe2018P["m",,"IPRG"] %>% pT.getSubTable("qx"), -->
+<!--   legend.position = c(0.01, 0.99), legend.justification = c(0,1), -->
+<!--   title = "Comparison of Austrian Pension Tables" -->
+<!-- ) + labs(color = NULL) -->
 
-plotMortalityTables(
-  EttlPagler.male %>% pT.getSubTable("hx"),
-  AVOe1999P["m",,"IP", "P"] %>% pT.getSubTable("hx"),
-  AVOe2008P["m",,"IP", "P"] %>% pT.getSubTable("hx"),
-  AVOe2018P["m",,"IPRG"] %>% pT.getSubTable("hx"),
-  # legend.position = c(0.01, 0.99), legend.justification = c(0,1),
-  title = "Comparison of Austrian Pension Tables",
-  log = FALSE, legend.position = "bottom"
-) + labs(color = NULL)
-```
+<!-- plotMortalityTables( -->
+<!--   EttlPagler.male %>% pT.getSubTable("hx"), -->
+<!--   AVOe1999P["m",,"IP", "P"] %>% pT.getSubTable("hx"), -->
+<!--   AVOe2008P["m",,"IP", "P"] %>% pT.getSubTable("hx"), -->
+<!--   AVOe2018P["m",,"IPRG"] %>% pT.getSubTable("hx"), -->
+<!--   # legend.position = c(0.01, 0.99), legend.justification = c(0,1), -->
+<!--   title = "Comparison of Austrian Pension Tables", -->
+<!--   log = FALSE, legend.position = "bottom" -->
+<!-- ) + labs(color = NULL) -->
+<!-- ``` -->
 
 ## Experience Tables
 
