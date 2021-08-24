@@ -1,4 +1,4 @@
-stopifnot(require(methods), require(utils), require(MortalityTables), require(tidyverse), require(reshape2), require(pracma)) # MortalityTable classes; new; Excel reader
+stopifnot(require(methods), require(utils), require(MortalityTables), require(tidyverse), require(reshape2), require(pracma), require(MortalityLaws)) # MortalityTable classes; new; Excel reader
 
 
 ###############################################################################
