@@ -17,7 +17,7 @@ eromf.data.av = utils::read.csv(
         "Austria_Annuities_EROMF_AV.csv",
         package = "MortalityTables"),
     skip = 2)
-
+rownames(eromf.data.av) = eromf.data.av$YOB
 
 
 EROM85.male = mortalityTable.period(
