@@ -21,8 +21,19 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r PackageCheck, echo = FALSE}
+required <- c("tidyverse", "MortalityLaws", "reshape2")
+if (!all(sapply(required, 
+                function(pkg) requireNamespace(pkg, quietly = TRUE)))) {
+  message(paste("This vignette needs the followig packages:\n\t", 
+                paste(required, collapse = " "), 
+                "\nSince not all are installed, code will not be executed: "))
+  knitr::opts_chunk$set(eval = FALSE)
+}
+```
+
 ```{r setup}
-library(magrittr)
+library(tidyverse, quietly = TRUE)
 library(MortalityTables)
 mortalityTables.load("Austria_Census")
 ```
@@ -49,6 +60,7 @@ Annuity tables in Austria are traditionally published by the [Actuarial Associat
 ### ÖVM 59/61 - RR 67
 
 [TODO: Get actual table data and publication]
+
 * Source: H. Nabl: ÖVM 59/61 - RR67 - 3%, Die Versicherungsrundschau, 22. Jahrgang, Heft 12, Dez. 1967, p.373--380.
 
 ```{r}
@@ -150,9 +162,9 @@ AVOe2005R.unisex.nodamping
 AVOe2005R.unisex.nodamping.group
 ```
 * Sources: 
-  * R. Kainhofer, M. Predota, U. Schmock: [https://avoe.at/rententafel-avoe-2005r/](The New Austrian Annuity Valuation Table AVÖ 2005R), Mitteilungen der Aktuarvereinigung Österreichs, Heft 13, pp.55--135, http://avoe.at/pdf/mitteilungen/H13_w3.pdf
-  * Aktuarvereinigung Österreichs: [https://avoe.at/rententafel-avoe-2005r-unisex/](Konstruktion der Unisex-Rententafel AVÖ 2005 R unisex), 2012
-  * R. Kainhofer: [https://avoe.at/zur-angemessenheit-der-rententafel-avoe-2005-r/](Zur Angemessenheit der REntentafel AVÖ 2005-R), Arbeitskreis Rechnungsgrundlagen, Aktuarvereinigung Österreichs (AVÖ), 24.Oktober 2019
+  * R. Kainhofer, M. Predota, U. Schmock: [The New Austrian Annuity Valuation Table AVÖ 2005R](https://avoe.at/rententafel-avoe-2005r/), Mitteilungen der Aktuarvereinigung Österreichs, Heft 13, pp.55--135, https://avoe.at/pdf/mitteilungen/H13_w3.pdf
+  * Aktuarvereinigung Österreichs: [Konstruktion der Unisex-Rententafel AVÖ 2005 R unisex](https://avoe.at/rententafel-avoe-2005r-unisex/, 2012
+  * R. Kainhofer: [Zur Angemessenheit der Rententafel AVÖ 2005-R](https://avoe.at/zur-angemessenheit-der-rententafel-avoe-2005-r/, Arbeitskreis Rechnungsgrundlagen, Aktuarvereinigung Österreichs (AVÖ), 24.Oktober 2019
 
 
 
@@ -195,7 +207,7 @@ plotMortalityTables(RR67, EROM85.male, EROF85.female, EROM.G1950.male.av, EROF.G
   * 2000/02
   * 2010/12
 * Usage with the `MortalityTables` package:
-```{r ÖVSt}
+```{r OeVSt}
 mortalityTables.load("Austria_Census")
 mort.AT.census
 ```
@@ -287,9 +299,9 @@ plotMortalityTables(
 * second-order table, describing the transition probabilities of the Austrian social security system
 
 ```{r EttlPager, results="hide"}
-pensionTables.load("Austria_EttlPagler")
-EttlPagler.male
-EttlPagler.female
+# pensionTables.load("Austria_EttlPagler")
+# EttlPagler.male
+# EttlPagler.female
 ```
 
 * Source: Ettl W. und Pagler F.: "Rechnungsgrundlagen für die Pensionsversicherung",
@@ -305,8 +317,8 @@ Verlag: Verband der wissenschaftlichen Gesellschaften Österreichs, Wien, 1989
 * No documentation available
 
 ```{r AVOe1999P, results="hide"}
-pensionTables.load("Austria_AVOe1999P")
-AVOe1999P
+# pensionTables.load("Austria_AVOe1999P")
+# AVOe1999P
 ```
 
 
@@ -320,8 +332,8 @@ AVOe1999P
 * No documentation available
 
 ```{r AVOe2008P, results="hide"}
-pensionTables.load("Austria_AVOe2008P")
-AVOe2008P
+# pensionTables.load("Austria_AVOe2008P")
+# AVOe2008P
 ```
 
 
@@ -334,32 +346,32 @@ AVOe2008P
 * Publisher: Aktuarvereinigung Österreichs (AVÖ), Creator: R. Kainhofer, J. Hirz, A. Schubert
 
 ```{r AVOe2018P, results="hide"}
-pensionTables.load("Austria_AVOe2018P")
-AVOe2018P
+# pensionTables.load("Austria_AVOe2018P")
+# AVOe2018P
 ```
 * Source: R. Kainhofer, J. Hirz, A. Schubert: AVÖ 2018-P - Rechnungsgrundlagen für die Pensionsversicherung, Dokumentation der Pensionstafel, Arbeitskreis Rechnungsgrundlagen, Aktuarvereinigung Österreichs (AVÖ), 30. August 2018. https://oefdv.avoe.at/rechnungsgrundlagen/
 
-### Comparisons
-```{r AT.pensionTables.Comparison}
-plotMortalityTables(
-  EttlPagler.male %>% pT.getSubTable("qx"),
-  AVOe1999P["m",,"IP", "P"] %>% pT.getSubTable("qx"),
-  AVOe2008P["m",,"IP", "P"] %>% pT.getSubTable("qx"),
-  AVOe2018P["m",,"IPRG"] %>% pT.getSubTable("qx"),
-  legend.position = c(0.01, 0.99), legend.justification = c(0,1),
-  title = "Comparison of Austrian Pension Tables"
-) + labs(color = NULL)
+<!-- ### Comparisons -->
+<!-- ```{r AT.pensionTables.Comparison} -->
+<!-- plotMortalityTables( -->
+<!--   EttlPagler.male %>% pT.getSubTable("qx"), -->
+<!--   AVOe1999P["m",,"IP", "P"] %>% pT.getSubTable("qx"), -->
+<!--   AVOe2008P["m",,"IP", "P"] %>% pT.getSubTable("qx"), -->
+<!--   AVOe2018P["m",,"IPRG"] %>% pT.getSubTable("qx"), -->
+<!--   legend.position = c(0.01, 0.99), legend.justification = c(0,1), -->
+<!--   title = "Comparison of Austrian Pension Tables" -->
+<!-- ) + labs(color = NULL) -->
 
-plotMortalityTables(
-  EttlPagler.male %>% pT.getSubTable("hx"),
-  AVOe1999P["m",,"IP", "P"] %>% pT.getSubTable("hx"),
-  AVOe2008P["m",,"IP", "P"] %>% pT.getSubTable("hx"),
-  AVOe2018P["m",,"IPRG"] %>% pT.getSubTable("hx"),
-  # legend.position = c(0.01, 0.99), legend.justification = c(0,1),
-  title = "Comparison of Austrian Pension Tables",
-  log = FALSE, legend.position = "bottom"
-) + labs(color = NULL)
-```
+<!-- plotMortalityTables( -->
+<!--   EttlPagler.male %>% pT.getSubTable("hx"), -->
+<!--   AVOe1999P["m",,"IP", "P"] %>% pT.getSubTable("hx"), -->
+<!--   AVOe2008P["m",,"IP", "P"] %>% pT.getSubTable("hx"), -->
+<!--   AVOe2018P["m",,"IPRG"] %>% pT.getSubTable("hx"), -->
+<!--   # legend.position = c(0.01, 0.99), legend.justification = c(0,1), -->
+<!--   title = "Comparison of Austrian Pension Tables", -->
+<!--   log = FALSE, legend.position = "bottom" -->
+<!-- ) + labs(color = NULL) -->
+<!-- ``` -->
 
 ## Experience Tables
 
@@ -396,13 +408,12 @@ Source: G. Friesacher, Th. Spanninger, R. Kainhofer: Gesamtbestandstafel --
 * Creator: R. Kainhofer
  Usage with the `MortalityTables` package:
 ```{r PKGesamtbestand, results = "hide"}
-mortalityTables.load("Austria_PK-Bestand_2010-16")
-PKBestandstafel.2010.16
+# mortalityTables.load("Austria_PK-Bestand_2010-16")
+# PKBestandstafel.2010.16
 ```
 ```{r PKBestand.vergleich}
-plotMortalityTables(PKBestandstafel.2010.16[,,"qx", "raw"], legend.position = "right", title = "Austrian pension fund mortalities 2010-16", aes = aes(color = type)) +
-  facet_grid(sex ~ .) + labs(color = "Collective")
-PKBestandstafel.2010.16[1,1,1,1]
+# plotMortalityTables(PKBestandstafel.2010.16[,,"qx", "raw"], legend.position = "right", title = "Austrian pension fund mortalities 2010-16", aes = aes(color = type)) +
+  # facet_grid(sex ~ .) + labs(color = "Collective")
 ```
 
 
@@ -451,7 +462,7 @@ DAV1994R.male.av
 DAV1994R.female
 DAV1994R.female.av
 ```
-* Source: [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), [https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/UT_LV_5.pdf]
+* Source: [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/UT_LV_5.pdf
 * Source: Schmithals B. und Schütz E. U. (1995): "Herleitung der DAV-Sterbetafel 1994 R für
 Rentenversicherungen", Blätter der Deutschen Gesellschaft für
 Versicherungsmathematik, Band XXII, Heft 1 
@@ -593,8 +604,8 @@ DAV2008T.female.nonsmoker.2Ord
 DAV2008T.female.smoker
 DAV2008T.female.smoker.2Ord
 ```
-* Source: Herleitung der Sterbetafel DAV 2008 T für Lebensversicherungen mit Todesfallcharakter, [https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx](Deutsche Aktuarvereinigung (DAV)), 22.11.2008. https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2018-10-05_DAV-Richtlinie_Herleitung_DAV2008T.pdf
-* Source: Raucher- und Nichtrauchersterbetafeln für Lebensversicherungen mit Todesfallcharakter, [https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx](Deutsche Aktuarvereinigung (DAV)), 22.11.2008. https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2018-10-05_DAV-Richtlinie_Herleitung_DAV2008T_R_NR.pdf
+* Source: Herleitung der Sterbetafel DAV 2008 T für Lebensversicherungen mit Todesfallcharakter, [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), 22.11.2008. https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2018-10-05_DAV-Richtlinie_Herleitung_DAV2008T.pdf
+* Source: Raucher- und Nichtrauchersterbetafeln für Lebensversicherungen mit Todesfallcharakter, [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), 22.11.2008. https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2018-10-05_DAV-Richtlinie_Herleitung_DAV2008T_R_NR.pdf
 
 
 ### Comparisons
@@ -664,6 +675,7 @@ Fischer Verlag, Weissenburg/Bayern, 1959
 [TODO]
 
 https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx
+
 * Source: Klaus Heubeck, Richard Herrmann und Gabriele D’Souza. „Die Richttafeln 2005 G – Modell, Herleitung, Formeln“. In: Blätter der DGVFM 27.3 (Apr. 2006), S. 473–517.
 
 
@@ -699,9 +711,8 @@ Source: [https://content.naic.org/sites/default/files/pbr_data_valuation_manual_
 
 ### RP-2014
 
-Source: Society of Actuaries. RP-2014 Mortality Tables Report. Techn. Ber. Okt. 2014. URL: https://www.soa.
-org/experience-studies/2014/research-2014-rp/.
-Source: Society of Actuaries. Mortality Improvement Scale MP-2014 Report. Techn. Ber. Okt. 2014. URL: https:
-//www.soa.org/experience-studies/2014/research-2014-mp/.
+Source: Society of Actuaries. RP-2014 Mortality Tables Report. Techn. Ber. Okt. 2014. URL: https://www.soa.org/experience-studies/2014/research-2014-rp/.
+
+Source: Society of Actuaries. Mortality Improvement Scale MP-2014 Report. Techn. Ber. Okt. 2014. URL: https://www.soa.org/experience-studies/2014/research-2014-mp/.
 
 

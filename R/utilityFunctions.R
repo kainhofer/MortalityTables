@@ -436,7 +436,11 @@ mT.fitExtrapolationLaw = function(table, method = "LF2", law = "HP",
                                   fit = 75:99, extrapolate = 80:120,
                                   fadeIn = 80:90, fadeOut = NULL, raw = NULL) {
     if (!is(table, "mortalityTable"))
-        stop("First argument must be a mortalityTable.")
+        stop("mT.fitExtrapolationLaw: First argument must be a mortalityTable.")
+    if (!requireNamespace("MortalityLaws", quietly = TRUE)) {
+        warning("mT.fitExtrapolationLaw: The package `MortalityLaws` is required for this function. Please install it to be able to use mT.fitExtrapolationLaw. Unmodified table will be returned.")
+        return(table)
+    }
     ages = ages(table)
     # if (!is.null(table@exposures) && !is.na(table@exposures)) {
         # Ex = table@exposures

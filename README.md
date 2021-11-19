@@ -84,3 +84,15 @@ mortalityTables.load("Austria_*")
 
 ## Further information
 For further information on how to use the package, see the "Using the MortalityTables Package" vignette.
+
+## Changelog
+
+* Version 1.0 (30.3.2018): Initial Submission to CRAN
+* Version 2.0 (27.8.2020): 
+  * Add various convenience functions to derive tables from data, implement dimensional information
+* Version 2.0.1 (4.9.2020): 
+  * Fix performance issues with mortalityTables.list and mortalityTables.load 
+* Version 2.0.2 (12.12.2020): 
+  * Add/fix some sample tables
+  * gracefully handle missing suggested packages
+  * First version of vignette about international tables
