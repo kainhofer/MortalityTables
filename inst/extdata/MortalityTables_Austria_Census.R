@@ -33,6 +33,7 @@ mort.AT.census.1981.male = censtable(a.vz.dataM, name = "ÖVSt 1980/82 M",   bas
 mort.AT.census.1991.male = censtable(a.vz.dataM, name = "ÖVSt 1990/92 M",   baseYear = 1991, qslot = "X1990.92", sex = "m")
 mort.AT.census.2001.male = censtable(a.vz.dataM, name = "ÖVSt 2000/02 M",   baseYear = 2001, qslot = "X2000.02", sex = "m")
 mort.AT.census.2011.male = censtable(a.vz.dataM, name = "ÖVSt 2010/12 M",   baseYear = 2011, qslot = "X2010.12", sex = "m")
+mort.AT.census.2021.male = censtable(a.vz.dataM, name = "ÖVSt 2020/22 M",   baseYear = 2021, qslot = "X2020.22", sex = "m")
 
 mort.AT.census.1869.female = censtable(a.vz.dataF, name = "ÖVSt 1868/71 F",   baseYear = 1869, qslot = "X1868.71", sex = "w")
 mort.AT.census.1880.female = censtable(a.vz.dataF, name = "ÖVSt 1879/82 F",   baseYear = 1880, qslot = "X1879.82", sex = "w")
@@ -47,6 +48,7 @@ mort.AT.census.1981.female = censtable(a.vz.dataF, name = "ÖVSt 1980/82 F",   b
 mort.AT.census.1991.female = censtable(a.vz.dataF, name = "ÖVSt 1990/92 F",   baseYear = 1991, qslot = "X1990.92", sex = "w")
 mort.AT.census.2001.female = censtable(a.vz.dataF, name = "ÖVSt 2000/02 F",   baseYear = 2001, qslot = "X2000.02", sex = "w")
 mort.AT.census.2011.female = censtable(a.vz.dataF, name = "ÖVSt 2010/12 F",   baseYear = 2011, qslot = "X2010.12", sex = "w")
+mort.AT.census.2021.female = censtable(a.vz.dataF, name = "ÖVSt 2020/22 F",   baseYear = 2021, qslot = "X2020.22", sex = "w")
 
 mort.AT.census.2001.unisex = mortalityTable.mixed(table1 = mort.AT.census.2001.male, table2 = mort.AT.census.2001.female,
                                                   data = list(
@@ -54,11 +56,12 @@ mort.AT.census.2001.unisex = mortalityTable.mixed(table1 = mort.AT.census.2001.m
                                                   )
 )
 mort.AT.census.2011.unisex = censtable(a.vz.dataU, name = "ÖVSt 2010/2012 U", baseYear = 2011, qslot = "X2010.12", sex = "u")
+mort.AT.census.2021.unisex = censtable(a.vz.dataU, name = "ÖVSt 2020/2022 U", baseYear = 2021, qslot = "X2020.22", sex = "u")
 
 mort.AT.census = array(
   data = c(mortalityTable.NA),
-  dim = c(3, 13),
-  dimnames = list(Geschlecht = c("m", "w", "u"), Jahr = c("1869", "1880", "1890", "1900", "1910", "1931", "1951", "1961", "1971", "1981", "1991", "2001", "2011"))
+  dim = c(3, 14),
+  dimnames = list(Geschlecht = c("m", "w", "u"), Jahr = c("1869", "1880", "1890", "1900", "1910", "1931", "1951", "1961", "1971", "1981", "1991", "2001", "2011", "2021"))
 )
 mort.AT.census[["m", "1869"]] = mort.AT.census.1869.male
 mort.AT.census[["m", "1880"]] = mort.AT.census.1880.male
@@ -73,6 +76,7 @@ mort.AT.census[["m", "1981"]] = mort.AT.census.1981.male
 mort.AT.census[["m", "1991"]] = mort.AT.census.1991.male
 mort.AT.census[["m", "2001"]] = mort.AT.census.2001.male
 mort.AT.census[["m", "2011"]] = mort.AT.census.2011.male
+mort.AT.census[["m", "2021"]] = mort.AT.census.2021.male
 
 mort.AT.census[["w", "1869"]] = mort.AT.census.1869.female
 mort.AT.census[["w", "1880"]] = mort.AT.census.1880.female
@@ -87,6 +91,7 @@ mort.AT.census[["w", "1981"]] = mort.AT.census.1981.female
 mort.AT.census[["w", "1991"]] = mort.AT.census.1991.female
 mort.AT.census[["w", "2001"]] = mort.AT.census.2001.female
 mort.AT.census[["w", "2011"]] = mort.AT.census.2011.female
+mort.AT.census[["w", "2021"]] = mort.AT.census.2021.female
 
 mort.AT.census[["u", "1869"]] = NA
 mort.AT.census[["u", "1880"]] = NA
@@ -101,6 +106,7 @@ mort.AT.census[["u", "1981"]] = NA
 mort.AT.census[["u", "1991"]] = NA
 mort.AT.census[["u", "2001"]] = mort.AT.census.2001.unisex
 mort.AT.census[["u", "2011"]] = mort.AT.census.2011.unisex
+mort.AT.census[["u", "2021"]] = mort.AT.census.2021.unisex
 
 
 
@@ -118,7 +124,8 @@ mort.AT.census.ALL.male = MortalityTables::makeQxDataFrame(
   mort.AT.census.1981.male,
   mort.AT.census.1991.male,
   mort.AT.census.2001.male,
-  mort.AT.census.2011.male);
+  mort.AT.census.2011.male,
+  mort.AT.census.2021.male);
 
 mort.AT.census.ALL.female = MortalityTables::makeQxDataFrame(
   mort.AT.census.1869.female,
@@ -133,7 +140,8 @@ mort.AT.census.ALL.female = MortalityTables::makeQxDataFrame(
   mort.AT.census.1981.female,
   mort.AT.census.1991.female,
   mort.AT.census.2001.female,
-  mort.AT.census.2011.female);
+  mort.AT.census.2011.female,
+  mort.AT.census.2021.female);
 
 rm(a.vz.dataM, a.vz.dataF, censtable)
 

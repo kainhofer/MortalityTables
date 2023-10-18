@@ -17,7 +17,7 @@ mort.AT.observed.male = mortalityTable.observed(
     ages = as.integer(rownames(AT.pop.obs.M)),
     years = as.integer(colnames(AT.pop.obs.M)),
     data = list(
-        dim = list(sex = "m", collar = "Gesamtbevölkerung", type = "Beobachtung", data = "official", year = "1947-2017")
+        dim = list(sex = "m", collar = "Gesamtbevölkerung", type = "Beobachtung", data = "official", year = "1947-2022")
     )
 )
 mort.AT.observed.female = mortalityTable.observed(
@@ -26,7 +26,7 @@ mort.AT.observed.female = mortalityTable.observed(
     ages = as.integer(rownames(AT.pop.obs.F)),
     years = as.integer(colnames(AT.pop.obs.F)),
     data = list(
-        dim = list(sex = "f", collar = "Gesamtbevölkerung", type = "Beobachtung", data = "official", year = "1947-2017")
+        dim = list(sex = "f", collar = "Gesamtbevölkerung", type = "Beobachtung", data = "official", year = "1947-2022")
     )
 )
 mort.AT.observed.unisex = mortalityTable.observed(
@@ -35,7 +35,7 @@ mort.AT.observed.unisex = mortalityTable.observed(
     ages = as.integer(rownames(AT.pop.obs.U)),
     years = as.integer(colnames(AT.pop.obs.U)),
     data = list(
-        dim = list(sex = "u", collar = "Gesamtbevölkerung", type = "Beobachtung", data = "official", year = "1947-2017")
+        dim = list(sex = "u", collar = "Gesamtbevölkerung", type = "Beobachtung", data = "official", year = "1947-2022")
     )
 )
 
