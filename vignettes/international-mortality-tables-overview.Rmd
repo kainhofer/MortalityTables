@@ -486,7 +486,7 @@ DAV2004R.female.2Ord
 DAV2004R.female.av
 DAV2004R.female.av.2Ord
 ```
-  * Source: [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2018-01-24_DAV-Richtlinie_Herleitung_DAV2004R.pdf
+  * Source: [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2023-06-28_DAV-Richtlinie_Herleitung_DAV2004R.pdf
 
 
 ### Comparison
@@ -605,8 +605,8 @@ DAV2008T.female.nonsmoker.2Ord
 DAV2008T.female.smoker
 DAV2008T.female.smoker.2Ord
 ```
-* Source: Herleitung der Sterbetafel DAV 2008 T für Lebensversicherungen mit Todesfallcharakter, [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), 22.11.2008. https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2018-10-05_DAV-Richtlinie_Herleitung_DAV2008T.pdf
-* Source: Raucher- und Nichtrauchersterbetafeln für Lebensversicherungen mit Todesfallcharakter, [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), 22.11.2008. https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2018-10-05_DAV-Richtlinie_Herleitung_DAV2008T_R_NR.pdf
+* Source: Herleitung der Sterbetafel DAV 2008 T für Lebensversicherungen mit Todesfallcharakter, [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), 22.11.2008. https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2022-11-29_DAV-Richtlinie_Herleitung_DAV2008T.pdf
+* Source: Raucher- und Nichtrauchersterbetafeln für Lebensversicherungen mit Todesfallcharakter, [Deutsche Aktuarvereinigung (DAV)](https://aktuar.de/unsere-themen/lebensversicherung/Seiten/default.aspx), 22.11.2008. https://aktuar.de/unsere-themen/lebensversicherung/sterbetafeln/2022-11-29_DAV-Richtlinie_Herleitung_DAV2008T_R_NR.pdf
 
 
 ### Comparisons
