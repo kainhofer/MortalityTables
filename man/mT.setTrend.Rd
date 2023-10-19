@@ -37,6 +37,6 @@ Set/Add a trend vector for the probabilities of the given \code{mortalityTable} 
 }
 \section{Functions}{
 \itemize{
-\item \code{mT.addTrend}: Add a trend to the mortality table (returns a mortalityTable.trendProjection obect)
-}}
+\item \code{mT.addTrend()}: Add a trend to the mortality table (returns a mortalityTable.trendProjection obect)
 
+}}

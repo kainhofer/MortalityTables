@@ -21,10 +21,10 @@ Return the cohort life table as a \code{mortalityTable.period} object
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Return the cohort life table as a
+\item \code{getCohortTable(mortalityTable)}: Return the cohort life table as a
 \code{mortalityTable.period} object
-}}
 
+}}
 \examples{
 mortalityTables.load("Austria_Annuities")
 tb75 = getCohortTable(AVOe2005R.male, YOB = 1975)

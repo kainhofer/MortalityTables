@@ -51,21 +51,21 @@ or mixed tables), all components are cleaned.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Clean up and remove all non-essential data from the mortalityTable object
+\item \code{mT.cleanup(mortalityTable)}: Clean up and remove all non-essential data from the mortalityTable object
 
-\item \code{mortalityTable.period}: Clean up and remove all non-essential data from the mortalityTable.period object
+\item \code{mT.cleanup(mortalityTable.period)}: Clean up and remove all non-essential data from the mortalityTable.period object
 
-\item \code{mortalityTable.trendProjection}: Clean up and remove all non-essential data from the mortalityTable.trendProjection object
+\item \code{mT.cleanup(mortalityTable.trendProjection)}: Clean up and remove all non-essential data from the mortalityTable.trendProjection object
 
-\item \code{array}: Clean up and remove all non-essential data from the mortalityTable objects stored in the array
+\item \code{mT.cleanup(array)}: Clean up and remove all non-essential data from the mortalityTable objects stored in the array
 
-\item \code{list}: Clean up and remove all non-essential data from the mortalityTable objects stored in the list
+\item \code{mT.cleanup(list)}: Clean up and remove all non-essential data from the mortalityTable objects stored in the list
 
-\item \code{pensionTable}: Clean up and remove all non-essential data from the mortalityTable objects stored in the array
+\item \code{mT.cleanup(pensionTable)}: Clean up and remove all non-essential data from the mortalityTable objects stored in the array
 
-\item \code{mortalityTable.observed}: Clean up the internal data of the mortality table
+\item \code{mT.cleanup(mortalityTable.observed)}: Clean up the internal data of the mortality table
+
 }}
-
 \examples{
 mortalityTables.load("Austria_Census")
 # Whittaker-Henderson smoothing stores the raw input and the weights in the

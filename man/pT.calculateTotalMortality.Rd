@@ -35,10 +35,10 @@ table AVÖ 2018-P or the German Heubeck Table DAV 2005-G.
 }
 \section{Functions}{
 \itemize{
-\item \code{pT.recalculateTotalMortality}: Calculate the total mortality of a
+\item \code{pT.recalculateTotalMortality()}: Calculate the total mortality of a
 pension table and assign it to the \code{qgx} slot of that table.
-}}
 
+}}
 \references{
 R. Kainhofer, J. Hirz, A. Schubert. AVÖ 2018-P: Rechnungsgrundlagen für die Pensionsversicherung. Dokumentation der Pensionstafel. AVÖ-Arbeitskreis Rechnungsgrundlagen, 2008. \url{https://avoe.at/rechnungsgrundlagen/pensionskassen/}
 }

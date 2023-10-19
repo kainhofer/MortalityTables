@@ -25,13 +25,13 @@ Return the base year of the life table
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Return the base year of the life table
+\item \code{baseYear(mortalityTable)}: Return the base year of the life table
 
-\item \code{mortalityTable.mixed}: Return the base year of the life table
+\item \code{baseYear(mortalityTable.mixed)}: Return the base year of the life table
 
-\item \code{mortalityTable.jointLives}: Return the base year of the life table
+\item \code{baseYear(mortalityTable.jointLives)}: Return the base year of the life table
+
 }}
-
 \examples{
 mortalityTables.load("Austria_Annuities")
 baseYear(AVOe2005R.male)

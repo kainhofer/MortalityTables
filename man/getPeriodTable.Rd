@@ -22,10 +22,10 @@ Return the period life table as a \code{mortalityTable.period} object
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Return the period life table as a
+\item \code{getPeriodTable(mortalityTable)}: Return the period life table as a
 \code{mortalityTable.period} object
-}}
 
+}}
 \examples{
 mortalityTables.load("Austria_Annuities")
 tb17 = getPeriodTable(AVOe2005R.male, Period = 2017)

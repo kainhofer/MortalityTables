@@ -24,13 +24,13 @@ Return the age shift of the age-shifted life table given the birth year
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Age shifts apply only to mortalityTagle.ageShift, so
+\item \code{ageShift(mortalityTable)}: Age shifts apply only to mortalityTagle.ageShift, so
 all other tables return NA.
 
-\item \code{mortalityTable.ageShift}: Return the age shift of the age-shifted life table
+\item \code{ageShift(mortalityTable.ageShift)}: Return the age shift of the age-shifted life table
 given the birth year
-}}
 
+}}
 \examples{
 mortalityTables.load("Austria_Annuities")
 ageShift(AVOe2005R.male.av, YOB=1910)

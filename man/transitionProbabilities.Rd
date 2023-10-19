@@ -56,9 +56,9 @@ Return all transition probabilities of the pension table (generational probabili
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{pensionTable}: Return all transition probabilities of the pension table for the generation YOB
-}}
+\item \code{transitionProbabilities(pensionTable)}: Return all transition probabilities of the pension table for the generation YOB
 
+}}
 \examples{
 pensionTables.load("USA_PensionPlans")
 transitionProbabilities(RP2014.male, YOB = 1962)

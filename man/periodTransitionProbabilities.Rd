@@ -47,9 +47,9 @@ Return all period transition probabilities of the pension table
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{pensionTable}: Return all transition probabilities of the pension table for the period Period
-}}
+\item \code{periodTransitionProbabilities(pensionTable)}: Return all transition probabilities of the pension table for the period Period
 
+}}
 \examples{
 pensionTables.load("USA_PensionPlans")
 # transitionProbabilities internally calls periodTransitionProbabilities

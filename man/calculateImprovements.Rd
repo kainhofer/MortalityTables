@@ -25,11 +25,11 @@ Calculate the improvement factors for the given birth-year and the
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable.improvementFactors}: Calculate the total mortality improvement
+\item \code{calculateImprovements(mortalityTable.improvementFactors)}: Calculate the total mortality improvement
 factors relative to the base year for the given birth-year and the
 \code{\linkS4class{mortalityTable.improvementFactors}} object
-}}
 
+}}
 \examples{
 pensionTables.load("USA_PensionPlan_RP2014")
 calculateImprovements(RP2014.male@qx, YOB = 2017)

@@ -17,10 +17,10 @@ Return a \code{mortalityTable.trendProjection} object with the trend damping rem
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable.trendProjection}: Return a \code{mortalityTable.trendProjection}
+\item \code{undampenTrend(mortalityTable.trendProjection)}: Return a \code{mortalityTable.trendProjection}
 object with the trend damping removed.
-}}
 
+}}
 \examples{
 mortalityTables.load("Austria_Annuities")
 AVOe2005R.male.undamped = undampenTrend(AVOe2005R.male)

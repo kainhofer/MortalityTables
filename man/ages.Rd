@@ -29,15 +29,15 @@ Return the defined ages of the life table
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable.period}: Return the defined ages of the period life table
+\item \code{ages(mortalityTable.period)}: Return the defined ages of the period life table
 
-\item \code{mortalityTable.mixed}: Return the defined ages of the mixed life table
+\item \code{ages(mortalityTable.mixed)}: Return the defined ages of the mixed life table
 
-\item \code{mortalityTable.jointLives}: Return the defined ages of the joint lives mortality table (returns the ages of the first table used for joint lives)
+\item \code{ages(mortalityTable.jointLives)}: Return the defined ages of the joint lives mortality table (returns the ages of the first table used for joint lives)
 
-\item \code{mortalityTable.observed}: Return the defined ages of the observed life table
+\item \code{ages(mortalityTable.observed)}: Return the defined ages of the observed life table
+
 }}
-
 \examples{
 mortalityTables.load("Austria_Annuities")
 ages(AVOe2005R.male)

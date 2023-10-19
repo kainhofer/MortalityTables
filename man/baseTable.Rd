@@ -25,13 +25,13 @@ Return the base table of the life table
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Return the base table of the life table
+\item \code{baseTable(mortalityTable)}: Return the base table of the life table
 
-\item \code{mortalityTable.period}: Return the base table of the life table
+\item \code{baseTable(mortalityTable.period)}: Return the base table of the life table
 
-\item \code{mortalityTable.jointLives}: Return the base table of the joint lives mortality table (returns the base table of the first table used for joint lives)
+\item \code{baseTable(mortalityTable.jointLives)}: Return the base table of the joint lives mortality table (returns the base table of the first table used for joint lives)
+
 }}
-
 \examples{
 mortalityTables.load("Austria_Annuities")
 baseTable(AVOe2005R.male)

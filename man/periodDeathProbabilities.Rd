@@ -52,31 +52,31 @@ observation year
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable.period}: Return the (period) death probabilities
+\item \code{periodDeathProbabilities(mortalityTable.period)}: Return the (period) death probabilities
 of the life table for a given observation year
 
-\item \code{mortalityTable.ageShift}: Return the (period) death probabilities
+\item \code{periodDeathProbabilities(mortalityTable.ageShift)}: Return the (period) death probabilities
 of the life table for a given observation year
 
-\item \code{mortalityTable.trendProjection}: Return the (period) death probabilities
+\item \code{periodDeathProbabilities(mortalityTable.trendProjection)}: Return the (period) death probabilities
 of the life table for a given observation year
 
-\item \code{mortalityTable.improvementFactors}: Return the (period) death probabilities
+\item \code{periodDeathProbabilities(mortalityTable.improvementFactors)}: Return the (period) death probabilities
 of the life table for a given observation year
 
-\item \code{mortalityTable.mixed}: Return the (period) death probabilities
+\item \code{periodDeathProbabilities(mortalityTable.mixed)}: Return the (period) death probabilities
 of the life table for a given observation year
 
-\item \code{mortalityTable.jointLives}: Return the (period) death probabilities
+\item \code{periodDeathProbabilities(mortalityTable.jointLives)}: Return the (period) death probabilities
 of the joint lives mortality table for a given observation year
 
-\item \code{mortalityTable.observed}: Return the (period) death probabilities
+\item \code{periodDeathProbabilities(mortalityTable.observed)}: Return the (period) death probabilities
 of the life table for a given observation year
 If the observed mortality table does not provide data
 for the desired period, the period closest to the
 `Period` argument will be used and a warning printed.
-}}
 
+}}
 \examples{
 mortalityTables.load("Austria_Annuities")
 periodDeathProbabilities(AVOe2005R.male, Period = 1975)

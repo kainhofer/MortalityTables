@@ -29,16 +29,16 @@ Return the lifetable object (package lifecontingencies) for the cohort life tabl
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Return the lifetable object (package lifecontingencies)
+\item \code{lifeTable(mortalityTable)}: Return the lifetable object (package lifecontingencies)
 for the cohort life table
 
-\item \code{array}: Return the lifetable object (package lifecontingencies) from the mortalityTable objects stored in the array
+\item \code{lifeTable(array)}: Return the lifetable object (package lifecontingencies) from the mortalityTable objects stored in the array
 
-\item \code{list}: Return the lifetable object (package lifecontingencies)  from the mortalityTable objects stored in the list
+\item \code{lifeTable(list)}: Return the lifetable object (package lifecontingencies)  from the mortalityTable objects stored in the list
 
-\item \code{NULL}: Empty dummy function to handle unassigned variables
+\item \code{lifeTable(`NULL`)}: Empty dummy function to handle unassigned variables
+
 }}
-
 \examples{
 if (requireNamespace("lifecontingencies", quietly = TRUE)) {
 library("lifecontingencies")

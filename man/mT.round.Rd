@@ -42,23 +42,23 @@ numerical digits. For pensionTable objects, the function is applied to all compo
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Round the given mortalityTable to a given number of digits
+\item \code{mT.round(mortalityTable)}: Round the given mortalityTable to a given number of digits
 
-\item \code{mortalityTable.period}: Round the given period mortality table to a given number of digits (base table and loadings)
+\item \code{mT.round(mortalityTable.period)}: Round the given period mortality table to a given number of digits (base table and loadings)
 
-\item \code{mortalityTable.trendProjection}: Round the given mortalityTable with trend projection to a given number of digits (base table, loadings and trend(s))
+\item \code{mT.round(mortalityTable.trendProjection)}: Round the given mortalityTable with trend projection to a given number of digits (base table, loadings and trend(s))
 
-\item \code{mortalityTable.improvementFactors}: Round the given mortalityTable with improvement factors to a given number of digits (base table, loadings and improvement factors)
+\item \code{mT.round(mortalityTable.improvementFactors)}: Round the given mortalityTable with improvement factors to a given number of digits (base table, loadings and improvement factors)
 
-\item \code{array}: Round the mortalityTables stored in an array to a given number of digits
+\item \code{mT.round(array)}: Round the mortalityTables stored in an array to a given number of digits
 
-\item \code{list}: Round the mortalityTables stored in a list to a given number of digits
+\item \code{mT.round(list)}: Round the mortalityTables stored in a list to a given number of digits
 
-\item \code{pensionTable}: Round all components of a pensionTable to a given number of digits
+\item \code{mT.round(pensionTable)}: Round all components of a pensionTable to a given number of digits
 
-\item \code{mortalityTable.observed}: Return the life table with the values rounded to the given number of digits
+\item \code{mT.round(mortalityTable.observed)}: Return the life table with the values rounded to the given number of digits
+
 }}
-
 \examples{
 mortalityTables.load("Austria_Census")
 AT.rounded1 = mT.round(mort.AT.census.2011.male, 1)

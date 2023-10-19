@@ -24,10 +24,10 @@ Return the mortality trend (yearly log-death-probability improvement) of the giv
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Return the yearly log-mortality improvement of the
+\item \code{mortalityImprovement(mortalityTable)}: Return the yearly log-mortality improvement of the
 life table given the birth or observation year
-}}
 
+}}
 \examples{
 mortalityTables.load("Austria_Annuities")
 # AVOe 2005R includes a trend decline by default, compare the exact table

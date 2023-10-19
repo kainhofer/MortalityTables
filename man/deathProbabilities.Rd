@@ -44,28 +44,28 @@ Return the (cohort) death probabilities of the life table given the birth year (
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable.period}: Return the (cohort) death probabilities of the
+\item \code{deathProbabilities(mortalityTable.period)}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{mortalityTable.ageShift}: Return the (cohort) death probabilities of the
+\item \code{deathProbabilities(mortalityTable.ageShift)}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{mortalityTable.trendProjection}: Return the (cohort) death probabilities of the
+\item \code{deathProbabilities(mortalityTable.trendProjection)}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{mortalityTable.improvementFactors}: Return the (cohort) death probabilities of the
+\item \code{deathProbabilities(mortalityTable.improvementFactors)}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{mortalityTable.mixed}: Return the (cohort) death probabilities of the
+\item \code{deathProbabilities(mortalityTable.mixed)}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{mortalityTable.jointLives}: Return the (cohort) death probabilities of the
+\item \code{deathProbabilities(mortalityTable.jointLives)}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{mortalityTable.observed}: Return the (cohort) death probabilities of the
+\item \code{deathProbabilities(mortalityTable.observed)}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
+
 }}
-
 \examples{
 mortalityTables.load("Austria_Annuities")
 deathProbabilities(AVOe2005R.male, YOB = 1975)

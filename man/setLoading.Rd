@@ -19,9 +19,9 @@ Return a copy of the table with an additional loading added
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Return the life table with the given loading set
-}}
+\item \code{setLoading(mortalityTable)}: Return the life table with the given loading set
 
+}}
 \examples{
 mortalityTables.load("Austria_Census")
 # Austrian census mortality 2011 reduced by 30\%

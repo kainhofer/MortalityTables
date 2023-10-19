@@ -19,9 +19,9 @@ Return a copy of the table with the given modification function added
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Return the life table with the given modification set
-}}
+\item \code{setModification(mortalityTable)}: Return the life table with the given modification set
 
+}}
 \examples{
 mortalityTables.load("Austria_Census")
 # Austrian census mortality 2011, with a lower floor of 0.1\% death probability

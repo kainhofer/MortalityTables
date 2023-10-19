@@ -29,19 +29,19 @@ Calculate the commutation numbers for the given parameters, using the mortality 
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable}: Calculate the commutation numbers for the given
+\item \code{commutationNumbers(mortalityTable)}: Calculate the commutation numbers for the given
 parameters, using the mortality table and an interest rate
 
-\item \code{numeric}: Calculate the commutation numbers for the given
+\item \code{commutationNumbers(numeric)}: Calculate the commutation numbers for the given
 death probabilities (passed as a numeric vector with argument
 name "object"), ages and an interest rate
 Return value is a list of data frames
 
-\item \code{pensionTable}: Calculate the commutation numbers for the given
+\item \code{commutationNumbers(pensionTable)}: Calculate the commutation numbers for the given
 parameters, using the pension table and an interest rate
 Return value is a list of data frames
-}}
 
+}}
 \examples{
 mortalityTables.load("Austria_Annuities")
 commutationNumbers(AVOe2005R.male, i = 0.03, YOB = 1975)

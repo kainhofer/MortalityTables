@@ -1,7 +1,7 @@
 Package: MortalityTables
 Type: Package
-Version: 2.0.3
-Date: 2021-08-17
+Version: 2.0.4
+Date: 2023-10-18
 Title: A Framework for Various Types of Mortality / Life Tables
 Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinhold@kainhofer.com"))
 Author: Reinhold Kainhofer [aut, cre]
@@ -23,15 +23,15 @@ Enhances:
 Suggests:
     knitr,
     tidyverse,
-    rmarkdown,
-    reshape2
+    reshape2,
+    rmarkdown
 Description: Classes to implement and plot cohort life tables
     for actuarial calculations. In particular, birth-year dependent mortality
     tables using a yearly trend to extrapolate from a base year are implemented,
     as well as period life table, cohort life tables using an age shift, and
     merged life tables.
 License: GPL (>= 2)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Collate: 
     'DocumentData.R'
     'mortalityTable.R'

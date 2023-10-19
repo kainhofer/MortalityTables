@@ -191,7 +191,7 @@ plotMortalityTables(RR67, EROM85.male, EROF85.female, EROM.G1950.male.av, EROF.G
 #### Census tables
 
 * gender-specific period tables
-  * male+female, unisex only 2000/02 and 2010/12; ages 0--95, from 1930 on 0--100
+  * male+female, unisex only starting 2000/02; ages 0--95, from 1930 on 0--100
 * Based on the official census data:
   * 1868/71
   * 1879/82
@@ -206,6 +206,7 @@ plotMortalityTables(RR67, EROM85.male, EROF85.female, EROM.G1950.male.av, EROF.G
   * 1990/92
   * 2000/02
   * 2010/12
+  * 2020/22
 * Usage with the `MortalityTables` package:
 ```{r OeVSt}
 mortalityTables.load("Austria_Census")
@@ -239,9 +240,9 @@ mort.AT.MCMC
 * Source: R. Kainhofer, J. Hirz, A. Schubert: AVÖ 2018-P - Rechnungsgrundlagen für die Pensionsversicherung, Dokumentation der Pensionstafel, Arbeitskreis Rechnungsgrundlagen, Aktuarvereinigung Österreichs (AVÖ), 30. August 2018. https://oefdv.avoe.at/rechnungsgrundlagen/
 
 
-### Observed population mortalities 1947--2016 (by Statistik Austria)
+### Observed population mortalities 1947--2022 (by Statistik Austria)
 
-* Gender-specific observations of the mortalities from1947
+* Gender-specific observations of the mortalities from 1947
 * Provided by Statistik Austria (no formal publication of the tables), can be used freely with attribution
 * Usage with the `MortalityTables` package:
 ```{r AT.Observation, results="hide"}

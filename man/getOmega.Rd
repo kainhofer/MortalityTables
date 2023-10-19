@@ -27,15 +27,15 @@ Return the maximum age of the life table
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{mortalityTable.period}: Return the maximum age of the period life table
+\item \code{getOmega(mortalityTable.period)}: Return the maximum age of the period life table
 
-\item \code{mortalityTable.mixed}: Return the maximum age of the mixed life table
+\item \code{getOmega(mortalityTable.mixed)}: Return the maximum age of the mixed life table
 
-\item \code{mortalityTable.jointLives}: Return the maximum age of the joint lives mortality table (returns the maximum age of the first table used for joint lives, as the ages of the joint lives are now known to the function)
+\item \code{getOmega(mortalityTable.jointLives)}: Return the maximum age of the joint lives mortality table (returns the maximum age of the first table used for joint lives, as the ages of the joint lives are now known to the function)
 
-\item \code{mortalityTable.observed}: Return the maximum age of the life table
+\item \code{getOmega(mortalityTable.observed)}: Return the maximum age of the life table
+
 }}
-
 \examples{
 mortalityTables.load("Austria_Annuities")
 getOmega(AVOe2005R.male)
