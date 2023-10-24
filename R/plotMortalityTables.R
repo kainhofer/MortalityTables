@@ -86,7 +86,6 @@ plotMortalityTables = function(
 
     if (log) {
         pl = pl + scale_y_log10(
-            name = ylab,
             breaks = scales::trans_breaks('log10', function(x) 10^x),
             labels = scales::trans_format('log10', scales::math_format(10^.x))
             #minor_breaks = log(c(sapply(x, function(x) seq(0, x, x/10))), 10)
@@ -95,12 +94,11 @@ plotMortalityTables = function(
     }
 
     pl = pl + scale_x_continuous(
-        name = xlab,
         minor_breaks = function(limits) seq(max(round(min(limits)), 0), round(max(limits)), 1)
     ) +
         coord_cartesian(xlim = xlim, ylim = ylim) +
-        xlab("Alter") +
-        labs(colour = legend.title);
+        labs(x = xlab, y = ylab, colour = legend.title);
+
     if (title != "") {
         pl = pl + ggtitle(title);
     }

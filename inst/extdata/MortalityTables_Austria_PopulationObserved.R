@@ -43,6 +43,35 @@ rm(AT.pop.obs.M, AT.pop.obs.F, AT.pop.obs.U)
 
 ###############################################################################
 
+
+AT.pop.obsGrad = utils::read.csv(system.file("extdata", "Austria_Population_YearlyGraduated.csv", package = "MortalityTables"));
+
+mort.AT.observedGraduated = array(
+    data = c(mortalityTable.NA),
+    dim = c(length(unique(AT.pop.obsGrad$Geschlecht)), length(unique(AT.pop.obsGrad$Jahr))),
+    dimnames = list(Geschlecht = unique(AT.pop.obsGrad$Geschlecht), Jahr = unique(AT.pop.obsGrad$Jahr))
+)
+
+for (sx in dimnames(mort.AT.observedGraduated)$Geschlecht) {
+    for (y in dimnames(mort.AT.observedGraduated)$Jahr) {
+        qx = AT.pop.obsGrad %>%
+            filter(Geschlecht == sx, Jahr == y, !is.na(qx)) %>%
+            arrange(Alter)
+        mort.AT.observedGraduated[[sx,y]] = mortalityTable.period(
+            name = paste0("Österreich ", sx, " ", y),
+            deathProbs = qx$qx,
+            ages = qx$Alter,
+            data = list(
+                dim = list(sex = sx, collar = "Gesamtbevölkerung", type = "jährlich ausgeglichen", data = "official", year = y)
+            )
+        )
+    }
+}
+
+rm(AT.pop.obsGrad)
+
+###############################################################################
+
 # mortalityTables.load("Austria*")
 # plot(mort.AT.forecast.male, mort.AT.forecast.female, AVOe1996R.male, AVOe2005R.male, AVOe1996R.female, AVOe2005R.female, YOB = 2000)
 # plotMortalityTrend(mort.AT.forecast.male, mort.AT.forecast.female, AVOe1996R.male, AVOe2005R.male, AVOe1996R.female, AVOe2005R.female, Period = 2002)
