@@ -12,3 +12,4 @@ PossibleTables.txt
 ^inst/extdata/Austria_Population_Observation.csv$
 ^revdep$
 ^cran-comments\.md$
+^README\.Rmd$

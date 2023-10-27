@@ -3,8 +3,8 @@ Type: Package
 Version: 2.0.5
 Date: 2023-10-27
 Title: A Framework for Various Types of Mortality / Life Tables
-Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre"), email="reinhold@kainhofer.com"))
-Author: Reinhold Kainhofer [aut, cre]
+Authors@R: c(person("Reinhold", "Kainhofer", role=c("aut", "cre", "cph"), email="reinhold@kainhofer.com"))
+Author: Reinhold Kainhofer [aut, cre, cph]
 Maintainer: Reinhold Kainhofer <reinhold@kainhofer.com>
 URL: https://gitlab.open-tools.net/R/r-mortality-tables
 BugReports: https://gitlab.open-tools.net/R/r-mortality-tables/-/issues
@@ -25,7 +25,7 @@ Suggests:
     tidyverse,
     reshape2,
     rmarkdown
-Description: Classes to implement and plot cohort life tables
+Description: Classes to implement, analyze and plot cohort life tables
     for actuarial calculations. Birth-year dependent cohort mortality
     tables using a yearly trend to extrapolate from a base year are implemented,
     as well as period life table, cohort life tables using an age shift, and

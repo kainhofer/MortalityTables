@@ -6,7 +6,7 @@
 \alias{MortalityTables-package}
 \title{Provide life table classes for life insurance purposes}
 \description{
-Classes to implement and plot cohort life tables for actuarial calculations. In particular, birth-year dependent mortality tables using a yearly trend to extrapolate from a base year are implemented, as well as period life table, cohort life tables using an age shift, and merged life tables.
+Classes to implement, analyze and plot cohort life tables for actuarial calculations. Birth-year dependent cohort mortality tables using a yearly trend to extrapolate from a base year are implemented, as well as period life table, cohort life tables using an age shift, and merged life tables. Additionally, several data sets from various countries are included to provide widely-used tables out of the box.
 }
 \seealso{
 Useful links:
@@ -17,6 +17,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Reinhold Kainhofer \email{reinhold@kainhofer.com}
+\strong{Maintainer}: Reinhold Kainhofer \email{reinhold@kainhofer.com} [copyright holder]
 
 }

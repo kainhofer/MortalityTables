@@ -1,6 +1,7 @@
 
 # MortalityTables 2.0.5 (27.10.2023):
   * Fix incorrect ages in Austrian population mortality
+  * Update README with examples
 
 # MortalityTables 2.0.4 (19.10.2023):
   * Add new Austrian population mortality tables (2020/22)
