@@ -69,8 +69,8 @@ for (jahr in Jahre) {
 ## Nach Excel und CSV rausschreiben (pro Geschlecht):
 filename.StT.yearlyGradTable = file.path(dirname(filename.StT.yearlyGrad), paste0("Austria_JaehrlicheSterbetafeln_Geglättet_", str_sub(min(Jahre), 1, 4), "-", str_sub(max(Jahre), -4, -1), ".xlsx"))
 wb <- createWorkbook()
-options(openxlsx.borderColour = "#4F80BD")
-options(openxlsx.borderStyle = "thin")
+# options(openxlsx.borderColour = "#4F80BD")
+# options(openxlsx.borderStyle = "thin")
 modifyBaseFont(wb, fontSize = 10, fontName = "Arial Narrow")
 
 for (g in c("M", "F", "U")) {
@@ -138,8 +138,8 @@ for (jahr in Jahre) {
 ## Nach Excel und CSV rausschreiben (pro Geschlecht):
 filename.StT.yearlyTable = file.path(dirname(filename.StT.yearly), paste0("Austria_JaehrlicheSterbetafeln_", min(Jahre), "-", max(Jahre), ".xlsx"))
 wb <- createWorkbook()
-options(openxlsx.borderColour = "#4F80BD")
-options(openxlsx.borderStyle = "thin")
+# options(openxlsx.borderColour = "#4F80BD")
+# options(openxlsx.borderStyle = "thin")
 modifyBaseFont(wb, fontSize = 10, fontName = "Arial Narrow")
 
 for (g in c("M", "F", "U")) {

@@ -28,7 +28,7 @@ if (!all(sapply(required,
 
 ```{r echo = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
-options(tidyverse.quiet = TRUE)
+# options(tidyverse.quiet = TRUE)
 ```
 
 The MortalityTables package provides the `mortalityTable` base class and
