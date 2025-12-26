@@ -1,3 +1,6 @@
+# MortalityTables 2.0.6 (27.12.2025):
+  * Switch to MIT license (more permissive)
+  * Fix mortality values for EROM G1950
 
 # MortalityTables 2.0.5 (27.10.2023):
   * Fix incorrect ages in Austrian population mortality
