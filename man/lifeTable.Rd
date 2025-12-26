@@ -16,7 +16,7 @@ lifeTable(object, ...)
 
 \S4method{lifeTable}{list}(object, ...)
 
-\S4method{lifeTable}{`NULL`}(object, ...)
+\S4method{lifeTable}{NULL}(object, ...)
 }
 \arguments{
 \item{object}{The life table object (class inherited from mortalityTable)}

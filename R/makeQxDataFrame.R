@@ -62,7 +62,7 @@ makeQxDataFrame = function(..., YOB = 1972, Period = NA, reference = NULL) {
 
     names(data) = NULL
 
-    data <- as.data.frame(do.call("rbind.expand", data))
+    data <- as.data.frame(do.call("rbind_expand", data))
     data
 }
 
@@ -90,7 +90,7 @@ normalize_deathProbabilities = function(data, reference = NULL, referenceAges = 
 }
 
 
-rbind.expand = function(df1, df2, ..., fill = NA) {
+rbind_expand = function(df1, df2, ..., fill = NA) {
     # browser()
     if (missing(df2) || is.null(df2))
         return(df1)
@@ -101,5 +101,5 @@ rbind.expand = function(df1, df2, ..., fill = NA) {
     df1[df1.clmiss] = fill
     df2[df2.clmiss] = fill
 
-    rbind.expand(rbind(df1, df2), ..., fill = fill)
+    rbind_expand(rbind(df1, df2), ..., fill = fill)
 }

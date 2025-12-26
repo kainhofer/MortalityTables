@@ -121,7 +121,7 @@ makeMortalityTrendDataFrame = function(..., YOB = 1972, Period = NULL) {
     }
 
     names(data) = NULL
-    data <- as.data.frame(do.call("rbind.expand", data))
+    data <- as.data.frame(do.call("rbind_expand", data))
     data
 }
 
