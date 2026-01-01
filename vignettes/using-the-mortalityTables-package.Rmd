@@ -463,6 +463,128 @@ AVOe2005R.female.mod@name = "Modified table (lower bound of 3%)"
 plot(AVOe2005R.female, AVOe2005R.female.mod, title = "Original and modified table")
 ```
 
+## Life tables for multiple lives (joint-life states)
+
+While many life insurance contracts are written on the life (or death) of a single
+insured life, a substantial class of products is defined on the lives of **two or
+more lives**. In such contracts, the insured state is commonly a **joint-life
+(first-death) status**. The contract is considered to be *in force* as long as all
+insured lives are alive, and the death benefit becomes payable upon the **first
+death** within the collective.
+
+Under the standard actuarial assumption of **stochastic independence** of the
+individual lifetimes, the one-year survival probability of the joint-life status is
+given by the product of the individual one-year survival probabilities:
+
+\[
+{}_{1}p_{x_1, x_2, \ldots} = \prod_i {}_{1}p_{x_i},
+\qquad
+{}_{1}q_{x_1, x_2, \ldots} = 1 - {}_{1}p_{x_1, x_2, \ldots}.
+\]
+
+The individual lives may be governed by identical mortality laws (for example, when
+a unisex population table is applied to all lives), or each life may be described by
+its own mortality table, such as gender-specific or region-specific tables within a
+larger population.
+
+Other multi-life states—such as **last-survivor**, **last-death**, **\(n\)-th death**
+states, or benefits contingent on multiple deaths within the same year—are more
+complex to model, though not conceptually infeasible. In the present package, the
+focus is restricted to the **first-death joint-life state**, which is the most
+prevalent structure in European life insurance practice.
+
+In actuarial applications, joint-life states are handled using a range of methods,
+from exact probability calculations based on combinations of individual life tables
+to approximate approaches using averaged ages or pre-generated mixed tables. The
+latter are typically implemented as **period life tables** for the joint-life state
+and therefore do not require special multi-life handling.
+
+To support exact joint-life calculations, the **MortalityTables** package provides
+the `mortalityTable.jointLives` class. This class represents a joint-life state by
+combining one or more underlying mortality tables. Each life may be assigned its own
+mortality table, or a single table may be applied uniformly to all lives. In
+addition, information on **years of birth**, **attained ages**, or **age
+differences** between the lives must be supplied.
+
+A joint-life object is created by passing the underlying mortality table(s) to the
+`mortalityTable.jointLives` constructor. The `table` argument may either be a single
+mortality table—applied to all lives—or a vector of tables specifying the mortality
+law for each individual life.
+
+```{r jointLives.creation}
+mortalityTables.load("Germany_Census")
+
+table.JL <- mortalityTable.jointLives(
+  name  = "German table ADSt 24/26 on joint lives",
+  table = mort.DE.census.1924.26.male
+)
+```
+
+The resulting `mortalityTable.jointLives` object specifies **only the mortality laws**
+used for the joint-life state. It does not fix the number of lives in the state, nor
+does it define their attained ages or years of birth. These quantities are supplied
+dynamically when calling `deathProbabilities()` or
+`periodDeathProbabilities()`, using one or more of the arguments `YOB`,
+`ageDifferences`, `agesJoint`, and `ages`.
+
+```{r jointLives.usage}
+  # Two-life joint-life state: both lives born in 1977 (same attained age)
+deathProbabilities(table.JL, YOB = 1977, ageDifferences = 0)
+
+  # Two-life joint-life state with a 48-year age difference
+deathProbabilities(table.JL, YOB = c(1977, 2025))
+deathProbabilities(table.JL, YOB = 1977, ageDifferences = 48)
+
+  # Five-life joint-life state with varying age differences
+  # All following calls describe the same joint-life configuration
+deathProbabilities(table.JL, YOB = 1977, ageDifferences = c(1, 5, -5, 16))
+deathProbabilities(table.JL, YOB = 1977, agesJoint = c(35, 36, 40, 30, 51))
+deathProbabilities(table.JL, YOB = c(1977, 1976, 1972, 1982, 1961))
+deathProbabilities(table.JL, ageDifferences = c(1, 5, -5, 16)) # valid for period tables
+```
+
+When both `YOB` and `agesJoint` are provided, the **absolute level** of the ages in
+`agesJoint` is irrelevant; only the **relative age differences** between the lives
+enter the calculation. For example, the specifications `agesJoint = c(35, 36, 40, 30, 51)` 
+and `agesJoint = c(15, 16, 20, 10, 31)` describe identical joint-life states and 
+therefore yield identical results.
+
+The ages and years of birth of the joint lives may be supplied through different
+argument combinations, which are evaluated in the following order:
+  * `YOB`: vector of birth years for all joint lives
+  * `YOB` (scalar, first/reference life) and `ageDifferences` (relative to the first life)
+  * `YOB` (scalar, first/reference life) and `agesJoint` (explicit list of all ages of the joint lives)
+  * `ages` (requested ages for the first/reference life only) and `ageDifferences` (relative to the first life)
+  * `agesJoint`: numeric vector of attained ages for all lives
+  * `ageDifferences` only (not permitted for cohort life tables)
+
+
+**Remark.**  
+Concrete ages are specified exclusively at the time of calling  
+`deathProbabilities()` or `periodDeathProbabilities()`. Consequently, a mortality
+table object by itself cannot determine a unique or intrinsic maximum age.  
+In the case of joint-life models, the effective maximum age depends on the maximum
+attainable ages of *all* individual lives, adjusted by their respective age
+differences. These adjustments are only available at evaluation time.
+
+As a consequence, informational functions that operate solely on the mortality
+table object—such as `getOmega()` or `ages()`—return values that refer **only to the
+first (reference) life table**. They do not incorporate the influence of additional
+lives or any age shifts that are supplied dynamically when
+`deathProbabilities()` is invoked.
+
+**Example.**  
+Consider a joint-life table constructed from two individual life tables with a
+maximum age of 120 years each. If `deathProbabilities()` is called with an age
+difference of +5 years for the second life, then the effective joint-life maximum
+age is reduced to 115 years for that life. This reduction cannot be inferred from
+the mortality table object itself and is therefore not reflected in the output of
+functions such as `getOmega()`, which continue to report the maximum age of the
+first life table (120 years).
+
+
+
+
 # Creating mortality tables from data and modifying them using various helper functions
 
 The package MortalityTables not only provides the data structures and some

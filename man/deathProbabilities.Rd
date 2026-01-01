@@ -24,7 +24,14 @@ deathProbabilities(object, ..., ages = NULL, YOB = 1975)
 
 \S4method{deathProbabilities}{mortalityTable.mixed}(object, ..., ages = NULL, YOB = 1975)
 
-\S4method{deathProbabilities}{mortalityTable.jointLives}(object, ..., ageDifferences = c(), ages = NULL, YOB = 1975)
+\S4method{deathProbabilities}{mortalityTable.jointLives}(
+  object,
+  ...,
+  agesJoint = NULL,
+  ageDifferences = NULL,
+  ages = NULL,
+  YOB = 1975
+)
 
 \S4method{deathProbabilities}{mortalityTable.observed}(object, ..., ages = NULL, YOB = 1975)
 }
@@ -33,14 +40,30 @@ deathProbabilities(object, ..., ages = NULL, YOB = 1975)
 
 \item{...}{Other parameters (currently unused)}
 
-\item{ages}{Desired age range (if NULL, the probabilities of the age range provided by the table will be returned), missing ages will be filled with NA}
+\item{ages}{The vector of desired ages in the return value. This refers to the
+age of the first person in the joint-life status. The ages of the
+other persons will follow the given ageDifferences or YOB or age
+vectors}
 
-\item{YOB}{The birth year for which the death probabilities should be calculated}
+\item{YOB}{The vector of birth-years, or the birth-year of the first person.}
 
-\item{ageDifferences}{A vector of age differences of all joint lives.}
+\item{ageDifferences}{A vector of age differences (relative to the first person) of all joint lives.}
+
+\item{age}{The vector of ages of the persons under consideration}
 }
 \description{
 Return the (cohort) death probabilities of the life table given the birth year (if needed)
+}
+\details{
+The ages and years of birth of the joint lives can be given in multiple arguments. They will be evaluated in the following order:
+\itemize{
+  \item \code{YOB}: vector of birth years for all joint lives
+  \item \code{YOB} (scalar, for the first life) and \code{ageDifferences}: relative to the first life
+  \item \code{YOB} (scalar, for the first life) and \code{agesJoint}: explicit list of all ages of the joint lives
+  \item \code{ages} (vector of requested ages, for the first life ONLY) and \code{ageDifferences}: relative to the first life
+  \item \code{agesJoint}: numeric vector of individual ages
+  \item \code{ageDifferences} only (not permitted for cohort life tables)
+}
 }
 \section{Methods (by class)}{
 \itemize{
@@ -59,8 +82,7 @@ life table given the birth year (if needed)
 \item \code{deathProbabilities(mortalityTable.mixed)}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)
 
-\item \code{deathProbabilities(mortalityTable.jointLives)}: Return the (cohort) death probabilities of the
-life table given the birth year (if needed)
+\item \code{deathProbabilities(mortalityTable.jointLives)}: Return the (cohort) death probabilities of the life table given the birth year (if needed)
 
 \item \code{deathProbabilities(mortalityTable.observed)}: Return the (cohort) death probabilities of the
 life table given the birth year (if needed)

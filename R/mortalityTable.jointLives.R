@@ -44,6 +44,12 @@ padLast = function(v, l) {
 #' Return a matrix of the persons' individual death probabilities of a joint-life
 #' table (instance of \code{\link{mortalityTable.jointLives}})
 #'
+#' The rows will always be the full age range of the first life, i.e. the first
+#' row describes the mortality of the joint-life state when the first person is
+#' in its first year of life. The last row will be for the maximum age of the first
+#' life, even if other lives have shorter tables. These will be padded with the
+#' last available value (which for life tables should be q_x=1 anyway).
+#'
 #' @param tables List of life table objects (object inherited from
 #'               \code{\link{mortalityTable}})
 #' @param YOB The birth year for the first person
@@ -55,7 +61,7 @@ padLast = function(v, l) {
 #' deathProbabilitiesIndividual(list(mort.DE.census.1924.26.male), 1977, c(0, -5, 13))
 #'
 #' @export deathProbabilitiesIndividual
-deathProbabilitiesIndividual = function(tables, YOB, ageDifferences) {
+deathProbabilitiesIndividual = function(tables, YOB = NULL, ageDifferences = NULL) {
     n = max(length(YOB), length(ageDifferences) + 1);
     if (length(YOB) == 1) {
         YOB = c(YOB, YOB + ageDifferences);
@@ -172,9 +178,78 @@ setMethod("baseYear", "mortalityTable.jointLives",
               baseYear(c(object@table)[[1]], ...)
           })
 
-#' @describeIn deathProbabilities Return the (cohort) death probabilities of the
-#'                                life table given the birth year (if needed)
-#' @param ageDifferences A vector of age differences of all joint lives.
+normalizeJointAges = function(YOB = NULL, ages = NULL, ageDifferences = NULL, agesJoint = NULL) {
+    # The ages and years of birth of the joint lives can be given in multiple arguments. They will be evaluated in the following order:
+    #   * YOB: vector of birth years for all joint lives
+    #   * YOB (scalar, for the first life) and ageDifferences: relative to the first life
+    #   * YOB (scalar, for the first life) and agesJoint (explicit list of all ages of the joint lives)
+    #   * ages (vector of requested ages, for the first life ONLY) and ageDifferences: relative to the first life
+    #   * agesJoint: numeric vector of individual ages
+    #   * ageDifferences only (not permitted for cohort life tables)
+
+    is_scalar <- function(x) !is.null(x) && length(x) == 1L && !is.na(x)
+    is_vector <- function(x) !is.null(x) && length(x) >= 1L
+
+    # CASE 1) YOB vector for all joint lives
+    if (is_vector(YOB) && length(YOB) > 1L) {
+        YOBv = as.numeric(YOB)
+        return(list(YOB = YOBv, ageDifferences = YOBv[1] - YOBv[-1]))
+    }
+
+    # CASE 2) YOB scalar + ageDifferences
+    if (is_scalar(YOB) && !is.null(ageDifferences)) {
+        YOBv = as.numeric(YOB) + c(0, ageDifferences)
+        return(list(YOB = YOBv, ageDifferences = ageDifferences))
+    }
+
+    # CASE 3) YOB scalar + agesJoint
+    if (is_scalar(YOB) && !is.null(agesJoint)) {
+        ageDifferences = agesJoint[-1] - agesJoint[1]
+        YOBv = as.numeric(YOB) + c(0, ageDifferences)
+        return(list(YOB = YOBv, ageDifferences = ageDifferences))
+    }
+
+    # CASE 4) ages vector (first life only) + ageDifferences
+    if (is_vector(ages) && length(ages) >= 1L && !is.null(ageDifferences)) {
+        return(list(YOB = NULL, ageDifferences = ageDifferences))
+    }
+
+    # CASE 5) agesJoint vector (individual ages)
+    if (is_vector(agesJoint) && length(agesJoint) > 1L) {
+        aj <- as.numeric(agesJoint)
+        return(list(YOB = NULL, ageDifferences = aj[-1] - aj[1]))
+    }
+
+    # CASE 6) ageDifferences only
+    if (!is.null(ageDifferences)) {
+        return(list(YOB = NULL, ageDifferences = ageDifferences))
+    }
+
+    stop("Could not normalize joint ages: provide YOB, agesJoint, or ageDifferences in one of the supported combinations.")
+}
+
+
+#' @describeIn deathProbabilities
+#'   Return the (cohort) death probabilities of the life table given the birth year (if needed)
+#'
+#' @details
+#' The ages and years of birth of the joint lives can be given in multiple arguments. They will be evaluated in the following order:
+#' \itemize{
+#'   \item \code{YOB}: vector of birth years for all joint lives
+#'   \item \code{YOB} (scalar, for the first life) and \code{ageDifferences}: relative to the first life
+#'   \item \code{YOB} (scalar, for the first life) and \code{agesJoint}: explicit list of all ages of the joint lives
+#'   \item \code{ages} (vector of requested ages, for the first life ONLY) and \code{ageDifferences}: relative to the first life
+#'   \item \code{agesJoint}: numeric vector of individual ages
+#'   \item \code{ageDifferences} only (not permitted for cohort life tables)
+#' }
+#'
+#' @param ages The vector of desired ages in the return value. This refers to the
+#'             age of the first person in the joint-life status. The ages of the
+#'             other persons will follow the given ageDifferences or YOB or age
+#'             vectors
+#' @param age The vector of ages of the persons under consideration
+#' @param ageDifferences A vector of age differences (relative to the first person) of all joint lives.
+#' @param YOB The vector of birth-years, or the birth-year of the first person.
 #'
 #' @examples
 #' mortalityTables.load("Germany_Census")
@@ -187,23 +262,39 @@ setMethod("baseYear", "mortalityTable.jointLives",
 #' deathProbabilities(table.JL, YOB = 1977, ageDifferences = c(1, 5, 16))
 #'
 setMethod("deathProbabilities", "mortalityTable.jointLives",
-          function(object,  ..., ageDifferences = c(), ages = NULL, YOB = 1975) {
-              qxMatrix = deathProbabilitiesIndividual(c(object@table), YOB = YOB, ageDifferences = ageDifferences);
+          function(object,  ..., agesJoint = NULL, ageDifferences = NULL, ages = NULL, YOB = 1975) {
+              ageInfo = normalizeJointAges(YOB = YOB, ages = ages, ageDifferences = ageDifferences, agesJoint = agesJoint);
+              qxMatrix = deathProbabilitiesIndividual(c(object@table), YOB = ageInfo$YOB, ageDifferences = ageInfo$ageDifferences);
+
+              # TODO: Use the ages argument to return only the desired q_xxx
+
               # First death probabilities are characterized as p_x1x2x3.. = \prod p_xi, i.e.
               # q_x1x2x3... = 1 - \prod (1 - p_xi)
               qx = 1 - apply(1 - qxMatrix, 1, prod)
-              object@modification(qx * (1 + object@loading))
+              qx = qx * (1 + object@loading)
+              fillAges(object@modification(qx), givenAges = ages(object), neededAges = ages)
           })
 
-#' @describeIn getOmega Return the maximum age of the joint lives mortality table (returns the maximum age of the first table used for joint lives, as the ages of the joint lives are now known to the function)
+#' @describeIn getOmega Return the maximum age of the joint lives mortality table (returns the maximum age of the first table used for joint lives, as the ages of the joint lives are not known to the function)
 setMethod("getOmega", "mortalityTable.jointLives",
           function(object) {
               getOmega(c(object@table)[[1]])
           })
 
 
-#' @describeIn periodDeathProbabilities Return the (period) death probabilities
-#'             of the joint lives mortality table for a given observation year
+#' @describeIn periodDeathProbabilities
+#' Return the (period) death probabilities of the joint lives mortality table for a given observation year
+#'
+#' @details
+#' The ages and years of birth of the joint lives can be given in multiple arguments. They will be evaluated in the following order:
+#' \itemize{
+#'   \item \code{ages} (vector of requested ages, for the first life ONLY) and \code{ageDifferences}: relative to the first life
+#'   \item \code{agesJoint}: numeric vector of individual ages
+#'   \item \code{agesJoint} (scalar, age of only the first life) and \code{ageDifferences} (relative to the first life)
+#'   \item \code{ageDifferences} only
+#' }
+#'
+
 #' @param ageDifferences A vector of age differences of all joint lives.
 #'
 #' @examples
@@ -218,15 +309,13 @@ setMethod("getOmega", "mortalityTable.jointLives",
 #'
 
 setMethod("periodDeathProbabilities", "mortalityTable.jointLives",
-          function(object,  ..., ageDifferences = c(), ages = NULL, Period = 1975) {
+          function(object,  ..., agesJoint = NULL, ageDifferences = NULL, ages = NULL, Period = 1975) {
               qxMatrix = periodDeathProbabilitiesIndividual(c(object@table), period = Period, ageDifferences = ageDifferences);
               # First death probabilities are characterized as p_x1x2x3.. = \prod p_xi, i.e.
               # q_x1x2x3... = 1 - \prod (1 - p_xi)
               qx = 1 - apply(1 - qxMatrix, 1, prod)
-              # Cut to same length as ages:
-              ages = ages(object);
-              qx = qx[1:length(ages)];
-              object@modification(qx * (1 + object@loading));
+              qx = qx * (1 + object@loading)
+              fillAges(object@modification(qx), givenAges = ages(object), neededAges = ages)
           })
 
 

@@ -28,7 +28,8 @@ periodDeathProbabilities(object, ..., ages = NULL, Period = 1975)
 \S4method{periodDeathProbabilities}{mortalityTable.jointLives}(
   object,
   ...,
-  ageDifferences = c(),
+  agesJoint = NULL,
+  ageDifferences = NULL,
   ages = NULL,
   Period = 1975
 )
@@ -50,6 +51,15 @@ periodDeathProbabilities(object, ..., ages = NULL, Period = 1975)
 Return the (period) death probabilities of the life table for a given
 observation year
 }
+\details{
+The ages and years of birth of the joint lives can be given in multiple arguments. They will be evaluated in the following order:
+\itemize{
+  \item \code{ages} (vector of requested ages, for the first life ONLY) and \code{ageDifferences}: relative to the first life
+  \item \code{agesJoint}: numeric vector of individual ages
+  \item \code{agesJoint} (scalar, age of only the first life) and \code{ageDifferences} (relative to the first life)
+  \item \code{ageDifferences} only
+}
+}
 \section{Methods (by class)}{
 \itemize{
 \item \code{periodDeathProbabilities(mortalityTable.period)}: Return the (period) death probabilities
@@ -67,8 +77,7 @@ of the life table for a given observation year
 \item \code{periodDeathProbabilities(mortalityTable.mixed)}: Return the (period) death probabilities
 of the life table for a given observation year
 
-\item \code{periodDeathProbabilities(mortalityTable.jointLives)}: Return the (period) death probabilities
-of the joint lives mortality table for a given observation year
+\item \code{periodDeathProbabilities(mortalityTable.jointLives)}: Return the (period) death probabilities of the joint lives mortality table for a given observation year
 
 \item \code{periodDeathProbabilities(mortalityTable.observed)}: Return the (period) death probabilities
 of the life table for a given observation year

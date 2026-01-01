@@ -5,7 +5,7 @@
 \title{Return a matrix of the persons' individual death probabilities of a joint-life
 table (instance of \code{\link{mortalityTable.jointLives}})}
 \usage{
-deathProbabilitiesIndividual(tables, YOB, ageDifferences)
+deathProbabilitiesIndividual(tables, YOB = NULL, ageDifferences = NULL)
 }
 \arguments{
 \item{tables}{List of life table objects (object inherited from
@@ -16,8 +16,11 @@ deathProbabilitiesIndividual(tables, YOB, ageDifferences)
 \item{ageDifferences}{The age differences to the first person}
 }
 \description{
-Return a matrix of the persons' individual death probabilities of a joint-life
-table (instance of \code{\link{mortalityTable.jointLives}})
+The rows will always be the full age range of the first life, i.e. the first
+row describes the mortality of the joint-life state when the first person is
+in its first year of life. The last row will be for the maximum age of the first
+life, even if other lives have shorter tables. These will be padded with the
+last available value (which for life tables should be q_x=1 anyway).
 }
 \examples{
 mortalityTables.load("Germany_Census")
