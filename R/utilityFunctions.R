@@ -265,10 +265,20 @@ mT.extrapolateTrendExp = function(table, idx, up = TRUE) {
     if (!is(table, "mortalityTable"))
         stop("First argument must be a mortalityTable or a list of mortalityTable objects.")
 
-    if (.hasSlot(table, "trend") && !is.null(table@trend) && length(table@trend) > 1)
-        table@trend = fitExpExtrapolation(table@trend, idx = idx,up = up)
-    if (.hasSlot(table, "trend2") && !is.null(table@trend2) && length(table@trend2) > 1)
-        table@trend2 = fitExpExtrapolation(table@trend2, idx = idx,up = up)
+    if (.hasSlot(table, "trend") && !is.null(table@trend) && length(table@trend) > 1) {
+        fit = fitExpExtrapolation(table@trend, idx = idx, up = up, verbose = TRUE)
+        table@trend = fit$data
+        table@data$trendExtrapolationData = c(
+            table@data$trendExtrapolationData,
+            list(list(law = "Exp", idx = idx, up = up, fit = fit)))
+    }
+    if (.hasSlot(table, "trend2") && !is.null(table@trend2) && length(table@trend2) > 1) {
+        fit = fitExpExtrapolation(table@trend2, idx = idx, up = up, verbose = TRUE)
+        table@trend2 = fit$data
+        table@data$trend2ExtrapolationData = c(
+            table@data$trend2ExtrapolationData,
+            list(list(law = "Exp", idx = idx, up = up, fit = fit)))
+    }
     table
 }
 
